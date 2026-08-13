@@ -461,8 +461,16 @@ body::before {
   border: 1px solid rgba(84, 61, 39, 0.1);
 }
 
+.preview-block-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
 .preview-label {
-  margin: 0 0 10px;
+  margin: 0;
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -762,6 +770,11 @@ body::before {
   .section-heading {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .preview-block-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .text-input {
