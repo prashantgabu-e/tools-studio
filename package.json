@@ -1,0 +1,8 @@
+{
+  "name": "tools-studio",
+  "private": true,
+  "scripts": {
+    "deploy": "powershell -ExecutionPolicy Bypass -File .\\deploy.ps1",
+    "deploy:msg": "powershell -ExecutionPolicy Bypass -File .\\deploy.ps1 -Message"
+  }
+}
