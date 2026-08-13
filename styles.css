@@ -479,6 +479,10 @@ body::before {
 
 .preview-output {
   margin: 0;
+  max-height: min(42vh, 360px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
   white-space: pre-wrap;
   word-break: break-word;
   font: 0.95rem/1.65 var(--font-mono);
@@ -765,6 +769,10 @@ body::before {
 
   .preview-block {
     min-height: 0;
+  }
+
+  .preview-output {
+    max-height: 280px;
   }
 
   .section-heading {
