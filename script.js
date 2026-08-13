@@ -76,6 +76,7 @@ const newTemplateButton = document.getElementById("newTemplateButton");
 const saveTemplateButton = document.getElementById("saveTemplateButton");
 const deleteTemplateButton = document.getElementById("deleteTemplateButton");
 const exportTemplatesButton = document.getElementById("exportTemplatesButton");
+const syncTemplatesButton = document.getElementById("syncTemplatesButton");
 const importTemplatesButton = document.getElementById("importTemplatesButton");
 const templateImportInput = document.getElementById("templateImportInput");
 const templateName = document.getElementById("templateName");
@@ -95,6 +96,7 @@ const newDmTemplateButton = document.getElementById("newDmTemplateButton");
 const saveDmTemplateButton = document.getElementById("saveDmTemplateButton");
 const deleteDmTemplateButton = document.getElementById("deleteDmTemplateButton");
 const exportDmTemplatesButton = document.getElementById("exportDmTemplatesButton");
+const syncDmTemplatesButton = document.getElementById("syncDmTemplatesButton");
 const importDmTemplatesButton = document.getElementById("importDmTemplatesButton");
 const dmTemplateImportInput = document.getElementById("dmTemplateImportInput");
 const dmTemplateName = document.getElementById("dmTemplateName");
@@ -125,6 +127,7 @@ const templateManagers = {
     saveButton: saveTemplateButton,
     deleteButton: deleteTemplateButton,
     exportButton: exportTemplatesButton,
+    syncButton: syncTemplatesButton,
     importButton: importTemplatesButton,
     importInput: templateImportInput,
     nameInput: templateName,
@@ -154,6 +157,7 @@ const templateManagers = {
     saveButton: saveDmTemplateButton,
     deleteButton: deleteDmTemplateButton,
     exportButton: exportDmTemplatesButton,
+    syncButton: syncDmTemplatesButton,
     importButton: importDmTemplatesButton,
     importInput: dmTemplateImportInput,
     nameInput: dmTemplateName,
@@ -333,6 +337,7 @@ function bindTemplateEvents(manager) {
   manager.saveButton.addEventListener("click", () => saveCurrentTemplate(manager));
   manager.deleteButton.addEventListener("click", () => deleteCurrentTemplate(manager));
   manager.exportButton.addEventListener("click", () => exportTemplates(manager));
+  manager.syncButton.addEventListener("click", () => syncTemplatesFromSource(manager));
   manager.importButton.addEventListener("click", () => manager.importInput.click());
   manager.importInput.addEventListener("change", (event) => importTemplates(manager, event));
   manager.copyRawButton.addEventListener("click", () => {
@@ -375,6 +380,19 @@ async function loadTemplates(manager) {
 
   try {
     const response = await fetch(manager.sourceFile);
+    if (!response.ok) {
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    return [];
+  }
+}
+
+async function loadTemplatesFromSource(manager) {
+  try {
+    const response = await fetch(manager.sourceFile, { cache: "no-store" });
     if (!response.ok) {
       return [];
     }
@@ -607,6 +625,22 @@ function exportTemplates(manager) {
   link.click();
   URL.revokeObjectURL(url);
   copyFeedback(manager.exportButton, "Exported");
+}
+
+async function syncTemplatesFromSource(manager) {
+  const confirmed = window.confirm(
+    `Sync ${manager.label.toLowerCase()} from ${manager.sourceFile}? This will replace the current local templates for this section.`
+  );
+  if (!confirmed) {
+    return;
+  }
+
+  const sourceTemplates = await loadTemplatesFromSource(manager);
+  manager.templates = normalizeTemplates(manager, Array.isArray(sourceTemplates) ? sourceTemplates : []);
+  persistTemplates(manager);
+  selectTemplate(manager, manager.templates[0]?.id ?? null);
+  renderTemplateList(manager);
+  showToast(`${manager.label} synced from JSON`, "success");
 }
 
 function importTemplates(manager, event) {
