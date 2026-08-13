@@ -59,6 +59,10 @@
             <i class="ri-message-3-line" aria-hidden="true"></i>
             <span class="button-text">DM Templates</span>
           </button>
+          <button class="menu-item" type="button" data-view-target="prompt-template-tools">
+            <i class="ri-chat-ai-line" aria-hidden="true"></i>
+            <span class="button-text">Prompt Templates</span>
+          </button>
         </nav>
       </aside>
 
@@ -374,6 +378,187 @@
                       <p class="preview-label">Message</p>
                       <pre class="preview-output" id="dmTemplatePreview"></pre>
                     </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+          </section>
+        </section>
+
+        <section class="view-panel" id="prompt-template-tools" data-view-panel hidden>
+          <section class="template-layout">
+            <section class="panel-card template-list-panel">
+              <div class="section-heading">
+                <h3>Prompts</h3>
+                <button class="ghost-button" type="button" id="newPromptTemplateButton">
+                  <i class="ri-add-line" aria-hidden="true"></i>
+                  <span>New</span>
+                </button>
+              </div>
+
+              <div class="template-toolbar">
+                <button
+                  class="ghost-button icon-only-button"
+                  type="button"
+                  id="importPromptTemplatesButton"
+                  aria-label="Import JSON"
+                  title="Import JSON"
+                >
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  <span class="sr-only">Import JSON</span>
+                </button>
+                <button
+                  class="ghost-button icon-only-button"
+                  type="button"
+                  id="exportPromptTemplatesButton"
+                  aria-label="Export JSON"
+                  title="Export JSON"
+                >
+                  <i class="ri-download-2-line" aria-hidden="true"></i>
+                  <span class="sr-only">Export JSON</span>
+                </button>
+                <button
+                  class="ghost-button icon-only-button"
+                  type="button"
+                  id="syncPromptTemplatesButton"
+                  aria-label="Sync from JSON"
+                  title="Sync from JSON"
+                >
+                  <i class="ri-refresh-line" aria-hidden="true"></i>
+                  <span class="sr-only">Sync from JSON</span>
+                </button>
+              </div>
+
+              <input
+                id="promptTemplateSearch"
+                class="compact-input"
+                type="search"
+                placeholder="Search prompts..."
+              />
+
+              <div class="template-list" id="promptTemplateList"></div>
+              <input id="promptTemplateImportInput" type="file" accept="application/json" hidden />
+            </section>
+
+            <section class="panel-card template-work-panel">
+              <div class="mobile-tabs" role="tablist" aria-label="Prompt template sections">
+                <button class="mobile-tab is-active" type="button" data-mobile-tab="prompt-edit">Edit</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="prompt-variables">Variables</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="prompt-preview">Preview</button>
+              </div>
+
+              <section class="panel-card template-editor-panel mobile-section is-active" id="prompt-edit" data-mobile-panel>
+                <div class="section-heading sticky-heading">
+                  <h3>Editor</h3>
+                  <div class="button-row">
+                    <button class="ghost-button" type="button" id="deletePromptTemplateButton">
+                      <i class="ri-delete-bin-6-line" aria-hidden="true"></i>
+                      <span>Delete</span>
+                    </button>
+                    <button class="copy-button" type="button" id="savePromptTemplateButton">
+                      <i class="ri-save-line" aria-hidden="true"></i>
+                      <span>Save</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="editor-grid">
+                  <label class="field">
+                    <span>Title</span>
+                    <input id="promptTemplateTitle" class="compact-input" type="text" placeholder="Cold Outreach Prompt" />
+                  </label>
+                  <label class="field">
+                    <span>Categories</span>
+                    <input
+                      id="promptTemplateCategories"
+                      class="compact-input"
+                      type="text"
+                      placeholder="SEO, Writing, Marketing"
+                    />
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span>Prompt</span>
+                  <textarea
+                    id="promptTemplateBody"
+                    class="text-input template-body-input"
+                    placeholder="Write your main prompt here using placeholders like {{topic}} and {{tone}}."
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Sample Input Template</span>
+                  <textarea
+                    id="promptSampleInputTemplate"
+                    class="text-input sample-input-textarea"
+                    placeholder="Topic: {{topic}}\nAudience: {{audience}}\nTone: {{tone}}"
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Sample Output</span>
+                  <textarea
+                    id="promptSampleOutput"
+                    class="text-input sample-output-textarea"
+                    placeholder="Store one fixed example output here."
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+              </section>
+
+              <section class="panel-card template-variable-panel mobile-section" id="prompt-variables" data-mobile-panel>
+                <div class="section-heading">
+                  <h3>Variables</h3>
+                </div>
+                <div class="variable-summary" id="promptVariableSummary"></div>
+                <div class="variable-grid" id="promptVariableGrid"></div>
+              </section>
+
+              <section class="panel-card template-preview-panel mobile-section" id="prompt-preview" data-mobile-panel>
+                <div class="section-heading sticky-heading">
+                  <h3>Preview</h3>
+                  <div class="button-row">
+                    <button class="ghost-button" type="button" id="copyPromptTemplateButton">
+                      <i class="ri-chat-quote-line" aria-hidden="true"></i>
+                      <span>Copy Prompt</span>
+                    </button>
+                    <button class="ghost-button" type="button" id="copyRenderedPromptTemplateButton">
+                      <i class="ri-file-copy-line" aria-hidden="true"></i>
+                      <span>Copy Rendered Prompt</span>
+                    </button>
+                    <button class="ghost-button" type="button" id="copyPromptSampleInputButton">
+                      <i class="ri-braces-line" aria-hidden="true"></i>
+                      <span>Copy Sample Input</span>
+                    </button>
+                    <button class="ghost-button" type="button" id="copyRenderedPromptSampleInputButton">
+                      <i class="ri-input-field" aria-hidden="true"></i>
+                      <span>Copy Rendered Input</span>
+                    </button>
+                    <button class="ghost-button" type="button" id="copyPromptSampleOutputButton">
+                      <i class="ri-file-text-line" aria-hidden="true"></i>
+                      <span>Copy Sample Output</span>
+                    </button>
+                    <button class="copy-button" type="button" id="usePromptTemplateButton">
+                      <i class="ri-magic-line" aria-hidden="true"></i>
+                      <span>Use Prompt</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="preview-card">
+                  <div class="preview-block">
+                    <p class="preview-label">Rendered Prompt</p>
+                    <pre class="preview-output" id="promptTemplatePreview"></pre>
+                  </div>
+                  <div class="preview-block">
+                    <p class="preview-label">Rendered Sample Input</p>
+                    <pre class="preview-output" id="promptSampleInputPreview"></pre>
+                  </div>
+                  <div class="preview-block">
+                    <p class="preview-label">Sample Output</p>
+                    <pre class="preview-output" id="promptSampleOutputPreview"></pre>
                   </div>
                 </div>
               </section>

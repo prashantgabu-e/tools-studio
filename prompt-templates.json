@@ -1,0 +1,18 @@
+[
+  {
+    "id": "seo-blog-outline",
+    "title": "SEO Blog Outline",
+    "categories": "SEO, Writing, Marketing",
+    "prompt": "Create a detailed blog outline about {{topic}} for {{audience}} in a {{tone}} tone. Include SEO headings and a CTA.",
+    "sampleInputTemplate": "Topic: {{topic}}\nAudience: {{audience}}\nTone: {{tone}}\nGoal: {{goal}}",
+    "sampleOutput": "1. Introduction to the topic\n2. Why it matters for the audience\n3. Key strategies\n4. Common mistakes\n5. Actionable next steps\n6. Conclusion with CTA"
+  },
+  {
+    "id": "cold-outreach-rewrite",
+    "title": "Cold Outreach Rewrite",
+    "categories": "Sales, Outreach, Writing",
+    "prompt": "Rewrite the following outreach message for {{audienceType}} so it sounds more {{tone}} and gets better response rates.",
+    "sampleInputTemplate": "Audience Type: {{audienceType}}\nTone: {{tone}}\nOriginal Message: {{originalMessage}}",
+    "sampleOutput": "Hi [Name], I noticed your recent work on [topic]. I thought this idea might be relevant to your team because..."
+  }
+]

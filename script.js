@@ -106,6 +106,31 @@ const dmTemplatePreview = document.getElementById("dmTemplatePreview");
 const dmTemplateVariableSummary = document.getElementById("dmTemplateVariableSummary");
 const copyRawDmTemplateButton = document.getElementById("copyRawDmTemplateButton");
 const copyRenderedDmTemplateButton = document.getElementById("copyRenderedDmTemplateButton");
+const promptTemplateList = document.getElementById("promptTemplateList");
+const promptTemplateSearch = document.getElementById("promptTemplateSearch");
+const newPromptTemplateButton = document.getElementById("newPromptTemplateButton");
+const savePromptTemplateButton = document.getElementById("savePromptTemplateButton");
+const deletePromptTemplateButton = document.getElementById("deletePromptTemplateButton");
+const exportPromptTemplatesButton = document.getElementById("exportPromptTemplatesButton");
+const syncPromptTemplatesButton = document.getElementById("syncPromptTemplatesButton");
+const importPromptTemplatesButton = document.getElementById("importPromptTemplatesButton");
+const promptTemplateImportInput = document.getElementById("promptTemplateImportInput");
+const promptTemplateTitle = document.getElementById("promptTemplateTitle");
+const promptTemplateCategories = document.getElementById("promptTemplateCategories");
+const promptTemplateBody = document.getElementById("promptTemplateBody");
+const promptSampleInputTemplate = document.getElementById("promptSampleInputTemplate");
+const promptSampleOutput = document.getElementById("promptSampleOutput");
+const promptVariableGrid = document.getElementById("promptVariableGrid");
+const promptVariableSummary = document.getElementById("promptVariableSummary");
+const promptTemplatePreview = document.getElementById("promptTemplatePreview");
+const promptSampleInputPreview = document.getElementById("promptSampleInputPreview");
+const promptSampleOutputPreview = document.getElementById("promptSampleOutputPreview");
+const copyPromptTemplateButton = document.getElementById("copyPromptTemplateButton");
+const copyRenderedPromptTemplateButton = document.getElementById("copyRenderedPromptTemplateButton");
+const copyPromptSampleInputButton = document.getElementById("copyPromptSampleInputButton");
+const copyRenderedPromptSampleInputButton = document.getElementById("copyRenderedPromptSampleInputButton");
+const copyPromptSampleOutputButton = document.getElementById("copyPromptSampleOutputButton");
+const usePromptTemplateButton = document.getElementById("usePromptTemplateButton");
 const mobileTabs = document.querySelectorAll("[data-mobile-tab]");
 const mobilePanels = document.querySelectorAll("[data-mobile-panel]");
 const toastStack = document.getElementById("toastStack");
@@ -172,6 +197,40 @@ const templateManagers = {
     copySubjectButton: null,
     copyBodyButton: null,
     blankName: "Untitled DM Template",
+  }),
+  "prompt-template-tools": createPromptTemplateManagerConfig({
+    viewId: "prompt-template-tools",
+    storageKey: "text-studio-prompt-templates-v1",
+    sourceFile: "prompt-templates.json",
+    label: "Prompt Templates",
+    title: "Manage prompt templates",
+    metaLabel: "prompt templates",
+    listElement: promptTemplateList,
+    searchElement: promptTemplateSearch,
+    newButton: newPromptTemplateButton,
+    saveButton: savePromptTemplateButton,
+    deleteButton: deletePromptTemplateButton,
+    exportButton: exportPromptTemplatesButton,
+    syncButton: syncPromptTemplatesButton,
+    importButton: importPromptTemplatesButton,
+    importInput: promptTemplateImportInput,
+    titleInput: promptTemplateTitle,
+    categoriesInput: promptTemplateCategories,
+    promptInput: promptTemplateBody,
+    sampleInputTemplate: promptSampleInputTemplate,
+    sampleOutputInput: promptSampleOutput,
+    variableGrid: promptVariableGrid,
+    summaryElement: promptVariableSummary,
+    promptPreviewElement: promptTemplatePreview,
+    sampleInputPreviewElement: promptSampleInputPreview,
+    sampleOutputPreviewElement: promptSampleOutputPreview,
+    copyPromptButton: copyPromptTemplateButton,
+    copyRenderedPromptButton: copyRenderedPromptTemplateButton,
+    copySampleInputButton: copyPromptSampleInputButton,
+    copyRenderedSampleInputButton: copyRenderedPromptSampleInputButton,
+    copySampleOutputButton: copyPromptSampleOutputButton,
+    usePromptButton: usePromptTemplateButton,
+    blankTitle: "Untitled Prompt Template",
   }),
 };
 
@@ -321,12 +380,21 @@ function setActiveView(viewId) {
 
 async function initializeTemplateManager() {
   for (const manager of Object.values(templateManagers)) {
-    manager.templates = await loadTemplates(manager);
-    manager.templates = normalizeTemplates(manager, manager.templates);
-    persistTemplates(manager);
-    bindTemplateEvents(manager);
-    selectTemplate(manager, manager.templates[0]?.id ?? null);
-    renderTemplateList(manager);
+    if (manager.kind === "prompt") {
+      manager.templates = await loadTemplates(manager);
+      manager.templates = normalizePromptTemplates(manager, manager.templates);
+      persistTemplates(manager);
+      bindPromptTemplateEvents(manager);
+      selectPromptTemplate(manager, manager.templates[0]?.id ?? null);
+      renderPromptTemplateList(manager);
+    } else {
+      manager.templates = await loadTemplates(manager);
+      manager.templates = normalizeTemplates(manager, manager.templates);
+      persistTemplates(manager);
+      bindTemplateEvents(manager);
+      selectTemplate(manager, manager.templates[0]?.id ?? null);
+      renderTemplateList(manager);
+    }
   }
   setActiveView(activeView);
 }
@@ -388,6 +456,17 @@ async function loadTemplates(manager) {
   } catch (error) {
     return [];
   }
+}
+
+function normalizePromptTemplates(manager, items) {
+  return items.map((item, index) => ({
+    id: item.id || `prompt-${index + 1}-${Date.now()}`,
+    title: item.title || manager.blankTitle,
+    categories: item.categories || "",
+    prompt: item.prompt || "",
+    sampleInputTemplate: item.sampleInputTemplate || "",
+    sampleOutput: item.sampleOutput || "",
+  }));
 }
 
 async function loadTemplatesFromSource(manager) {
@@ -673,10 +752,291 @@ function getRawTemplateText(manager, templateItem) {
 function createTemplateManagerConfig(config) {
   return {
     ...config,
+    kind: "template",
     templates: [],
     selectedTemplateId: null,
     variableValues: {},
   };
+}
+
+function createPromptTemplateManagerConfig(config) {
+  return {
+    ...config,
+    kind: "prompt",
+    templates: [],
+    selectedTemplateId: null,
+    variableValues: {},
+  };
+}
+
+function bindPromptTemplateEvents(manager) {
+  manager.searchElement.addEventListener("input", () => renderPromptTemplateList(manager));
+  manager.newButton.addEventListener("click", () => createNewPromptTemplate(manager));
+  manager.saveButton.addEventListener("click", () => saveCurrentPromptTemplate(manager));
+  manager.deleteButton.addEventListener("click", () => deleteCurrentPromptTemplate(manager));
+  manager.exportButton.addEventListener("click", () => exportTemplates(manager));
+  manager.syncButton.addEventListener("click", () => syncPromptTemplatesFromSource(manager));
+  manager.importButton.addEventListener("click", () => manager.importInput.click());
+  manager.importInput.addEventListener("change", (event) => importPromptTemplates(manager, event));
+
+  manager.copyPromptButton.addEventListener("click", () => {
+    copyButtonText(manager.copyPromptButton, getPromptEditorItem(manager).prompt);
+  });
+  manager.copyRenderedPromptButton.addEventListener("click", () => {
+    copyButtonText(manager.copyRenderedPromptButton, applyVariables(getPromptEditorItem(manager).prompt, manager.variableValues));
+  });
+  manager.copySampleInputButton.addEventListener("click", () => {
+    copyButtonText(manager.copySampleInputButton, getPromptEditorItem(manager).sampleInputTemplate);
+  });
+  manager.copyRenderedSampleInputButton.addEventListener("click", () => {
+    copyButtonText(
+      manager.copyRenderedSampleInputButton,
+      applyVariables(getPromptEditorItem(manager).sampleInputTemplate, manager.variableValues)
+    );
+  });
+  manager.copySampleOutputButton.addEventListener("click", () => {
+    copyButtonText(manager.copySampleOutputButton, getPromptEditorItem(manager).sampleOutput);
+  });
+  manager.usePromptButton.addEventListener("click", () => {
+    copyButtonText(manager.usePromptButton, applyVariables(getPromptEditorItem(manager).prompt, manager.variableValues));
+  });
+
+  [
+    manager.titleInput,
+    manager.categoriesInput,
+    manager.promptInput,
+    manager.sampleInputTemplate,
+    manager.sampleOutputInput,
+  ].forEach((field) => {
+    field.addEventListener("input", () => handlePromptDraftChange(manager));
+  });
+}
+
+function renderPromptTemplateList(manager) {
+  const query = manager.searchElement.value.trim().toLowerCase();
+  const filtered = manager.templates.filter((item) => {
+    const haystack = `${item.title} ${item.categories} ${item.prompt} ${item.sampleInputTemplate} ${item.sampleOutput}`.toLowerCase();
+    return haystack.includes(query);
+  });
+
+  manager.listElement.innerHTML = "";
+
+  if (!filtered.length) {
+    manager.listElement.appendChild(createEmptyState("No prompts match your search."));
+    if (activeView === manager.viewId) {
+      topbarMeta.textContent = `${manager.templates.length} ${manager.metaLabel} stored`;
+    }
+    return;
+  }
+
+  filtered.forEach((item) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "template-list-item";
+    if (item.id === manager.selectedTemplateId) {
+      button.classList.add("is-active");
+    }
+
+    button.innerHTML = `
+      <p class="template-list-name">${escapeHtml(item.title)}</p>
+      <p class="template-list-meta">${escapeHtml(item.categories || "No categories")} • ${extractPromptVariables(item).length} variables</p>
+    `;
+    button.addEventListener("click", () => selectPromptTemplate(manager, item.id));
+    manager.listElement.appendChild(button);
+  });
+
+  if (activeView === manager.viewId) {
+    topbarMeta.textContent = `${manager.templates.length} ${manager.metaLabel} stored`;
+  }
+}
+
+function selectPromptTemplate(manager, templateId) {
+  const found = manager.templates.find((item) => item.id === templateId) ?? createBlankPromptTemplate(manager);
+  manager.selectedTemplateId = found.id;
+  manager.variableValues = {};
+  manager.titleInput.value = found.title;
+  manager.categoriesInput.value = found.categories;
+  manager.promptInput.value = found.prompt;
+  manager.sampleInputTemplate.value = found.sampleInputTemplate;
+  manager.sampleOutputInput.value = found.sampleOutput;
+  renderPromptVariableInputs(manager);
+  renderPromptPreview(manager);
+  renderPromptTemplateList(manager);
+}
+
+function createNewPromptTemplate(manager) {
+  const blank = createBlankPromptTemplate(manager);
+  manager.selectedTemplateId = blank.id;
+  manager.variableValues = {};
+  manager.titleInput.value = blank.title;
+  manager.categoriesInput.value = blank.categories;
+  manager.promptInput.value = blank.prompt;
+  manager.sampleInputTemplate.value = blank.sampleInputTemplate;
+  manager.sampleOutputInput.value = blank.sampleOutput;
+  renderPromptVariableInputs(manager);
+  renderPromptPreview(manager);
+  renderPromptTemplateList(manager);
+}
+
+function createBlankPromptTemplate(manager) {
+  return {
+    id: `prompt-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
+    title: manager.blankTitle,
+    categories: "",
+    prompt: "",
+    sampleInputTemplate: "",
+    sampleOutput: "",
+  };
+}
+
+function getPromptEditorItem(manager) {
+  return {
+    id: manager.selectedTemplateId || createBlankPromptTemplate(manager).id,
+    title: manager.titleInput.value.trim() || manager.blankTitle,
+    categories: manager.categoriesInput.value.trim(),
+    prompt: manager.promptInput.value,
+    sampleInputTemplate: manager.sampleInputTemplate.value,
+    sampleOutput: manager.sampleOutputInput.value,
+  };
+}
+
+function handlePromptDraftChange(manager) {
+  renderPromptVariableInputs(manager);
+  renderPromptPreview(manager);
+}
+
+function renderPromptVariableInputs(manager) {
+  const variables = extractPromptVariables(getPromptEditorItem(manager));
+  const nextValues = {};
+
+  variables.forEach((key) => {
+    nextValues[key] = manager.variableValues[key] || "";
+  });
+
+  manager.variableValues = nextValues;
+  manager.variableGrid.innerHTML = "";
+  manager.summaryElement.innerHTML = "";
+
+  if (!variables.length) {
+    const empty = createEmptyState("No variables found. Use {{name}} style placeholders.");
+    manager.variableGrid.appendChild(empty);
+    manager.summaryElement.appendChild(empty.cloneNode(true));
+    return;
+  }
+
+  variables.forEach((name) => {
+    const pill = document.createElement("div");
+    pill.className = "variable-pill";
+    pill.textContent = `{{${name}}}`;
+    manager.summaryElement.appendChild(pill);
+  });
+
+  variables.forEach((name) => {
+    const wrapper = document.createElement("label");
+    wrapper.className = "variable-chip";
+    wrapper.innerHTML = `
+      <code>{{${escapeHtml(name)}}}</code>
+      <input class="compact-input" type="text" placeholder="Value for ${escapeHtml(name)}" />
+    `;
+    const input = wrapper.querySelector("input");
+    input.value = manager.variableValues[name];
+    input.addEventListener("input", () => {
+      manager.variableValues[name] = input.value;
+      renderPromptPreview(manager);
+    });
+    manager.variableGrid.appendChild(wrapper);
+  });
+}
+
+function renderPromptPreview(manager) {
+  const item = getPromptEditorItem(manager);
+  manager.promptPreviewElement.textContent = applyVariables(item.prompt, manager.variableValues);
+  manager.sampleInputPreviewElement.textContent = applyVariables(item.sampleInputTemplate, manager.variableValues);
+  manager.sampleOutputPreviewElement.textContent = item.sampleOutput;
+}
+
+function extractPromptVariables(item) {
+  const matches = `${item.prompt}\n${item.sampleInputTemplate}`.match(/\{\{\s*([^}]+?)\s*\}\}/g) || [];
+  return [...new Set(matches.map((token) => token.replace(/[{}]/g, "").trim()))];
+}
+
+function saveCurrentPromptTemplate(manager) {
+  const draft = getPromptEditorItem(manager);
+  const existingIndex = manager.templates.findIndex((item) => item.id === draft.id);
+
+  if (existingIndex >= 0) {
+    manager.templates[existingIndex] = draft;
+  } else {
+    manager.templates.unshift(draft);
+  }
+
+  persistTemplates(manager);
+  renderPromptTemplateList(manager);
+  selectPromptTemplate(manager, draft.id);
+  showToast(`${draft.title} saved`, "success");
+}
+
+function deleteCurrentPromptTemplate(manager) {
+  if (!manager.selectedTemplateId) {
+    return;
+  }
+
+  const existingIndex = manager.templates.findIndex((item) => item.id === manager.selectedTemplateId);
+  if (existingIndex === -1) {
+    createNewPromptTemplate(manager);
+    return;
+  }
+
+  const templateName = manager.templates[existingIndex].title;
+  const confirmed = window.confirm(`Delete "${templateName}"? This cannot be undone.`);
+  if (!confirmed) {
+    return;
+  }
+
+  manager.templates.splice(existingIndex, 1);
+  persistTemplates(manager);
+  selectPromptTemplate(manager, manager.templates[0]?.id ?? null);
+  renderPromptTemplateList(manager);
+  showToast(`${templateName} deleted`, "warning");
+}
+
+async function syncPromptTemplatesFromSource(manager) {
+  const confirmed = window.confirm(
+    `Sync ${manager.label.toLowerCase()} from ${manager.sourceFile}? This will replace the current local templates for this section.`
+  );
+  if (!confirmed) {
+    return;
+  }
+
+  const sourceTemplates = await loadTemplatesFromSource(manager);
+  manager.templates = normalizePromptTemplates(manager, Array.isArray(sourceTemplates) ? sourceTemplates : []);
+  persistTemplates(manager);
+  selectPromptTemplate(manager, manager.templates[0]?.id ?? null);
+  renderPromptTemplateList(manager);
+  showToast(`${manager.label} synced from JSON`, "success");
+}
+
+function importPromptTemplates(manager, event) {
+  const file = event.target.files?.[0];
+  if (!file) {
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(String(reader.result));
+      manager.templates = normalizePromptTemplates(manager, Array.isArray(parsed) ? parsed : []);
+      persistTemplates(manager);
+      selectPromptTemplate(manager, manager.templates[0]?.id ?? null);
+      renderPromptTemplateList(manager);
+      copyFeedback(manager.importButton, "Imported");
+    } catch (error) {
+      copyFeedback(manager.importButton, "Invalid JSON");
+    }
+    manager.importInput.value = "";
+  };
+  reader.readAsText(file);
 }
 
 function setMobileTab(container, tabId) {

@@ -265,7 +265,7 @@ body::before {
   display: grid;
   grid-template-columns: minmax(240px, 0.7fr) minmax(0, 2.5fr);
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .template-list-panel,
@@ -276,6 +276,10 @@ body::before {
   min-width: 0;
 }
 
+.template-list-panel {
+  align-self: stretch;
+}
+
 .template-list-panel .section-heading {
   margin-bottom: 14px;
 }
@@ -284,7 +288,6 @@ body::before {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.95fr);
   grid-template-areas:
-    "tabs tabs"
     "editor variables"
     "editor preview";
   gap: 20px;
@@ -293,6 +296,7 @@ body::before {
   border: 0;
   box-shadow: none;
   backdrop-filter: none;
+  align-self: stretch;
 }
 
 .template-list {
@@ -383,6 +387,11 @@ body::before {
   min-height: 420px;
 }
 
+.sample-input-textarea,
+.sample-output-textarea {
+  min-height: 180px;
+}
+
 .sticky-heading {
   padding-bottom: 12px;
   background: transparent;
@@ -469,7 +478,6 @@ body::before {
 
 .mobile-tabs {
   display: none;
-  grid-area: tabs;
 }
 
 .mobile-tab {
@@ -699,6 +707,7 @@ body::before {
 
   .mobile-tabs {
     display: flex;
+    grid-area: tabs;
     gap: 10px;
     padding: 18px 18px 0;
   }
