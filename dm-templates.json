@@ -1,12 +1,37 @@
 [
   {
-    "id": "intro-dm",
-    "name": "Intro DM",
-    "body": "Hi {{firstName}}, I came across your profile and wanted to connect regarding {{topic}}."
+    "id": "order-confirmed",
+    "name": "Order Confirmed",
+    "body": "Hi {{firstName}}, thank you for shopping with Dare & Rise! Your order {{orderNumber}} has been confirmed. Order value: {{orderAmount}}. We’ll update you once it is shipped."
   },
   {
-    "id": "quick-follow-up-dm",
-    "name": "Quick Follow-up DM",
-    "body": "Hey {{firstName}}, just following up on my last message about {{topic}} when you have a moment."
+    "id": "address-clarification",
+    "name": "Address Not Clear",
+    "body": "Hi {{firstName}}, thank you for your order {{orderNumber}}. The delivery address provided is incomplete or unclear. Please send your complete address with house/flat number, building/society, area, landmark, city, state and PIN code so we can process your order."
+  },
+  {
+    "id": "order-shipped",
+    "name": "Order Shipped",
+    "body": "Hi {{firstName}}, great news! Your Dare & Rise order {{orderNumber}} has been shipped via {{courierName}}. Tracking ID: {{trackingNumber}}. Track your order here: {{trackingUrl}}. Expected delivery: {{estimatedDeliveryDate}}."
+  },
+  {
+    "id": "cod-order-confirmation",
+    "name": "COD Order Confirmation",
+    "body": "Hi {{firstName}}, we received your COD order {{orderNumber}} for {{orderAmount}}. Please confirm that you would like us to process and ship this order by replying YES."
+  },
+  {
+    "id": "customer-support-follow-up",
+    "name": "Customer Support Follow-up",
+    "body": "Hi {{firstName}}, we’re following up regarding your query for order {{orderNumber}}. Please let us know if your issue has been resolved or if you still need assistance."
+  },
+  {
+    "id": "review-request",
+    "name": "Review Request",
+    "body": "Hi {{firstName}}, we hope you’re enjoying your Dare & Rise order {{orderNumber}}. We’d love to hear your feedback. You can share your review here: {{reviewUrl}}."
+  },
+  {
+    "id": "abandoned-cart",
+    "name": "Abandoned Cart Reminder",
+    "body": "Hi {{firstName}}, you left something behind at Dare & Rise. Your selected styles are still waiting for you. Complete your purchase here: {{cartUrl}}."
   }
 ]
