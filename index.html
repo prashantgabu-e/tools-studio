@@ -63,6 +63,10 @@
             <i class="ri-chat-ai-line" aria-hidden="true"></i>
             <span class="button-text">Prompt Templates</span>
           </button>
+          <button class="menu-item" type="button" data-view-target="gen-ai-prompt-template-tools">
+            <i class="ri-sparkling-line" aria-hidden="true"></i>
+            <span class="button-text">Gen AI Prompt Templates</span>
+          </button>
         </nav>
       </aside>
 
@@ -569,6 +573,199 @@
                       </button>
                     </div>
                     <pre class="preview-output" id="promptSampleOutputPreview"></pre>
+                  </div>
+                </div>
+              </section>
+            </section>
+          </section>
+        </section>
+
+        <section class="view-panel" id="gen-ai-prompt-template-tools" data-view-panel hidden>
+          <section class="template-layout">
+            <section class="panel-card template-list-panel">
+              <div class="section-heading">
+                <h3>Prompts</h3>
+                <button class="ghost-button" type="button" id="newGenAiPromptTemplateButton">
+                  <i class="ri-add-line" aria-hidden="true"></i>
+                  <span>New</span>
+                </button>
+              </div>
+
+              <div class="template-toolbar">
+                <button
+                  class="ghost-button icon-only-button"
+                  type="button"
+                  id="importGenAiPromptTemplatesButton"
+                  aria-label="Import JSON"
+                  title="Import JSON"
+                >
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  <span class="sr-only">Import JSON</span>
+                </button>
+                <button
+                  class="ghost-button icon-only-button"
+                  type="button"
+                  id="exportGenAiPromptTemplatesButton"
+                  aria-label="Export JSON"
+                  title="Export JSON"
+                >
+                  <i class="ri-download-2-line" aria-hidden="true"></i>
+                  <span class="sr-only">Export JSON</span>
+                </button>
+                <button
+                  class="ghost-button icon-only-button"
+                  type="button"
+                  id="syncGenAiPromptTemplatesButton"
+                  aria-label="Sync from JSON"
+                  title="Sync from JSON"
+                >
+                  <i class="ri-refresh-line" aria-hidden="true"></i>
+                  <span class="sr-only">Sync from JSON</span>
+                </button>
+              </div>
+
+              <input
+                id="genAiPromptTemplateSearch"
+                class="compact-input"
+                type="search"
+                placeholder="Search prompts..."
+              />
+
+              <div class="template-list" id="genAiPromptTemplateList"></div>
+              <input id="genAiPromptTemplateImportInput" type="file" accept="application/json" hidden />
+            </section>
+
+            <section class="panel-card template-work-panel">
+              <div class="mobile-tabs" role="tablist" aria-label="Gen AI prompt template sections">
+                <button class="mobile-tab is-active" type="button" data-mobile-tab="gen-ai-prompt-edit">Edit</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="gen-ai-prompt-variables">Variables</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="gen-ai-prompt-preview">Preview</button>
+              </div>
+
+              <section
+                class="panel-card template-editor-panel mobile-section is-active"
+                id="gen-ai-prompt-edit"
+                data-mobile-panel
+              >
+                <div class="section-heading sticky-heading">
+                  <h3>Editor</h3>
+                  <div class="button-row">
+                    <button class="ghost-button" type="button" id="deleteGenAiPromptTemplateButton">
+                      <i class="ri-delete-bin-6-line" aria-hidden="true"></i>
+                      <span>Delete</span>
+                    </button>
+                    <button class="copy-button" type="button" id="saveGenAiPromptTemplateButton">
+                      <i class="ri-save-line" aria-hidden="true"></i>
+                      <span>Save</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="editor-grid">
+                  <label class="field">
+                    <span>Title</span>
+                    <input id="genAiPromptTemplateTitle" class="compact-input" type="text" placeholder="Cold Outreach Prompt" />
+                  </label>
+                  <label class="field">
+                    <span>Categories</span>
+                    <input
+                      id="genAiPromptTemplateCategories"
+                      class="compact-input"
+                      type="text"
+                      placeholder="SEO, Writing, Marketing"
+                    />
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span>Prompt</span>
+                  <textarea
+                    id="genAiPromptTemplateBody"
+                    class="text-input template-body-input"
+                    placeholder="Write your main prompt here using placeholders like {{topic}} and {{tone}}."
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Sample Input Template</span>
+                  <textarea
+                    id="genAiPromptSampleInputTemplate"
+                    class="text-input sample-input-textarea"
+                    placeholder="Topic: {{topic}}\nAudience: {{audience}}\nTone: {{tone}}"
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+
+                <label class="field">
+                  <span>Sample Output</span>
+                  <textarea
+                    id="genAiPromptSampleOutput"
+                    class="text-input sample-output-textarea"
+                    placeholder="Store one fixed example output here."
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+              </section>
+
+              <section class="panel-card template-variable-panel mobile-section" id="gen-ai-prompt-variables" data-mobile-panel>
+                <div class="section-heading">
+                  <h3>Variables</h3>
+                </div>
+                <div class="variable-summary" id="genAiPromptVariableSummary"></div>
+                <div class="variable-grid" id="genAiPromptVariableGrid"></div>
+              </section>
+
+              <section class="panel-card template-preview-panel mobile-section" id="gen-ai-prompt-preview" data-mobile-panel>
+                <div class="section-heading sticky-heading">
+                  <h3>Preview</h3>
+                </div>
+                <div class="preview-card">
+                  <div class="preview-block">
+                    <div class="preview-block-header">
+                      <p class="preview-label">Rendered Prompt</p>
+                      <div class="button-row">
+                        <button class="ghost-button" type="button" id="copyGenAiPromptTemplateButton">
+                          <i class="ri-chat-quote-line" aria-hidden="true"></i>
+                          <span>Copy Prompt</span>
+                        </button>
+                        <button class="ghost-button" type="button" id="copyRenderedGenAiPromptTemplateButton">
+                          <i class="ri-file-copy-line" aria-hidden="true"></i>
+                          <span>Copy Rendered Prompt</span>
+                        </button>
+                        <button class="copy-button" type="button" id="useGenAiPromptTemplateButton">
+                          <i class="ri-magic-line" aria-hidden="true"></i>
+                          <span>Use Prompt</span>
+                        </button>
+                      </div>
+                    </div>
+                    <pre class="preview-output" id="genAiPromptTemplatePreview"></pre>
+                  </div>
+                  <div class="preview-block">
+                    <div class="preview-block-header">
+                      <p class="preview-label">Rendered Sample Input</p>
+                      <div class="button-row">
+                        <button class="ghost-button" type="button" id="copyGenAiPromptSampleInputButton">
+                          <i class="ri-braces-line" aria-hidden="true"></i>
+                          <span>Copy Sample Input</span>
+                        </button>
+                        <button class="ghost-button" type="button" id="copyRenderedGenAiPromptSampleInputButton">
+                          <i class="ri-input-field" aria-hidden="true"></i>
+                          <span>Copy Rendered Input</span>
+                        </button>
+                      </div>
+                    </div>
+                    <pre class="preview-output" id="genAiPromptSampleInputPreview"></pre>
+                  </div>
+                  <div class="preview-block">
+                    <div class="preview-block-header">
+                      <p class="preview-label">Sample Output</p>
+                      <button class="ghost-button" type="button" id="copyGenAiPromptSampleOutputButton">
+                        <i class="ri-file-text-line" aria-hidden="true"></i>
+                        <span>Copy Sample Output</span>
+                      </button>
+                    </div>
+                    <pre class="preview-output" id="genAiPromptSampleOutputPreview"></pre>
                   </div>
                 </div>
               </section>

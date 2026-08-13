@@ -131,6 +131,31 @@ const copyPromptSampleInputButton = document.getElementById("copyPromptSampleInp
 const copyRenderedPromptSampleInputButton = document.getElementById("copyRenderedPromptSampleInputButton");
 const copyPromptSampleOutputButton = document.getElementById("copyPromptSampleOutputButton");
 const usePromptTemplateButton = document.getElementById("usePromptTemplateButton");
+const genAiPromptTemplateList = document.getElementById("genAiPromptTemplateList");
+const genAiPromptTemplateSearch = document.getElementById("genAiPromptTemplateSearch");
+const newGenAiPromptTemplateButton = document.getElementById("newGenAiPromptTemplateButton");
+const saveGenAiPromptTemplateButton = document.getElementById("saveGenAiPromptTemplateButton");
+const deleteGenAiPromptTemplateButton = document.getElementById("deleteGenAiPromptTemplateButton");
+const exportGenAiPromptTemplatesButton = document.getElementById("exportGenAiPromptTemplatesButton");
+const syncGenAiPromptTemplatesButton = document.getElementById("syncGenAiPromptTemplatesButton");
+const importGenAiPromptTemplatesButton = document.getElementById("importGenAiPromptTemplatesButton");
+const genAiPromptTemplateImportInput = document.getElementById("genAiPromptTemplateImportInput");
+const genAiPromptTemplateTitle = document.getElementById("genAiPromptTemplateTitle");
+const genAiPromptTemplateCategories = document.getElementById("genAiPromptTemplateCategories");
+const genAiPromptTemplateBody = document.getElementById("genAiPromptTemplateBody");
+const genAiPromptSampleInputTemplate = document.getElementById("genAiPromptSampleInputTemplate");
+const genAiPromptSampleOutput = document.getElementById("genAiPromptSampleOutput");
+const genAiPromptVariableGrid = document.getElementById("genAiPromptVariableGrid");
+const genAiPromptVariableSummary = document.getElementById("genAiPromptVariableSummary");
+const genAiPromptTemplatePreview = document.getElementById("genAiPromptTemplatePreview");
+const genAiPromptSampleInputPreview = document.getElementById("genAiPromptSampleInputPreview");
+const genAiPromptSampleOutputPreview = document.getElementById("genAiPromptSampleOutputPreview");
+const copyGenAiPromptTemplateButton = document.getElementById("copyGenAiPromptTemplateButton");
+const copyRenderedGenAiPromptTemplateButton = document.getElementById("copyRenderedGenAiPromptTemplateButton");
+const copyGenAiPromptSampleInputButton = document.getElementById("copyGenAiPromptSampleInputButton");
+const copyRenderedGenAiPromptSampleInputButton = document.getElementById("copyRenderedGenAiPromptSampleInputButton");
+const copyGenAiPromptSampleOutputButton = document.getElementById("copyGenAiPromptSampleOutputButton");
+const useGenAiPromptTemplateButton = document.getElementById("useGenAiPromptTemplateButton");
 const mobileTabs = document.querySelectorAll("[data-mobile-tab]");
 const mobilePanels = document.querySelectorAll("[data-mobile-panel]");
 const toastStack = document.getElementById("toastStack");
@@ -231,6 +256,40 @@ const templateManagers = {
     copySampleOutputButton: copyPromptSampleOutputButton,
     usePromptButton: usePromptTemplateButton,
     blankTitle: "Untitled Prompt Template",
+  }),
+  "gen-ai-prompt-template-tools": createPromptTemplateManagerConfig({
+    viewId: "gen-ai-prompt-template-tools",
+    storageKey: "text-studio-gen-ai-prompt-templates-v1",
+    sourceFile: "gen-ai-prompt-templates.json",
+    label: "Gen AI Prompt Templates",
+    title: "Manage Gen AI prompt templates",
+    metaLabel: "gen ai prompt templates",
+    listElement: genAiPromptTemplateList,
+    searchElement: genAiPromptTemplateSearch,
+    newButton: newGenAiPromptTemplateButton,
+    saveButton: saveGenAiPromptTemplateButton,
+    deleteButton: deleteGenAiPromptTemplateButton,
+    exportButton: exportGenAiPromptTemplatesButton,
+    syncButton: syncGenAiPromptTemplatesButton,
+    importButton: importGenAiPromptTemplatesButton,
+    importInput: genAiPromptTemplateImportInput,
+    titleInput: genAiPromptTemplateTitle,
+    categoriesInput: genAiPromptTemplateCategories,
+    promptInput: genAiPromptTemplateBody,
+    sampleInputTemplate: genAiPromptSampleInputTemplate,
+    sampleOutputInput: genAiPromptSampleOutput,
+    variableGrid: genAiPromptVariableGrid,
+    summaryElement: genAiPromptVariableSummary,
+    promptPreviewElement: genAiPromptTemplatePreview,
+    sampleInputPreviewElement: genAiPromptSampleInputPreview,
+    sampleOutputPreviewElement: genAiPromptSampleOutputPreview,
+    copyPromptButton: copyGenAiPromptTemplateButton,
+    copyRenderedPromptButton: copyRenderedGenAiPromptTemplateButton,
+    copySampleInputButton: copyGenAiPromptSampleInputButton,
+    copyRenderedSampleInputButton: copyRenderedGenAiPromptSampleInputButton,
+    copySampleOutputButton: copyGenAiPromptSampleOutputButton,
+    usePromptButton: useGenAiPromptTemplateButton,
+    blankTitle: "Untitled Gen AI Prompt Template",
   }),
 };
 

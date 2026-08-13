@@ -1,0 +1,18 @@
+[
+  {
+    "id": "gen-ai-content-brief",
+    "title": "Gen AI Content Brief",
+    "categories": "Gen AI, Content, Strategy",
+    "prompt": "Create a complete Gen AI content brief about {{topic}} for {{audience}} in a {{tone}} tone. Include goals, structure, constraints, and success criteria.",
+    "sampleInputTemplate": "Topic: {{topic}}\nAudience: {{audience}}\nTone: {{tone}}\nGoal: {{goal}}\nConstraints: {{constraints}}",
+    "sampleOutput": "Objective: Build a useful content brief for the target audience.\nKey Sections: Overview, audience insight, messaging angles, content outline, CTA.\nConstraints: Stay clear, practical, and aligned to the requested tone."
+  },
+  {
+    "id": "gen-ai-prompt-optimizer",
+    "title": "Gen AI Prompt Optimizer",
+    "categories": "Gen AI, Prompting, Optimization",
+    "prompt": "Improve this Gen AI prompt for {{useCase}} so it is more {{tone}}, specific, and likely to produce reliable output. Return the revised prompt and a short explanation of the changes.",
+    "sampleInputTemplate": "Use Case: {{useCase}}\nTone: {{tone}}\nOriginal Prompt: {{originalPrompt}}",
+    "sampleOutput": "Revised Prompt: You are an expert assistant focused on [use case]. Follow these constraints...\nWhy this works: The revised version adds clearer task framing, output structure, and evaluation criteria."
+  }
+]
