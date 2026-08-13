@@ -531,6 +531,13 @@ body::before {
   font-size: 0.92rem;
 }
 
+.icon-only-button {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  flex: 0 0 auto;
+}
+
 .copy-button i,
 .ghost-button i,
 .sidebar-toggle i,
