@@ -1,0 +1,12 @@
+[
+  {
+    "id": "intro-dm",
+    "name": "Intro DM",
+    "body": "Hi {{firstName}}, I came across your profile and wanted to connect regarding {{topic}}."
+  },
+  {
+    "id": "quick-follow-up-dm",
+    "name": "Quick Follow-up DM",
+    "body": "Hey {{firstName}}, just following up on my last message about {{topic}} when you have a moment."
+  }
+]

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Transform Studio</title>
+    <meta
+      name="description"
+      content="Fast, mobile-friendly text transformation tools for uppercase, lowercase, title case, slug generation, and more."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <div class="brand-block">
+            <p class="app-kicker">Toolbox</p>
+            <h1 class="app-title">Text Studio</h1>
+          </div>
+          <button
+            class="sidebar-toggle"
+            type="button"
+            id="sidebarToggle"
+            aria-expanded="true"
+            aria-controls="sidebar"
+          >
+            <i class="ri-panel-left-line" aria-hidden="true"></i>
+            <span class="button-text">Collapse</span>
+          </button>
+        </div>
+
+        <nav class="menu-panel" aria-label="Main menu">
+          <p class="menu-label">Menus</p>
+          <button
+            class="menu-item is-active"
+            type="button"
+            data-view-target="text-tools"
+            aria-current="page"
+          >
+            <i class="ri-text" aria-hidden="true"></i>
+            <span class="button-text">Text Tools</span>
+          </button>
+          <button class="menu-item" type="button" data-view-target="template-tools">
+            <i class="ri-mail-line" aria-hidden="true"></i>
+            <span class="button-text">Email Templates</span>
+          </button>
+          <button class="menu-item" type="button" data-view-target="dm-template-tools">
+            <i class="ri-message-3-line" aria-hidden="true"></i>
+            <span class="button-text">DM Templates</span>
+          </button>
+        </nav>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="section-kicker" id="activeViewLabel">Text Tools</p>
+            <h2 id="activeViewTitle">Transform text</h2>
+          </div>
+          <p class="meta-stat" id="topbarMeta">0 characters • 0 words</p>
+        </header>
+
+        <section class="view-panel is-active" id="text-tools" data-view-panel>
+          <section class="input-panel">
+            <div class="section-heading">
+              <h3>Input</h3>
+              <button class="ghost-button" type="button" id="clearButton">
+                <i class="ri-eraser-line" aria-hidden="true"></i>
+                <span>Clear text</span>
+              </button>
+            </div>
+
+            <label class="sr-only" for="sourceText">Source text</label>
+            <textarea
+              id="sourceText"
+              class="text-input"
+              placeholder="Type your text here and every transformation updates instantly..."
+              spellcheck="false"
+            ></textarea>
+          </section>
+
+          <section class="output-panel">
+            <div class="section-heading">
+              <h3>Outputs</h3>
+            </div>
+
+            <div class="transform-grid" id="transformGrid"></div>
+          </section>
+        </section>
+
+        <section class="view-panel" id="template-tools" data-view-panel hidden>
+          <section class="template-layout">
+            <section class="panel-card template-list-panel">
+              <div class="section-heading">
+                <h3>Templates</h3>
+                <button class="ghost-button" type="button" id="newTemplateButton">
+                  <i class="ri-add-line" aria-hidden="true"></i>
+                  <span>New</span>
+                </button>
+              </div>
+
+              <div class="template-toolbar">
+                <button class="ghost-button" type="button" id="importTemplatesButton">
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  <span>Import JSON</span>
+                </button>
+                <button class="ghost-button" type="button" id="exportTemplatesButton">
+                  <i class="ri-download-2-line" aria-hidden="true"></i>
+                  <span>Export JSON</span>
+                </button>
+              </div>
+
+              <input
+                id="templateSearch"
+                class="compact-input"
+                type="search"
+                placeholder="Search templates..."
+              />
+
+              <div class="template-list" id="templateList"></div>
+              <input id="templateImportInput" type="file" accept="application/json" hidden />
+            </section>
+
+            <section class="panel-card template-work-panel">
+              <div class="mobile-tabs" role="tablist" aria-label="Email template sections">
+                <button class="mobile-tab is-active" type="button" data-mobile-tab="email-edit">Edit</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="email-variables">Variables</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="email-preview">Preview</button>
+              </div>
+
+              <section class="panel-card template-editor-panel mobile-section is-active" id="email-edit" data-mobile-panel>
+                <div class="section-heading sticky-heading">
+                  <h3>Editor</h3>
+                  <div class="button-row">
+                    <button class="ghost-button" type="button" id="deleteTemplateButton">
+                      <i class="ri-delete-bin-6-line" aria-hidden="true"></i>
+                      <span>Delete</span>
+                    </button>
+                    <button class="copy-button" type="button" id="saveTemplateButton">
+                      <i class="ri-save-line" aria-hidden="true"></i>
+                      <span>Save</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="editor-grid">
+                  <label class="field">
+                    <span>Name</span>
+                    <input id="templateName" class="compact-input" type="text" placeholder="Welcome Email" />
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span>Subject</span>
+                  <input
+                    id="templateSubject"
+                    class="compact-input"
+                    type="text"
+                    placeholder="Hello {{firstName}}, welcome to {{company}}"
+                  />
+                </label>
+
+                <label class="field">
+                  <span>Body</span>
+                  <textarea
+                    id="templateBody"
+                    class="text-input template-body-input"
+                    placeholder="Write your template here using placeholders like {{firstName}} and {{company}}."
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+              </section>
+
+              <section class="panel-card template-variable-panel mobile-section" id="email-variables" data-mobile-panel>
+                <div class="section-heading">
+                  <h3>Variables</h3>
+                </div>
+                <div class="variable-summary" id="templateVariableSummary"></div>
+                <div class="variable-grid" id="variableGrid"></div>
+              </section>
+
+              <section class="panel-card template-preview-panel mobile-section" id="email-preview" data-mobile-panel>
+                <div class="preview-sticky">
+                  <div class="section-heading sticky-heading">
+                    <h3>Preview</h3>
+                    <div class="button-row">
+                      <button class="ghost-button" type="button" id="copyEmailSubjectButton">
+                        <i class="ri-mail-open-line" aria-hidden="true"></i>
+                        <span>Copy Subject</span>
+                      </button>
+                      <button class="ghost-button" type="button" id="copyEmailBodyButton">
+                        <i class="ri-file-text-line" aria-hidden="true"></i>
+                        <span>Copy Body</span>
+                      </button>
+                      <button class="ghost-button" type="button" id="copyRawTemplateButton">
+                        <i class="ri-braces-line" aria-hidden="true"></i>
+                        <span>Copy Raw</span>
+                      </button>
+                      <button class="ghost-button" type="button" id="copyRenderedTemplateButton">
+                        <i class="ri-file-copy-line" aria-hidden="true"></i>
+                        <span>Copy Rendered</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="preview-card">
+                    <div class="preview-block">
+                      <p class="preview-label">Subject</p>
+                      <pre class="preview-output" id="templateSubjectPreview"></pre>
+                    </div>
+                    <div class="preview-block">
+                      <p class="preview-label">Body</p>
+                      <pre class="preview-output" id="templatePreview"></pre>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+          </section>
+        </section>
+
+        <section class="view-panel" id="dm-template-tools" data-view-panel hidden>
+          <section class="template-layout">
+            <section class="panel-card template-list-panel">
+              <div class="section-heading">
+                <h3>Templates</h3>
+                <button class="ghost-button" type="button" id="newDmTemplateButton">
+                  <i class="ri-add-line" aria-hidden="true"></i>
+                  <span>New</span>
+                </button>
+              </div>
+
+              <div class="template-toolbar">
+                <button class="ghost-button" type="button" id="importDmTemplatesButton">
+                  <i class="ri-upload-2-line" aria-hidden="true"></i>
+                  <span>Import JSON</span>
+                </button>
+                <button class="ghost-button" type="button" id="exportDmTemplatesButton">
+                  <i class="ri-download-2-line" aria-hidden="true"></i>
+                  <span>Export JSON</span>
+                </button>
+              </div>
+
+              <input
+                id="dmTemplateSearch"
+                class="compact-input"
+                type="search"
+                placeholder="Search templates..."
+              />
+
+              <div class="template-list" id="dmTemplateList"></div>
+              <input id="dmTemplateImportInput" type="file" accept="application/json" hidden />
+            </section>
+
+            <section class="panel-card template-work-panel">
+              <div class="mobile-tabs" role="tablist" aria-label="DM template sections">
+                <button class="mobile-tab is-active" type="button" data-mobile-tab="dm-edit">Edit</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="dm-variables">Variables</button>
+                <button class="mobile-tab" type="button" data-mobile-tab="dm-preview">Preview</button>
+              </div>
+
+              <section class="panel-card template-editor-panel mobile-section is-active" id="dm-edit" data-mobile-panel>
+                <div class="section-heading sticky-heading">
+                  <h3>Editor</h3>
+                  <div class="button-row">
+                    <button class="ghost-button" type="button" id="deleteDmTemplateButton">
+                      <i class="ri-delete-bin-6-line" aria-hidden="true"></i>
+                      <span>Delete</span>
+                    </button>
+                    <button class="copy-button" type="button" id="saveDmTemplateButton">
+                      <i class="ri-save-line" aria-hidden="true"></i>
+                      <span>Save</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="editor-grid editor-grid-single">
+                  <label class="field">
+                    <span>Name</span>
+                    <input id="dmTemplateName" class="compact-input" type="text" placeholder="Intro DM" />
+                  </label>
+                </div>
+
+                <label class="field">
+                  <span>Message</span>
+                  <textarea
+                    id="dmTemplateBody"
+                    class="text-input template-body-input"
+                    placeholder="Write your direct message using placeholders like {{firstName}} and {{company}}."
+                    spellcheck="false"
+                  ></textarea>
+                </label>
+              </section>
+
+              <section class="panel-card template-variable-panel mobile-section" id="dm-variables" data-mobile-panel>
+                <div class="section-heading">
+                  <h3>Variables</h3>
+                </div>
+                <div class="variable-summary" id="dmTemplateVariableSummary"></div>
+                <div class="variable-grid" id="dmVariableGrid"></div>
+              </section>
+
+              <section class="panel-card template-preview-panel mobile-section" id="dm-preview" data-mobile-panel>
+                <div class="preview-sticky">
+                  <div class="section-heading sticky-heading">
+                    <h3>Preview</h3>
+                    <div class="button-row">
+                      <button class="ghost-button" type="button" id="copyRawDmTemplateButton">
+                        <i class="ri-braces-line" aria-hidden="true"></i>
+                        <span>Copy Raw</span>
+                      </button>
+                      <button class="ghost-button" type="button" id="copyRenderedDmTemplateButton">
+                        <i class="ri-file-copy-line" aria-hidden="true"></i>
+                        <span>Copy Rendered</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="preview-card">
+                    <div class="preview-block">
+                      <p class="preview-label">Message</p>
+                      <pre class="preview-output" id="dmTemplatePreview"></pre>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </section>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="transformCardTemplate">
+      <article class="transform-card">
+        <div class="card-header">
+          <div>
+            <p class="card-label"></p>
+            <h3 class="card-title"></h3>
+          </div>
+          <button class="copy-button" type="button">
+            <i class="ri-file-copy-line" aria-hidden="true"></i>
+            <span>Copy</span>
+          </button>
+        </div>
+        <pre class="card-output"></pre>
+      </article>
+    </template>
+
+    <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

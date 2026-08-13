@@ -1,0 +1,14 @@
+[
+  {
+    "id": "welcome-email",
+    "name": "Welcome Email",
+    "subject": "Welcome to {{company}}, {{firstName}}",
+    "body": "Hi {{firstName}},\n\nWelcome to {{company}}. Your account is now active.\n\nIf you need help, reply to this email and our team will assist you.\n\nThanks,\n{{senderName}}"
+  },
+  {
+    "id": "follow-up-email",
+    "name": "Follow-up Email",
+    "subject": "Following up on {{topic}}",
+    "body": "Hi {{firstName}},\n\nJust checking in regarding {{topic}}.\n\nLet me know if you would like me to share more details.\n\nBest,\n{{senderName}}"
+  }
+]
