@@ -39,10 +39,26 @@ body::before {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background-image: linear-gradient(rgba(255, 255, 255, 0.24) 1px, transparent 1px),
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.24) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.24) 1px, transparent 1px);
   background-size: 32px 32px;
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.8), transparent 92%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 .page-shell {
@@ -120,15 +136,18 @@ body::before {
 .menu-item,
 .copy-button,
 .ghost-button,
-.sidebar-toggle {
+.sidebar-toggle,
+.template-list-item {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   border: 0;
-  font: inherit;
   cursor: pointer;
-  transition: transform 150ms ease, background-color 150ms ease, color 150ms ease,
+  transition:
+    transform 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease,
     box-shadow 150ms ease;
 }
 
@@ -157,12 +176,8 @@ body::before {
 }
 
 .view-panel {
-  display: none;
-  gap: 22px;
-}
-
-.view-panel.is-active {
   display: grid;
+  gap: 22px;
 }
 
 .topbar {
@@ -240,17 +255,13 @@ body::before {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
-#templateSearch,
-#dmTemplateSearch {
-  margin: 0;
-}
-
 .text-input:focus-visible,
 .compact-input:focus-visible,
 .copy-button:focus-visible,
 .ghost-button:focus-visible,
 .menu-item:focus-visible,
-.sidebar-toggle:focus-visible {
+.sidebar-toggle:focus-visible,
+.template-list-item:focus-visible {
   outline: 3px solid rgba(201, 111, 59, 0.32);
   outline-offset: 2px;
 }
@@ -274,14 +285,6 @@ body::before {
 .template-variable-panel,
 .template-work-panel {
   min-width: 0;
-}
-
-.template-list-panel {
-  align-self: stretch;
-}
-
-.template-list-panel .section-heading {
-  margin-bottom: 14px;
 }
 
 .template-work-panel {
@@ -330,11 +333,13 @@ body::before {
   background: rgba(255, 253, 249, 0.92);
   color: var(--text);
   text-align: left;
-  cursor: pointer;
-  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
 }
 
-.template-list-item:hover {
+.template-list-item:hover,
+.copy-button:hover,
+.ghost-button:hover,
+.menu-item:hover,
+.sidebar-toggle:hover {
   transform: translateY(-1px);
 }
 
@@ -397,14 +402,6 @@ body::before {
   background: transparent;
 }
 
-.subpanel {
-  margin-top: 8px;
-  padding: 18px;
-  border-radius: var(--radius-lg);
-  background: rgba(255, 253, 249, 0.84);
-  border: 1px solid rgba(84, 61, 39, 0.1);
-}
-
 .variable-chip,
 .empty-state,
 .variable-pill {
@@ -419,7 +416,8 @@ body::before {
   gap: 8px;
 }
 
-.variable-chip code {
+.variable-chip code,
+.variable-pill {
   font: 0.88rem/1.4 var(--font-mono);
   color: var(--accent-deep);
 }
@@ -431,26 +429,13 @@ body::before {
   margin-bottom: 14px;
 }
 
-.variable-grid {
-  align-content: start;
-}
-
 .variable-pill {
   padding: 10px 12px;
-  font: 0.85rem/1.2 var(--font-mono);
-  color: var(--accent-deep);
 }
 
 .preview-card {
   display: grid;
   gap: 16px;
-}
-
-.template-preview-panel,
-.template-variable-panel,
-.template-editor-panel,
-.template-list-panel {
-  height: 100%;
 }
 
 .preview-block {
@@ -486,24 +471,6 @@ body::before {
   white-space: pre-wrap;
   word-break: break-word;
   font: 0.95rem/1.65 var(--font-mono);
-}
-
-.mobile-tabs {
-  display: none;
-}
-
-.mobile-tab {
-  border: 0;
-  border-radius: 999px;
-  padding: 10px 14px;
-  background: rgba(255, 250, 245, 0.85);
-  color: var(--text);
-  font: inherit;
-}
-
-.mobile-tab.is-active {
-  background: linear-gradient(135deg, var(--accent), #e49461);
-  color: #fffaf5;
 }
 
 .transform-card {
@@ -558,11 +525,12 @@ body::before {
   flex: 0 0 auto;
 }
 
-.copy-button i,
-.ghost-button i,
-.sidebar-toggle i,
-.menu-item i {
-  font-size: 1rem;
+.copy-button svg,
+.ghost-button svg,
+.sidebar-toggle svg,
+.menu-item svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .copy-button {
@@ -570,27 +538,14 @@ body::before {
   background: var(--accent-deep);
 }
 
-.copy-button:hover,
-.ghost-button:hover,
-.menu-item:hover,
-.sidebar-toggle:hover {
-  transform: translateY(-1px);
-}
-
-.ghost-button {
+.ghost-button,
+.sidebar-toggle {
   color: var(--text);
   background: rgba(255, 250, 245, 0.85);
   box-shadow: inset 0 0 0 1px rgba(84, 61, 39, 0.1);
 }
 
-.sidebar-toggle {
-  color: var(--text);
-  background: rgba(255, 250, 245, 0.92);
-  box-shadow: inset 0 0 0 1px rgba(84, 61, 39, 0.1);
-}
-
 .sidebar.is-collapsed {
-  grid-column: 1;
   width: 86px;
   min-height: auto;
   padding: 16px 12px;
@@ -598,17 +553,14 @@ body::before {
 
 .sidebar.is-collapsed .brand-block,
 .sidebar.is-collapsed .menu-label,
-.sidebar.is-collapsed .sidebar-toggle .button-text {
+.sidebar.is-collapsed .sidebar-toggle .button-text,
+.sidebar.is-collapsed .menu-item .button-text {
   display: none;
 }
 
 .sidebar.is-collapsed .menu-item {
   justify-content: center;
   padding: 14px 12px;
-}
-
-.sidebar.is-collapsed .menu-item .button-text {
-  display: none;
 }
 
 .sidebar.is-collapsed .sidebar-top {
@@ -717,39 +669,11 @@ body::before {
     grid-template-columns: 1fr;
   }
 
-  .mobile-tabs {
-    display: flex;
-    grid-area: tabs;
-    gap: 10px;
-    padding: 18px 18px 0;
-  }
-
-  .mobile-section {
-    display: none;
-  }
-
-  .mobile-section.is-active {
-    display: block;
-  }
-
   .template-work-panel {
     grid-template-areas:
-      "tabs"
       "editor"
       "variables"
       "preview";
-    padding: 0;
-  }
-
-  .template-variable-panel,
-  .template-preview-panel {
-    grid-area: auto;
-    margin-bottom: 0;
-  }
-
-  .preview-sticky,
-  .sticky-heading {
-    position: static;
   }
 
   .template-list {
@@ -767,22 +691,14 @@ body::before {
     min-height: 220px;
   }
 
-  .preview-block {
-    min-height: 0;
-  }
-
   .preview-output {
     max-height: 280px;
   }
 
-  .section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
+  .section-heading,
   .preview-block-header {
-    flex-direction: column;
     align-items: flex-start;
+    flex-direction: column;
   }
 
   .text-input {

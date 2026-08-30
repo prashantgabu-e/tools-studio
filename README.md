@@ -14,33 +14,59 @@ GitHub Pages: https://prashantgabu-e.github.io/tools-studio/
 - Prompt template workspace with categories, sample input, sample output, and copy-ready previews
 - Gen AI prompt template workspace for storing reusable prompt patterns
 - Import, export, and sync flows for the bundled JSON template files
-- Mobile-friendly single-page interface
+- Route-based navigation with `HashRouter` for GitHub Pages compatibility
+- Mobile-friendly interface
 
 ## Tech Stack
 
-- HTML
-- CSS
-- Vanilla JavaScript
+- Vite
+- React
+- TypeScript
+- React Router with `HashRouter`
+- Custom CSS
+- Lucide React
 - JSON data files for bundled templates
 
 ## Project Structure
 
 ```text
 .
-|-- index.html
-|-- styles.css
-|-- script.js
+|-- docs/
+|-- src/
+|   |-- App.tsx
+|   |-- components.tsx
+|   |-- hooks.ts
+|   |-- main.tsx
+|   |-- styles.css
+|   |-- types.ts
+|   `-- utils.ts
 |-- email-templates.json
 |-- dm-templates.json
 |-- prompt-templates.json
 |-- gen-ai-prompt-templates.json
+|-- index.html
+|-- package.json
+|-- tsconfig.app.json
+|-- tsconfig.json
+|-- vite.config.ts
 `-- deploy.ps1
 ```
 
 ## Local Development
 
-Because this is a static site, you can open `index.html` directly in a browser or serve the folder with any simple local web server.
+```bash
+npm install
+npm run dev
+```
+
+## Build and Deployment
+
+```bash
+npm run build
+```
+
+The app builds to `docs/`, which is intended for GitHub Pages deployment from `master` + `/docs`.
 
 ## Data Behavior
 
-Template edits are stored in the browser with `localStorage`. The JSON files in this repo act as bundled starter content that can also be synced or imported from within the UI.
+Template edits are stored in the browser with `localStorage`. The JSON files in this repo remain the bundled starter content and can be restored through the in-app sync flow or replaced through JSON import.
