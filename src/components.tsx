@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Braces,
@@ -8,6 +8,7 @@ import {
   FileInput,
   FileText,
   Inbox,
+  Download as DownloadIcon,
   Mail,
   Menu,
   MessageCircleMore,
@@ -28,6 +29,14 @@ type NavItem = {
   to: string;
   icon: ReactNode;
 };
+
+const navigationItems: NavItem[] = [
+  { label: "Text", to: "/", icon: <Type aria-hidden="true" /> },
+  { label: "Emails", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
+  { label: "Messages", to: "/dm-templates", icon: <MessageCircleMore aria-hidden="true" /> },
+  { label: "Prompts", to: "/prompt-templates", icon: <WandSparkles aria-hidden="true" /> },
+  { label: "AI", to: "/gen-ai-prompts", icon: <Sparkles aria-hidden="true" /> },
+];
 
 type BasicManagerShape = {
   createNewTemplate: () => void;
@@ -79,26 +88,6 @@ export function Sidebar(props: {
   collapsed: boolean;
   onToggle: () => void;
 }) {
-  const items: NavItem[] = [
-    { label: "Text Tools", to: "/", icon: <Type aria-hidden="true" /> },
-    { label: "Email Templates", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
-    {
-      label: "DM Templates",
-      to: "/dm-templates",
-      icon: <MessageCircleMore aria-hidden="true" />,
-    },
-    {
-      label: "Prompt Templates",
-      to: "/prompt-templates",
-      icon: <WandSparkles aria-hidden="true" />,
-    },
-    {
-      label: "Gen AI Prompt Templates",
-      to: "/gen-ai-prompts",
-      icon: <Sparkles aria-hidden="true" />,
-    },
-  ];
-
   return (
     <aside className={`sidebar${props.collapsed ? " is-collapsed" : ""}`}>
       <div className="sidebar-top">
@@ -119,7 +108,7 @@ export function Sidebar(props: {
 
       <nav className="menu-panel" aria-label="Main menu">
         <p className="menu-label">Menus</p>
-        {items.map((item) => (
+        {navigationItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
@@ -135,18 +124,62 @@ export function Sidebar(props: {
   );
 }
 
+export function BottomNavigation() {
+  return (
+    <nav className="bottom-navigation" aria-label="Mobile navigation">
+      {navigationItems.map((item) => (
+        <NavLink
+          key={item.to}
+          to={item.to}
+          end={item.to === "/"}
+          className={({ isActive }) => `bottom-nav-item${isActive ? " is-active" : ""}`}
+        >
+          {item.icon}
+          <span>{item.label}</span>
+        </NavLink>
+      ))}
+    </nav>
+  );
+}
+
 export function Topbar(props: {
   label: string;
   meta: string;
   title: string;
 }) {
+  const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (event: Event) => {
+      event.preventDefault();
+      setInstallPrompt(event);
+    };
+    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
+    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
+  }, []);
+
+  async function installApp() {
+    if (!installPrompt) return;
+    const promptEvent = installPrompt as Event & { prompt: () => Promise<void> };
+    await promptEvent.prompt();
+    setInstallPrompt(null);
+  }
+
   return (
     <header className="topbar">
       <div>
         <p className="section-kicker">{props.label}</p>
         <h2>{props.title}</h2>
       </div>
-      <p className="meta-stat">{props.meta}</p>
+      <div className="topbar-actions">
+        <p className="meta-stat">{props.meta}</p>
+        {installPrompt ? (
+          <button className="install-button" type="button" onClick={installApp}>
+            <DownloadIcon aria-hidden="true" />
+            <span>Install</span>
+          </button>
+        ) : null}
+      </div>
     </header>
   );
 }

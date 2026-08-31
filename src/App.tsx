@@ -6,6 +6,7 @@ import genAiPromptTemplatesJson from "../gen-ai-prompt-templates.json";
 import promptTemplatesJson from "../prompt-templates.json";
 import {
   BasicTemplateView,
+  BottomNavigation,
   PromptTemplateView,
   Sidebar,
   TextToolsView,
@@ -214,6 +215,7 @@ export function App() {
       </main>
 
       <ToastStack items={toasts} />
+      <BottomNavigation />
     </div>
   );
 }
