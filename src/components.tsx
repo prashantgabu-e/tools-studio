@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from "react";
+import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Braces,
@@ -8,7 +8,6 @@ import {
   FileInput,
   FileText,
   Inbox,
-  Download as DownloadIcon,
   Mail,
   Menu,
   MessageCircleMore,
@@ -147,24 +146,6 @@ export function Topbar(props: {
   meta: string;
   title: string;
 }) {
-  const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
-
-  useEffect(() => {
-    const handleBeforeInstall = (event: Event) => {
-      event.preventDefault();
-      setInstallPrompt(event);
-    };
-    window.addEventListener("beforeinstallprompt", handleBeforeInstall);
-    return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstall);
-  }, []);
-
-  async function installApp() {
-    if (!installPrompt) return;
-    const promptEvent = installPrompt as Event & { prompt: () => Promise<void> };
-    await promptEvent.prompt();
-    setInstallPrompt(null);
-  }
-
   return (
     <header className="topbar">
       <div>
@@ -173,12 +154,6 @@ export function Topbar(props: {
       </div>
       <div className="topbar-actions">
         <p className="meta-stat">{props.meta}</p>
-        {installPrompt ? (
-          <button className="install-button" type="button" onClick={installApp}>
-            <DownloadIcon aria-hidden="true" />
-            <span>Install</span>
-          </button>
-        ) : null}
       </div>
     </header>
   );
