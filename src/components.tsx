@@ -120,6 +120,8 @@ type PromptBuilderManagerShape = {
   setComposerText: React.Dispatch<React.SetStateAction<string>>;
   setDraft: React.Dispatch<React.SetStateAction<PromptIngredient>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  setShowFavoritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
+  showFavoritesOnly: boolean;
   toggleFavorite: (item: PromptIngredient) => Promise<void>;
   totalItems: number;
 };
@@ -1142,6 +1144,15 @@ export function PromptBuilderView(props: {
         <div className="section-heading">
           <h3>{activeCategory?.label ?? "Items"}</h3>
           <div className="template-toolbar is-tight">
+            <button
+              className={`ghost-button icon-only-button${props.manager.showFavoritesOnly ? " is-active" : ""}`}
+              type="button"
+              aria-label="Show starred only"
+              title="Show starred only"
+              onClick={() => props.manager.setShowFavoritesOnly((current) => !current)}
+            >
+              <Star aria-hidden="true" />
+            </button>
             <ToolbarActionButton
               onClick={() => handleImportClick("merge")}
               icon={<FileInput aria-hidden="true" />}

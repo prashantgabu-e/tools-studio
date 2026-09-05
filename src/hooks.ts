@@ -58,6 +58,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
   const [draft, setDraft] = useState<PromptIngredient>(() => createPromptIngredient());
   const [searchQuery, setSearchQuery] = useState("");
   const [composerText, setComposerText] = useState("");
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const selectedCategoryRef = useRef(selectedCategory);
@@ -125,7 +126,9 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
 
   const filteredItems = useMemo(() => {
     const queryText = searchQuery.trim().toLowerCase();
-    const items = library[selectedCategory] ?? [];
+    const items = showFavoritesOnly
+      ? (library[selectedCategory] ?? []).filter((item) => item.favorite)
+      : library[selectedCategory] ?? [];
     if (!queryText) {
       return items;
     }
@@ -135,7 +138,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
         .toLowerCase()
         .includes(queryText),
     );
-  }, [library, searchQuery, selectedCategory]);
+  }, [library, searchQuery, selectedCategory, showFavoritesOnly]);
 
   function selectCategory(category: PromptBuilderCategory) {
     const nextItem = library[category][0] ?? createPromptIngredient();
@@ -249,6 +252,8 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     setComposerText,
     setDraft,
     setSearchQuery,
+    setShowFavoritesOnly,
+    showFavoritesOnly,
     toggleFavorite,
     totalItems,
   };
