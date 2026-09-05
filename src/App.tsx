@@ -3,17 +3,26 @@ import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import dmTemplatesJson from "../dm-templates.json";
 import emailTemplatesJson from "../email-templates.json";
 import genAiPromptTemplatesJson from "../gen-ai-prompt-templates.json";
+import promptBuilderLibraryJson from "../prompt-builder-library.json";
 import promptTemplatesJson from "../prompt-templates.json";
 import {
+  AuthPanel,
   BasicTemplateView,
   BottomNavigation,
+  PromptBuilderView,
   PromptTemplateView,
   Sidebar,
   TextToolsView,
   ToastStack,
   Topbar,
 } from "./components";
-import { useBasicTemplateManager, usePromptTemplateManager, useToasts } from "./hooks";
+import { useFirebaseAuth } from "./firebase";
+import {
+  useBasicTemplateManager,
+  usePromptBuilderManager,
+  usePromptTemplateManager,
+  useToasts,
+} from "./hooks";
 import type { RouteView } from "./types";
 import { countCharacters, countWords } from "./utils";
 
@@ -25,30 +34,36 @@ type RouteMeta = {
 };
 
 const routeMeta: RouteMeta[] = [
-  { id: "text-tools", label: "Text Tools", title: "Transform text", path: "/" },
+  { id: "text-tools", label: "Text", title: "Transform", path: "/" },
   {
     id: "template-tools",
-    label: "Email Templates",
-    title: "Manage email templates",
+    label: "Emails",
+    title: "Email templates",
     path: "/email-templates",
   },
   {
     id: "dm-template-tools",
-    label: "DM Templates",
-    title: "Manage direct message templates",
+    label: "DMs",
+    title: "DM templates",
     path: "/dm-templates",
   },
   {
     id: "prompt-template-tools",
-    label: "Prompt Templates",
-    title: "Manage prompt templates",
+    label: "Prompts",
+    title: "Prompt templates",
     path: "/prompt-templates",
   },
   {
     id: "gen-ai-prompt-template-tools",
-    label: "Gen AI Prompt Templates",
-    title: "Manage Gen AI prompt templates",
+    label: "Gen AI",
+    title: "AI prompts",
     path: "/gen-ai-prompts",
+  },
+  {
+    id: "prompt-builder-tools",
+    label: "Builder",
+    title: "Prompt kit",
+    path: "/prompt-builder",
   },
 ];
 
@@ -57,28 +72,38 @@ export function App() {
   const [sourceText, setSourceText] = useState("");
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const { pushToast, toasts } = useToasts();
+  const authState = useFirebaseAuth();
+  const userId = authState.user?.uid ?? null;
 
   const emailManager = useBasicTemplateManager({
     blankName: "Untitled Email Template",
+    collectionName: "emailTemplates",
     hasSubject: true,
     initialItems: emailTemplatesJson,
-    storageKey: "text-studio-email-templates-v1",
+    userId,
   });
   const dmManager = useBasicTemplateManager({
     blankName: "Untitled DM Template",
+    collectionName: "dmTemplates",
     hasSubject: false,
     initialItems: dmTemplatesJson,
-    storageKey: "text-studio-dm-templates-v1",
+    userId,
   });
   const promptManager = usePromptTemplateManager({
     blankTitle: "Untitled Prompt Template",
+    collectionName: "promptTemplates",
     initialItems: promptTemplatesJson,
-    storageKey: "text-studio-prompt-templates-v1",
+    userId,
   });
   const genAiPromptManager = usePromptTemplateManager({
     blankTitle: "Untitled Gen AI Prompt Template",
+    collectionName: "genAiPromptTemplates",
     initialItems: genAiPromptTemplatesJson,
-    storageKey: "text-studio-gen-ai-prompt-templates-v1",
+    userId,
+  });
+  const promptBuilderManager = usePromptBuilderManager({
+    initialLibrary: promptBuilderLibraryJson,
+    userId,
   });
 
   useEffect(() => {
@@ -115,12 +140,16 @@ export function App() {
     if (activeRoute.id === "prompt-template-tools") {
       return `${promptManager.templates.length} prompt templates stored`;
     }
-    return `${genAiPromptManager.templates.length} gen ai prompt templates stored`;
+    if (activeRoute.id === "gen-ai-prompt-template-tools") {
+      return `${genAiPromptManager.templates.length} gen ai prompt templates stored`;
+    }
+    return `${promptBuilderManager.totalItems} builder items`;
   }, [
     activeRoute.id,
     dmManager.templates.length,
     emailManager.templates.length,
     genAiPromptManager.templates.length,
+    promptBuilderManager.totalItems,
     promptManager.templates.length,
     sourceText,
   ]);
@@ -137,7 +166,16 @@ export function App() {
       <Sidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
 
       <main className="workspace">
-        <Topbar label={activeRoute.label} title={activeRoute.title} meta={topbarMeta} />
+        <Topbar label={activeRoute.label} title={activeRoute.title} meta={topbarMeta}>
+          <AuthPanel
+            authError={authState.authError}
+            email={authState.user?.email}
+            isConfigured={authState.isFirebaseConfigured}
+            isLoading={authState.isAuthLoading}
+            onSignIn={authState.signIn}
+            onSignOut={authState.signOut}
+          />
+        </Topbar>
 
         <Routes>
           <Route
@@ -208,6 +246,12 @@ export function App() {
                 onToast={pushToast}
                 sectionLabel="Gen AI Prompt Templates"
               />
+            }
+          />
+          <Route
+            path="/prompt-builder"
+            element={
+              <PromptBuilderView manager={promptBuilderManager} onToast={pushToast} />
             }
           />
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -16,11 +16,21 @@ import {
   RefreshCcw,
   Save,
   Sparkles,
+  Star,
   Trash2,
   Type,
   WandSparkles,
 } from "lucide-react";
-import type { BasicTemplate, PromptTemplate, ToastItem, ToastTone } from "./types";
+import type {
+  BasicTemplate,
+  PromptBuilderCategory,
+  PromptBuilderLibrary,
+  PromptBuilderUseFor,
+  PromptIngredient,
+  PromptTemplate,
+  ToastItem,
+  ToastTone,
+} from "./types";
 import { downloadJson, extractVariableNames, placeholderText, transforms } from "./utils";
 
 type NavItem = {
@@ -30,22 +40,25 @@ type NavItem = {
 };
 
 const navigationItems: NavItem[] = [
-  { label: "Text", to: "/", icon: <Type aria-hidden="true" /> },
-  { label: "Emails", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
-  { label: "Messages", to: "/dm-templates", icon: <MessageCircleMore aria-hidden="true" /> },
-  { label: "Prompts", to: "/prompt-templates", icon: <WandSparkles aria-hidden="true" /> },
+  { label: "Builder", to: "/prompt-builder", icon: <Braces aria-hidden="true" /> },
   { label: "AI", to: "/gen-ai-prompts", icon: <Sparkles aria-hidden="true" /> },
+  { label: "Prompts", to: "/prompt-templates", icon: <WandSparkles aria-hidden="true" /> },
+  { label: "Messages", to: "/dm-templates", icon: <MessageCircleMore aria-hidden="true" /> },
+  { label: "Emails", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
+  { label: "Text", to: "/", icon: <Type aria-hidden="true" /> },
 ];
 
 type BasicManagerShape = {
   createNewTemplate: () => void;
-  deleteTemplate: () => BasicTemplate | null;
+  deleteTemplate: () => Promise<BasicTemplate | null>;
   draft: BasicTemplate;
+  error: string | null;
   filteredTemplates: BasicTemplate[];
-  importTemplates: (items: unknown[]) => void;
+  importTemplates: (items: unknown[]) => Promise<void>;
+  isLoading: boolean;
   renderedBody: string;
   renderedSubject: string;
-  saveTemplate: () => void;
+  saveTemplate: () => Promise<void>;
   searchQuery: string;
   selectedId: string | null;
   setDraft: React.Dispatch<React.SetStateAction<BasicTemplate>>;
@@ -53,7 +66,7 @@ type BasicManagerShape = {
   setVariableValues: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >;
-  syncFromSource: () => void;
+  syncFromSource: () => Promise<void>;
   templates: BasicTemplate[];
   variableValues: Record<string, string>;
   variables: string[];
@@ -62,13 +75,15 @@ type BasicManagerShape = {
 
 type PromptManagerShape = {
   createNewTemplate: () => void;
-  deleteTemplate: () => PromptTemplate | null;
+  deleteTemplate: () => Promise<PromptTemplate | null>;
   draft: PromptTemplate;
+  error: string | null;
   filteredTemplates: PromptTemplate[];
-  importTemplates: (items: unknown[]) => void;
+  importTemplates: (items: unknown[]) => Promise<void>;
+  isLoading: boolean;
   renderedPrompt: string;
   renderedSampleInput: string;
-  saveTemplate: () => void;
+  saveTemplate: () => Promise<void>;
   searchQuery: string;
   selectedId: string | null;
   setDraft: React.Dispatch<React.SetStateAction<PromptTemplate>>;
@@ -76,11 +91,41 @@ type PromptManagerShape = {
   setVariableValues: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >;
-  syncFromSource: () => void;
+  syncFromSource: () => Promise<void>;
   templates: PromptTemplate[];
   variableValues: Record<string, string>;
   variables: string[];
   selectTemplate: (id: string | null) => void;
+};
+
+type PromptBuilderManagerShape = {
+  appendToComposer: (text?: string) => void;
+  categories: Array<{
+    id: PromptBuilderCategory;
+    label: string;
+    shortLabel: string;
+  }>;
+  composerText: string;
+  createNewIngredient: () => void;
+  deleteIngredient: () => Promise<PromptIngredient | null>;
+  draft: PromptIngredient;
+  error: string | null;
+  filteredItems: PromptIngredient[];
+  importLibrary: (items: unknown, mode: "merge" | "replace") => Promise<void>;
+  isLoading: boolean;
+  library: PromptBuilderLibrary;
+  saveIngredient: () => Promise<void>;
+  searchQuery: string;
+  selectedCategory: PromptBuilderCategory;
+  selectedId: string | null;
+  selectCategory: (category: PromptBuilderCategory) => void;
+  selectIngredient: (id: string | null) => void;
+  setComposerText: React.Dispatch<React.SetStateAction<string>>;
+  setDraft: React.Dispatch<React.SetStateAction<PromptIngredient>>;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+  syncFromSource: () => Promise<void>;
+  toggleFavorite: (item: PromptIngredient) => Promise<void>;
+  totalItems: number;
 };
 
 export function Sidebar(props: {
@@ -142,6 +187,7 @@ export function BottomNavigation() {
 }
 
 export function Topbar(props: {
+  children?: ReactNode;
   label: string;
   meta: string;
   title: string;
@@ -154,8 +200,54 @@ export function Topbar(props: {
       </div>
       <div className="topbar-actions">
         <p className="meta-stat">{props.meta}</p>
+        {props.children}
       </div>
     </header>
+  );
+}
+
+export function AuthPanel(props: {
+  authError: string | null;
+  email?: string | null;
+  isConfigured: boolean;
+  isLoading: boolean;
+  onSignIn: () => Promise<void>;
+  onSignOut: () => Promise<void>;
+}) {
+  if (!props.isConfigured) {
+    return (
+      <div className="auth-panel is-warning">
+        <span>Firebase env missing</span>
+      </div>
+    );
+  }
+
+  if (props.isLoading) {
+    return (
+      <div className="auth-panel">
+        <span>Checking account...</span>
+      </div>
+    );
+  }
+
+  if (props.email) {
+    return (
+      <div className="auth-panel">
+        <span>{props.email}</span>
+        <button className="auth-link" type="button" onClick={props.onSignOut}>
+          Sign out
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="auth-panel">
+      <span>{props.authError ?? "Sign in to sync"}</span>
+      <button className="auth-link" type="button" onClick={props.onSignIn}>
+        Google
+      </button>
+    </div>
   );
 }
 
@@ -286,7 +378,7 @@ export function BasicTemplateView(props: {
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!props.manager.selectedId) {
       return;
     }
@@ -297,26 +389,38 @@ export function BasicTemplateView(props: {
     if (!confirmed) {
       return;
     }
-    const deleted = props.manager.deleteTemplate();
-    if (deleted) {
-      props.onToast(`${deleted.name} deleted`, "warning");
+    try {
+      const deleted = await props.manager.deleteTemplate();
+      if (deleted) {
+        props.onToast(`${deleted.name} deleted`, "warning");
+      }
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Delete failed", "warning");
     }
   }
 
-  function handleSave() {
-    props.manager.saveTemplate();
-    props.onToast(`${props.manager.draft.name || props.blankName} saved`, "success");
+  async function handleSave() {
+    try {
+      await props.manager.saveTemplate();
+      props.onToast(`${props.manager.draft.name || props.blankName} saved`, "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Save failed", "warning");
+    }
   }
 
-  function handleSync() {
+  async function handleSync() {
     const confirmed = window.confirm(
       `Sync ${props.sectionLabel.toLowerCase()} from ${props.importFileName}? This will replace the current local templates for this section.`,
     );
     if (!confirmed) {
       return;
     }
-    props.manager.syncFromSource();
-    props.onToast(`${props.sectionLabel} synced from JSON`, "success");
+    try {
+      await props.manager.syncFromSource();
+      props.onToast(`${props.sectionLabel} synced to Firestore`, "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Sync failed", "warning");
+    }
   }
 
   function handleExport() {
@@ -333,8 +437,12 @@ export function BasicTemplateView(props: {
     reader.onload = () => {
       try {
         const parsed = JSON.parse(String(reader.result)) as unknown[];
-        props.manager.importTemplates(Array.isArray(parsed) ? parsed : []);
-        props.onToast(`${props.sectionLabel} imported`, "success");
+        void props.manager
+          .importTemplates(Array.isArray(parsed) ? parsed : [])
+          .then(() => props.onToast(`${props.sectionLabel} imported to Firestore`, "success"))
+          .catch((error: unknown) =>
+            props.onToast(error instanceof Error ? error.message : "Import failed", "warning"),
+          );
       } catch {
         props.onToast("Invalid JSON", "warning");
       }
@@ -382,7 +490,11 @@ export function BasicTemplateView(props: {
           />
 
           <div className="template-list">
-            {props.manager.filteredTemplates.length ? (
+            {props.manager.isLoading ? (
+              <div className="empty-state">Loading templates...</div>
+            ) : props.manager.error ? (
+              <div className="empty-state is-error">{props.manager.error}</div>
+            ) : props.manager.filteredTemplates.length ? (
               props.manager.filteredTemplates.map((item) => (
                 <button
                   key={item.id}
@@ -592,7 +704,7 @@ export function PromptTemplateView(props: {
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  function handleDelete() {
+  async function handleDelete() {
     if (!props.manager.selectedId) {
       return;
     }
@@ -603,26 +715,38 @@ export function PromptTemplateView(props: {
     if (!confirmed) {
       return;
     }
-    const deleted = props.manager.deleteTemplate();
-    if (deleted) {
-      props.onToast(`${deleted.title} deleted`, "warning");
+    try {
+      const deleted = await props.manager.deleteTemplate();
+      if (deleted) {
+        props.onToast(`${deleted.title} deleted`, "warning");
+      }
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Delete failed", "warning");
     }
   }
 
-  function handleSave() {
-    props.manager.saveTemplate();
-    props.onToast(`${props.manager.draft.title || props.blankTitle} saved`, "success");
+  async function handleSave() {
+    try {
+      await props.manager.saveTemplate();
+      props.onToast(`${props.manager.draft.title || props.blankTitle} saved`, "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Save failed", "warning");
+    }
   }
 
-  function handleSync() {
+  async function handleSync() {
     const confirmed = window.confirm(
       `Sync ${props.sectionLabel.toLowerCase()} from ${props.importFileName}? This will replace the current local templates for this section.`,
     );
     if (!confirmed) {
       return;
     }
-    props.manager.syncFromSource();
-    props.onToast(`${props.sectionLabel} synced from JSON`, "success");
+    try {
+      await props.manager.syncFromSource();
+      props.onToast(`${props.sectionLabel} synced to Firestore`, "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Sync failed", "warning");
+    }
   }
 
   function handleExport() {
@@ -639,8 +763,12 @@ export function PromptTemplateView(props: {
     reader.onload = () => {
       try {
         const parsed = JSON.parse(String(reader.result)) as unknown[];
-        props.manager.importTemplates(Array.isArray(parsed) ? parsed : []);
-        props.onToast(`${props.sectionLabel} imported`, "success");
+        void props.manager
+          .importTemplates(Array.isArray(parsed) ? parsed : [])
+          .then(() => props.onToast(`${props.sectionLabel} imported to Firestore`, "success"))
+          .catch((error: unknown) =>
+            props.onToast(error instanceof Error ? error.message : "Import failed", "warning"),
+          );
       } catch {
         props.onToast("Invalid JSON", "warning");
       }
@@ -688,7 +816,11 @@ export function PromptTemplateView(props: {
           />
 
           <div className="template-list">
-            {props.manager.filteredTemplates.length ? (
+            {props.manager.isLoading ? (
+              <div className="empty-state">Loading prompts...</div>
+            ) : props.manager.error ? (
+              <div className="empty-state is-error">{props.manager.error}</div>
+            ) : props.manager.filteredTemplates.length ? (
               props.manager.filteredTemplates.map((item) => (
                 <button
                   key={item.id}
@@ -922,6 +1054,331 @@ export function PromptTemplateView(props: {
             </div>
           </section>
         </section>
+      </section>
+    </section>
+  );
+}
+
+export function PromptBuilderView(props: {
+  manager: PromptBuilderManagerShape;
+  onToast: (message: string, tone?: ToastTone) => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [importMode, setImportMode] = useState<"merge" | "replace">("merge");
+
+  const activeCategory = props.manager.categories.find(
+    (item) => item.id === props.manager.selectedCategory,
+  );
+
+  async function handleSave() {
+    try {
+      await props.manager.saveIngredient();
+      props.onToast(`${props.manager.draft.title || "Ingredient"} saved`, "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Save failed", "warning");
+    }
+  }
+
+  async function handleDelete() {
+    if (!props.manager.selectedId) {
+      return;
+    }
+    const confirmed = window.confirm(
+      `Delete "${props.manager.draft.title || "this ingredient"}"? This cannot be undone.`,
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const deleted = await props.manager.deleteIngredient();
+      if (deleted) {
+        props.onToast(`${deleted.title} deleted`, "warning");
+      }
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Delete failed", "warning");
+    }
+  }
+
+  async function handleSync() {
+    const confirmed = window.confirm(
+      "Replace your Firestore builder library with the bundled starter library?",
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await props.manager.syncFromSource();
+      props.onToast("Starter library synced", "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Sync failed", "warning");
+    }
+  }
+
+  function handleImportClick(mode: "merge" | "replace") {
+    setImportMode(mode);
+    fileInputRef.current?.click();
+  }
+
+  function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(String(reader.result));
+        void props.manager
+          .importLibrary(parsed, importMode)
+          .then(() =>
+            props.onToast(
+              importMode === "merge" ? "Library merged into Firestore" : "Library replaced",
+              "success",
+            ),
+          )
+          .catch((error: unknown) =>
+            props.onToast(error instanceof Error ? error.message : "Import failed", "warning"),
+          );
+      } catch {
+        props.onToast("Invalid JSON", "warning");
+      }
+      event.target.value = "";
+    };
+    reader.readAsText(file);
+  }
+
+  function handleTagsChange(value: string) {
+    props.manager.setDraft((current) => ({
+      ...current,
+      tags: value
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+    }));
+  }
+
+  function handleUseForChange(value: string) {
+    props.manager.setDraft((current) => ({
+      ...current,
+      useFor: value as PromptBuilderUseFor,
+    }));
+  }
+
+  return (
+    <section className="view-panel prompt-builder-view">
+      <section className="panel-card builder-categories-panel">
+        <div className="section-heading">
+          <h3>Kit</h3>
+          <button className="ghost-button" type="button" onClick={props.manager.createNewIngredient}>
+            <Plus aria-hidden="true" />
+            <span>New</span>
+          </button>
+        </div>
+        <div className="builder-category-grid">
+          {props.manager.categories.map((category) => (
+            <button
+              key={category.id}
+              className={`category-chip${
+                category.id === props.manager.selectedCategory ? " is-active" : ""
+              }`}
+              type="button"
+              onClick={() => props.manager.selectCategory(category.id)}
+            >
+              <span>{category.shortLabel}</span>
+              <strong>{props.manager.library[category.id].length}</strong>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="panel-card builder-list-panel">
+        <div className="section-heading">
+          <h3>{activeCategory?.label ?? "Items"}</h3>
+          <div className="template-toolbar is-tight">
+            <ToolbarActionButton
+              onClick={() => handleImportClick("merge")}
+              icon={<FileInput aria-hidden="true" />}
+              title="Merge import"
+            />
+            <ToolbarActionButton
+              onClick={() => handleImportClick("replace")}
+              icon={<Download aria-hidden="true" />}
+              title="Replace all"
+            />
+            <ToolbarActionButton
+              onClick={handleSync}
+              icon={<RefreshCcw aria-hidden="true" />}
+              title="Sync starter library"
+            />
+          </div>
+        </div>
+        <input
+          className="compact-input"
+          type="search"
+          placeholder="Search..."
+          value={props.manager.searchQuery}
+          onChange={(event) => props.manager.setSearchQuery(event.target.value)}
+        />
+
+        <div className="builder-item-list">
+          {props.manager.isLoading ? (
+            <div className="empty-state">Loading library...</div>
+          ) : props.manager.error ? (
+            <div className="empty-state is-error">{props.manager.error}</div>
+          ) : props.manager.filteredItems.length ? (
+            props.manager.filteredItems.map((item) => (
+              <article
+                key={item.id}
+                className={`builder-item${item.id === props.manager.selectedId ? " is-active" : ""}`}
+              >
+                <button
+                  className="builder-item-main"
+                  type="button"
+                  onClick={() => props.manager.selectIngredient(item.id)}
+                >
+                  <span>{item.title}</span>
+                  <small>
+                    {item.useFor} · {item.tags.join(", ") || "no tags"}
+                  </small>
+                </button>
+                <div className="builder-item-actions">
+                  <button
+                    className={`icon-action${item.favorite ? " is-active" : ""}`}
+                    type="button"
+                    title="Favorite"
+                    aria-label="Favorite"
+                    onClick={() =>
+                      void props.manager
+                        .toggleFavorite(item)
+                        .catch((error: unknown) =>
+                          props.onToast(
+                            error instanceof Error ? error.message : "Favorite failed",
+                            "warning",
+                          ),
+                        )
+                    }
+                  >
+                    <Star aria-hidden="true" />
+                  </button>
+                  <CopyButton className="icon-action" text={item.text} icon={<Copy aria-hidden="true" />} />
+                  <button
+                    className="icon-action"
+                    type="button"
+                    title="Add to composer"
+                    aria-label="Add to composer"
+                    onClick={() => props.manager.appendToComposer(item.text)}
+                  >
+                    <Plus aria-hidden="true" />
+                  </button>
+                </div>
+              </article>
+            ))
+          ) : (
+            <div className="empty-state">No items found.</div>
+          )}
+        </div>
+
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="application/json"
+          hidden
+          onChange={handleImportFile}
+        />
+      </section>
+
+      <section className="panel-card builder-editor-panel">
+        <div className="section-heading">
+          <h3>Edit</h3>
+          <div className="button-row">
+            <button className="ghost-button" type="button" onClick={handleDelete}>
+              <Trash2 aria-hidden="true" />
+              <span>Delete</span>
+            </button>
+            <button className="copy-button" type="button" onClick={handleSave}>
+              <Save aria-hidden="true" />
+              <span>Save</span>
+            </button>
+          </div>
+        </div>
+
+        <div className="builder-editor-grid">
+          <label className="field">
+            <span>Title</span>
+            <input
+              className="compact-input"
+              type="text"
+              value={props.manager.draft.title}
+              onChange={(event) =>
+                props.manager.setDraft((current) => ({ ...current, title: event.target.value }))
+              }
+            />
+          </label>
+          <label className="field">
+            <span>Use</span>
+            <select
+              className="compact-input"
+              value={props.manager.draft.useFor}
+              onChange={(event) => handleUseForChange(event.target.value)}
+            >
+              <option value="both">Both</option>
+              <option value="image">Image</option>
+              <option value="video">Video</option>
+            </select>
+          </label>
+        </div>
+
+        <label className="field">
+          <span>Tags</span>
+          <input
+            className="compact-input"
+            type="text"
+            value={props.manager.draft.tags.join(", ")}
+            onChange={(event) => handleTagsChange(event.target.value)}
+          />
+        </label>
+
+        <label className="field">
+          <span>Text</span>
+          <textarea
+            className="text-input builder-textarea"
+            spellCheck={false}
+            value={props.manager.draft.text}
+            onChange={(event) =>
+              props.manager.setDraft((current) => ({ ...current, text: event.target.value }))
+            }
+          />
+        </label>
+      </section>
+
+      <section className="panel-card builder-composer-panel">
+        <div className="section-heading">
+          <h3>Compose</h3>
+          <div className="button-row">
+            <button className="ghost-button" type="button" onClick={() => props.manager.setComposerText("")}>
+              <Eraser aria-hidden="true" />
+              <span>Clear</span>
+            </button>
+            <CopyButton className="copy-button" text={props.manager.composerText} />
+          </div>
+        </div>
+        <textarea
+          className="text-input builder-composer-input"
+          spellCheck={false}
+          value={props.manager.composerText}
+          onChange={(event) => props.manager.setComposerText(event.target.value)}
+        />
+        <button
+          className="ghost-button builder-add-current"
+          type="button"
+          onClick={() => props.manager.appendToComposer()}
+        >
+          <Plus aria-hidden="true" />
+          <span>Add current</span>
+        </button>
       </section>
     </section>
   );

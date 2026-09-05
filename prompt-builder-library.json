@@ -1,0 +1,190 @@
+{
+  "lighting": [
+    {
+      "id": "soft-window-light",
+      "title": "Soft window light",
+      "text": "soft diffused window light, gentle shadows, natural skin tones",
+      "tags": ["portrait", "soft", "natural"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "cinematic-rim-light",
+      "title": "Cinematic rim light",
+      "text": "dramatic rim light, strong edge highlights, controlled contrast",
+      "tags": ["cinematic", "dramatic", "contrast"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "poses": [
+    {
+      "id": "relaxed-three-quarter",
+      "title": "Relaxed three-quarter",
+      "text": "relaxed three-quarter pose, shoulders angled, natural expression",
+      "tags": ["portrait", "natural"],
+      "useFor": "image",
+      "favorite": false
+    }
+  ],
+  "shots": [
+    {
+      "id": "low-angle-hero",
+      "title": "Low angle hero",
+      "text": "low angle hero shot, dramatic scale, subject appears powerful",
+      "tags": ["hero", "cinematic", "dramatic"],
+      "useFor": "both",
+      "favorite": true
+    }
+  ],
+  "compositions": [
+    {
+      "id": "rule-of-thirds",
+      "title": "Rule of thirds",
+      "text": "rule of thirds composition, balanced negative space, clear focal point",
+      "tags": ["balanced", "classic"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "cameras": [
+    {
+      "id": "cinema-camera",
+      "title": "Cinema camera",
+      "text": "shot on high-end cinema camera, rich dynamic range, clean color science",
+      "tags": ["cinematic", "camera"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "lenses": [
+    {
+      "id": "85mm-portrait",
+      "title": "85mm portrait",
+      "text": "85mm lens, shallow depth of field, creamy background separation",
+      "tags": ["portrait", "bokeh"],
+      "useFor": "both",
+      "favorite": true
+    }
+  ],
+  "styles": [
+    {
+      "id": "editorial-fashion",
+      "title": "Editorial fashion",
+      "text": "editorial fashion photography, refined styling, premium magazine finish",
+      "tags": ["fashion", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "moods": [
+    {
+      "id": "quiet-confidence",
+      "title": "Quiet confidence",
+      "text": "quiet confident mood, composed expression, restrained elegance",
+      "tags": ["calm", "premium"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "colors": [
+    {
+      "id": "teal-gold",
+      "title": "Teal and gold",
+      "text": "muted teal and warm gold color palette, tasteful contrast",
+      "tags": ["teal", "gold", "cinematic"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "environments": [
+    {
+      "id": "minimal-studio",
+      "title": "Minimal studio",
+      "text": "minimal studio environment, clean backdrop, intentional styling",
+      "tags": ["studio", "clean"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "subjects": [
+    {
+      "id": "detailed-subject",
+      "title": "Detailed subject",
+      "text": "highly detailed subject, expressive face, natural proportions",
+      "tags": ["subject", "detail"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "wardrobeProps": [
+    {
+      "id": "tailored-outfit",
+      "title": "Tailored outfit",
+      "text": "tailored outfit, clean silhouette, subtle premium textures",
+      "tags": ["wardrobe", "premium"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "motion": [
+    {
+      "id": "subtle-motion",
+      "title": "Subtle motion",
+      "text": "subtle natural movement, slight fabric motion, realistic body mechanics",
+      "tags": ["video", "movement"],
+      "useFor": "video",
+      "favorite": false
+    }
+  ],
+  "videoMoves": [
+    {
+      "id": "slow-push-in",
+      "title": "Slow push in",
+      "text": "slow camera push in, smooth stabilized movement, cinematic pacing",
+      "tags": ["camera movement", "cinematic"],
+      "useFor": "video",
+      "favorite": true
+    }
+  ],
+  "rendering": [
+    {
+      "id": "high-detail-render",
+      "title": "High detail",
+      "text": "high detail, sharp focus, realistic texture, clean final render",
+      "tags": ["quality", "detail"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "negativePrompts": [
+    {
+      "id": "common-negative",
+      "title": "Common negative",
+      "text": "blurry, distorted hands, extra fingers, warped anatomy, low resolution, artifacts",
+      "tags": ["negative", "cleanup"],
+      "useFor": "both",
+      "favorite": true
+    }
+  ],
+  "platformPresets": [
+    {
+      "id": "vertical-social",
+      "title": "Vertical social",
+      "text": "vertical 9:16 frame, mobile-first composition, clear subject readability",
+      "tags": ["social", "vertical"],
+      "useFor": "video",
+      "favorite": false
+    }
+  ],
+  "formulas": [
+    {
+      "id": "cinematic-formula",
+      "title": "Cinematic formula",
+      "text": "{{subject}}, {{style}}, {{lighting}}, {{shot}}, {{composition}}, {{camera}}, {{mood}}, {{negative}}",
+      "tags": ["formula", "cinematic"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ]
+}

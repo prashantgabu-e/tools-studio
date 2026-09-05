@@ -3,6 +3,10 @@
 .vscode/settings.json
 node_modules
 *.tsbuildinfo
+.env
+.env.local
+.env.*.local
+!.env.example
 vite.config.js
 vite.config.d.ts
 .DS_STORE

@@ -1,4 +1,11 @@
-import type { BasicTemplate, PromptTemplate } from "./types";
+import type {
+  BasicTemplate,
+  PromptBuilderCategory,
+  PromptBuilderLibrary,
+  PromptBuilderUseFor,
+  PromptIngredient,
+  PromptTemplate,
+} from "./types";
 
 export const placeholderText = "Your transformed text will appear here.";
 
@@ -137,6 +144,107 @@ export function createPromptTemplate(blankTitle: string): PromptTemplate {
     sampleInputTemplate: "",
     sampleOutput: "",
   };
+}
+
+export const promptBuilderCategories: Array<{
+  id: PromptBuilderCategory;
+  label: string;
+  shortLabel: string;
+}> = [
+  { id: "lighting", label: "Lighting", shortLabel: "Light" },
+  { id: "poses", label: "Poses", shortLabel: "Pose" },
+  { id: "shots", label: "Shots", shortLabel: "Shot" },
+  { id: "compositions", label: "Compositions", shortLabel: "Comp" },
+  { id: "cameras", label: "Camera", shortLabel: "Cam" },
+  { id: "lenses", label: "Lenses", shortLabel: "Lens" },
+  { id: "styles", label: "Styles", shortLabel: "Style" },
+  { id: "moods", label: "Moods", shortLabel: "Mood" },
+  { id: "colors", label: "Colors", shortLabel: "Color" },
+  { id: "environments", label: "Environments", shortLabel: "Env" },
+  { id: "subjects", label: "Subjects", shortLabel: "Subj" },
+  { id: "wardrobeProps", label: "Wardrobe / Props", shortLabel: "Props" },
+  { id: "motion", label: "Motion", shortLabel: "Motion" },
+  { id: "videoMoves", label: "Video Moves", shortLabel: "Moves" },
+  { id: "rendering", label: "Rendering", shortLabel: "Render" },
+  { id: "negativePrompts", label: "Negative", shortLabel: "Neg" },
+  { id: "platformPresets", label: "Presets", shortLabel: "Preset" },
+  { id: "formulas", label: "Formulas", shortLabel: "Formula" },
+];
+
+export function createEmptyPromptBuilderLibrary(): PromptBuilderLibrary {
+  return promptBuilderCategories.reduce((library, category) => {
+    library[category.id] = [];
+    return library;
+  }, {} as PromptBuilderLibrary);
+}
+
+export function createPromptIngredient(title = "Untitled Ingredient"): PromptIngredient {
+  return {
+    favorite: false,
+    id: `ingredient-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
+    tags: [],
+    text: "",
+    title,
+    useFor: "both",
+  };
+}
+
+export function normalizePromptBuilderLibrary(value: unknown): PromptBuilderLibrary {
+  const source = (value ?? {}) as Partial<Record<PromptBuilderCategory, unknown>>;
+  const library = createEmptyPromptBuilderLibrary();
+
+  promptBuilderCategories.forEach((category) => {
+    const items = source[category.id];
+    library[category.id] = Array.isArray(items)
+      ? items.map((item, index) => normalizePromptIngredient(item, category.id, index))
+      : [];
+  });
+
+  return library;
+}
+
+export function mergePromptBuilderLibraries(
+  current: PromptBuilderLibrary,
+  incoming: PromptBuilderLibrary,
+): PromptBuilderLibrary {
+  const next = createEmptyPromptBuilderLibrary();
+
+  promptBuilderCategories.forEach((category) => {
+    const byId = new Map<string, PromptIngredient>();
+    current[category.id].forEach((item) => byId.set(item.id, item));
+    incoming[category.id].forEach((item) => byId.set(item.id, item));
+    next[category.id] = [...byId.values()];
+  });
+
+  return next;
+}
+
+function normalizePromptIngredient(
+  item: unknown,
+  category: PromptBuilderCategory,
+  index: number,
+): PromptIngredient {
+  const value = (item ?? {}) as Partial<PromptIngredient> & { tags?: unknown };
+  return {
+    favorite: Boolean(value.favorite),
+    id: value.id || `${category}-${index + 1}-${Date.now()}`,
+    tags: Array.isArray(value.tags)
+      ? value.tags.map(String).filter(Boolean)
+      : String(value.tags || "")
+          .split(",")
+          .map((tag) => tag.trim())
+          .filter(Boolean),
+    text: value.text || "",
+    title: value.title || "Untitled Ingredient",
+    useFor: normalizeUseFor(value.useFor),
+  };
+}
+
+function normalizeUseFor(value: unknown): PromptBuilderUseFor {
+  if (value === "image" || value === "video" || value === "both") {
+    return value;
+  }
+  return "both";
 }
 
 export function downloadJson(filename: string, data: unknown) {
