@@ -1,0 +1,181 @@
+{
+  "lighting": [],
+  "poses": [
+    {
+      "id": "pose-relaxed-three-quarter-stance",
+      "title": "Relaxed three-quarter stance",
+      "text": "Keep shoulders relaxed and garment front readable.",
+      "tags": ["three-quarter", "relaxed", "placket", "side seam"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "pose-contrapposto-editorial",
+      "title": "Contrapposto editorial pose",
+      "text": "Use a subtle contrapposto stance with no distortion.",
+      "tags": ["contrapposto", "editorial", "waist folds", "elegant"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "pose-parallel-soft-stance",
+      "title": "Parallel soft stance",
+      "text": "Stand parallel with a relaxed toe-forward adjustment.",
+      "tags": ["parallel stance", "lookbook", "retail", "premium"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-soft-walking-step",
+      "title": "Soft walking step",
+      "text": "Take a subtle controlled step, not an exaggerated runway stride.",
+      "tags": ["walking", "motion", "natural folds", "controlled"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-wide-grounded-stance",
+      "title": "Wide grounded stance",
+      "text": "Use a grounded editorial stance, keeping the polo front unobstructed.",
+      "tags": ["wide stance", "grounded", "confident", "product readable"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-crossed-ankle-stand",
+      "title": "Crossed-ankle stand",
+      "text": "Cross ankles softly while keeping body balance believable.",
+      "tags": ["crossed ankles", "relaxed", "youthful", "balance"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-one-foot-low-plinth",
+      "title": "One foot on low plinth",
+      "text": "Place one foot on a low plinth; keep polo hem fully visible.",
+      "tags": ["plinth", "leg line", "structure", "hem visibility"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-seated-edge",
+      "title": "Seated edge pose",
+      "text": "Sit lightly on plinth edge; avoid creasing the polo excessively.",
+      "tags": ["seated", "plinth", "bench", "garment clarity"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-shoulder-lean",
+      "title": "Shoulder lean",
+      "text": "Lean softly against the set with relaxed shoulders and readable collar.",
+      "tags": ["lean", "wall", "editorial", "collar visibility"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-forward-hip-lean",
+      "title": "Forward hip lean",
+      "text": "Subtle forward hip lean, vertical spine, no unnatural arch.",
+      "tags": ["hip lean", "ease", "vertical spine", "no distortion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-hands-near-trouser-pocket",
+      "title": "Hands near trouser pocket",
+      "text": "One hand near trouser pocket; the other along thigh without covering the polo.",
+      "tags": ["hands", "pocket", "garment safe", "natural"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "pose-gentle-hem-adjustment",
+      "title": "Gentle hem adjustment",
+      "text": "Gently adjust the polo hem without hiding seams or construction.",
+      "tags": ["hands", "hem", "fabric response", "seams"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-arms-relaxed-at-sides",
+      "title": "Arms relaxed at sides",
+      "text": "Arms relaxed naturally at sides, all garment details unobscured.",
+      "tags": ["arms", "product readable", "unobscured", "natural"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "pose-one-hand-behind-back",
+      "title": "One hand behind back",
+      "text": "One hand behind the back; front arm loose and natural.",
+      "tags": ["hand behind back", "clear torso", "editorial", "natural"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-hand-on-plinth-edge",
+      "title": "Hand on plinth edge",
+      "text": "One hand lightly rests on plinth edge; no object overlaps the polo.",
+      "tags": ["hand", "plinth", "composition", "no overlap"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-chin-slightly-lowered",
+      "title": "Chin slightly lowered",
+      "text": "Chin slightly lowered and head softly angled toward camera.",
+      "tags": ["chin", "head angle", "eye line", "quiet confidence"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-head-turned-eyes-to-lens",
+      "title": "Head turned; eyes to lens",
+      "text": "Head turned 15 degrees away while eyes return naturally to the camera.",
+      "tags": ["head turn", "eyes to lens", "dynamic", "recognizable"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "pose-calm-direct-gaze",
+      "title": "Calm direct gaze",
+      "text": "Calm direct eye contact and a composed modern expression.",
+      "tags": ["direct gaze", "eye contact", "commercial", "confidence"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "pose-soft-off-camera-gaze",
+      "title": "Soft off-camera gaze",
+      "text": "Soft off-camera gaze with relaxed lips and natural facial texture.",
+      "tags": ["off-camera gaze", "editorial", "relaxed lips", "facial texture"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "pose-subtle-micro-smile",
+      "title": "Subtle micro-smile",
+      "text": "A restrained micro-smile that still feels editorial and premium.",
+      "tags": ["micro-smile", "expression", "approachable", "premium"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "shots": [],
+  "compositions": [],
+  "cameras": [],
+  "lenses": [],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [],
+  "subjects": [],
+  "wardrobeProps": [],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [],
+  "negativePrompts": [],
+  "platformPresets": [],
+  "formulas": []
+}

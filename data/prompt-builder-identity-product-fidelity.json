@@ -1,0 +1,134 @@
+{
+  "lighting": [],
+  "poses": [],
+  "shots": [],
+  "compositions": [],
+  "cameras": [],
+  "lenses": [],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [],
+  "subjects": [
+    {
+      "id": "subject-identity-preservation",
+      "title": "Identity preservation",
+      "text": "Preserve the model's identity exactly from reference image 1; retain natural recognizable likeness.",
+      "tags": ["identity", "reference image", "likeness", "model fidelity"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "subject-skin-realism",
+      "title": "Skin realism",
+      "text": "Use authentic skin texture, fine facial hair, subtle under-eye detail, believable lip texture, and premium retouching without smoothing reality.",
+      "tags": ["skin", "realism", "retouching", "face detail"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "subject-hair-fidelity",
+      "title": "Hair fidelity",
+      "text": "Preserve hairstyle essence and hairline; retain natural strands and realistic flyaways.",
+      "tags": ["hair", "hairline", "identity", "realism"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "wardrobeProps": [
+    {
+      "id": "wardrobe-polo-color",
+      "title": "Polo color",
+      "text": "Recreate the exact original polo color tone with accurate white balance and no hue shift.",
+      "tags": ["polo", "color accuracy", "white balance", "product fidelity"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "wardrobe-collar-construction",
+      "title": "Collar construction",
+      "text": "Match collar construction, ribbing, fold, and collar stand exactly.",
+      "tags": ["polo", "collar", "ribbing", "construction"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "wardrobe-placket-buttons",
+      "title": "Placket and buttons",
+      "text": "Match placket construction, button count, spacing, and button finish exactly.",
+      "tags": ["polo", "placket", "buttons", "construction"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "wardrobe-sleeves-shoulders",
+      "title": "Sleeves and shoulders",
+      "text": "Match sleeve length, shoulder fit, sleeve ribbing, and armhole construction.",
+      "tags": ["polo", "sleeves", "shoulders", "fit"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "wardrobe-fabric-texture",
+      "title": "Fabric texture",
+      "text": "Render the true fabric weave, thickness, drape, and tactile texture in high detail.",
+      "tags": ["fabric", "texture", "weave", "drape"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "wardrobe-seams-hems",
+      "title": "Seams and hems",
+      "text": "Keep seams, stitching, hem finish, and side construction fully accurate and readable.",
+      "tags": ["seams", "stitching", "hem", "construction"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "wardrobe-branding-labels",
+      "title": "Branding and labels",
+      "text": "Replicate visible branding, embroidery, print, and label placement only where shown in the references.",
+      "tags": ["branding", "labels", "embroidery", "print"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "wardrobe-bottomwear",
+      "title": "Bottomwear",
+      "text": "Pair with refined neutral bottomwear that supports the polo without distracting from it.",
+      "tags": ["bottomwear", "trousers", "denim", "neutral"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "wardrobe-footwear",
+      "title": "Footwear",
+      "text": "Use minimal premium footwear with a clean silhouette and no oversized branding.",
+      "tags": ["footwear", "sneakers", "loafers", "minimal"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "wardrobe-accessories",
+      "title": "Accessories",
+      "text": "Use understated accessories only if they do not interfere with collar, placket, or garment visibility.",
+      "tags": ["accessories", "minimal", "visibility", "polo"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "wardrobe-visibility-rule",
+      "title": "Visibility rule",
+      "text": "Keep the polo as visual hero; avoid hands, hair, props, or accessories covering key details.",
+      "tags": ["visibility", "product hero", "occlusion", "polo"],
+      "useFor": "both",
+      "favorite": true
+    }
+  ],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [],
+  "negativePrompts": [],
+  "platformPresets": [],
+  "formulas": []
+}

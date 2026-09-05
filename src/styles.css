@@ -1015,7 +1015,19 @@ a {
     position: sticky;
     top: 76px;
     max-height: calc(100vh - 90px);
+    overflow: hidden;
+  }
+
+  .builder-list-panel,
+  .builder-categories-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .builder-categories-panel .builder-category-grid {
     overflow: auto;
+    padding-right: 2px;
   }
 
   .builder-category-grid {

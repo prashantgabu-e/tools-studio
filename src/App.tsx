@@ -1,10 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
-import dmTemplatesJson from "../dm-templates.json";
-import emailTemplatesJson from "../email-templates.json";
-import genAiPromptTemplatesJson from "../gen-ai-prompt-templates.json";
-import promptBuilderLibraryJson from "../prompt-builder-library.json";
-import promptTemplatesJson from "../prompt-templates.json";
 import {
   AuthPanel,
   BasicTemplateView,
@@ -79,30 +74,25 @@ export function App() {
     blankName: "Untitled Email Template",
     collectionName: "emailTemplates",
     hasSubject: true,
-    initialItems: emailTemplatesJson,
     userId,
   });
   const dmManager = useBasicTemplateManager({
     blankName: "Untitled DM Template",
     collectionName: "dmTemplates",
     hasSubject: false,
-    initialItems: dmTemplatesJson,
     userId,
   });
   const promptManager = usePromptTemplateManager({
     blankTitle: "Untitled Prompt Template",
     collectionName: "promptTemplates",
-    initialItems: promptTemplatesJson,
     userId,
   });
   const genAiPromptManager = usePromptTemplateManager({
     blankTitle: "Untitled Gen AI Prompt Template",
     collectionName: "genAiPromptTemplates",
-    initialItems: genAiPromptTemplatesJson,
     userId,
   });
   const promptBuilderManager = usePromptBuilderManager({
-    initialLibrary: promptBuilderLibraryJson,
     userId,
   });
 

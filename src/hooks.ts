@@ -3,7 +3,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDocs,
   onSnapshot,
   query,
   serverTimestamp,
@@ -46,28 +45,20 @@ export function useToasts() {
 }
 
 type PromptBuilderOptions = {
-  initialLibrary: unknown;
   userId: string | null;
 };
 
 export function usePromptBuilderManager(options: PromptBuilderOptions) {
-  const { initialLibrary, userId } = options;
-  const normalizedDefaults = useMemo(
-    () => normalizePromptBuilderLibrary(initialLibrary),
-    [initialLibrary],
-  );
-  const [library, setLibrary] = useState<PromptBuilderLibrary>(normalizedDefaults);
+  const { userId } = options;
+  const emptyLibrary = useMemo(() => createEmptyPromptBuilderLibrary(), []);
+  const [library, setLibrary] = useState<PromptBuilderLibrary>(emptyLibrary);
   const [selectedCategory, setSelectedCategory] =
     useState<PromptBuilderCategory>("lighting");
-  const [selectedId, setSelectedId] = useState<string | null>(
-    normalizedDefaults.lighting[0]?.id ?? null,
-  );
-  const [draft, setDraft] = useState<PromptIngredient>(
-    normalizedDefaults.lighting[0] ?? createPromptIngredient(),
-  );
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [draft, setDraft] = useState<PromptIngredient>(() => createPromptIngredient());
   const [searchQuery, setSearchQuery] = useState("");
   const [composerText, setComposerText] = useState("");
-  const [isLoading, setIsLoading] = useState(Boolean(userId));
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const selectedCategoryRef = useRef(selectedCategory);
 
@@ -77,8 +68,8 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
 
   useEffect(() => {
     const { db } = getFirebaseServices();
-    if (!db || !userId) {
-      setLibrary(createEmptyPromptBuilderLibrary());
+    if (!db) {
+      setLibrary(emptyLibrary);
       const blank = createPromptIngredient();
       setSelectedCategory("lighting");
       setSelectedId(blank.id);
@@ -88,13 +79,13 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     }
 
     setIsLoading(true);
-    const libraryRef = doc(db, "users", userId, "promptBuilder", "library");
+    const libraryRef = doc(db, "promptBuilder", "library");
     return onSnapshot(
       libraryRef,
       (snapshot) => {
         const nextLibrary = snapshot.exists()
           ? normalizePromptBuilderLibrary(snapshot.data())
-          : normalizedDefaults;
+          : createEmptyPromptBuilderLibrary();
         setLibrary(nextLibrary);
         setSelectedId((currentSelectedId) => {
           const categoryItems = nextLibrary[selectedCategoryRef.current];
@@ -121,7 +112,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
         setIsLoading(false);
       },
     );
-  }, [normalizedDefaults, userId]);
+  }, [emptyLibrary]);
 
   const totalItems = useMemo(
     () =>
@@ -180,7 +171,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
       throw new Error("Sign in to save the builder library to Firestore.");
     }
 
-    await setDoc(doc(db, "users", userId, "promptBuilder", "library"), {
+    await setDoc(doc(db, "promptBuilder", "library"), {
       ...nextLibrary,
       updatedAt: serverTimestamp(),
     });
@@ -237,13 +228,6 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     setDraft(nextSelected);
   }
 
-  async function syncFromSource() {
-    await persistLibrary(normalizedDefaults);
-    const nextSelected = normalizedDefaults[selectedCategory][0] ?? createPromptIngredient();
-    setSelectedId(nextSelected.id);
-    setDraft(nextSelected);
-  }
-
   return {
     appendToComposer,
     categories: promptBuilderCategories,
@@ -265,7 +249,6 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     setComposerText,
     setDraft,
     setSearchQuery,
-    syncFromSource,
     toggleFavorite,
     totalItems,
   };
@@ -283,32 +266,25 @@ type BasicManagerOptions = {
   blankName: string;
   collectionName: string;
   hasSubject: boolean;
-  initialItems: unknown[];
   userId: string | null;
 };
 
 export function useBasicTemplateManager(options: BasicManagerOptions) {
-  const { blankName, collectionName, hasSubject, initialItems, userId } = options;
-  const normalizedDefaults = useMemo(
-    () => normalizeBasicTemplates(initialItems, blankName, hasSubject),
-    [blankName, hasSubject, initialItems],
-  );
+  const { blankName, collectionName, hasSubject, userId } = options;
 
-  const [templates, setTemplates] = useState<BasicTemplate[]>(normalizedDefaults);
-  const [selectedId, setSelectedId] = useState<string | null>(
-    normalizedDefaults[0]?.id ?? null,
-  );
+  const [templates, setTemplates] = useState<BasicTemplate[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [draft, setDraft] = useState<BasicTemplate>(() =>
-    normalizedDefaults[0] ?? createBasicTemplate(blankName),
+    createBasicTemplate(blankName),
   );
   const [variableValues, setVariableValues] = useState<Record<string, string>>({});
-  const [isLoading, setIsLoading] = useState(Boolean(userId));
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const { db } = getFirebaseServices();
-    if (!db || !userId) {
+    if (!db) {
       setTemplates([]);
       const blank = createBasicTemplate(blankName);
       setSelectedId(blank.id);
@@ -319,7 +295,7 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     }
 
     setIsLoading(true);
-    const templatesRef = collection(db, "users", userId, collectionName);
+    const templatesRef = collection(db, collectionName);
     return onSnapshot(
       query(templatesRef),
       (snapshot) => {
@@ -353,7 +329,7 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
         setIsLoading(false);
       },
     );
-  }, [blankName, collectionName, hasSubject, userId]);
+  }, [blankName, collectionName, hasSubject]);
 
   const variables = useMemo(
     () => extractVariableNames([draft.subject, draft.body]),
@@ -401,7 +377,7 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
       throw new Error("Sign in to save templates to Firestore.");
     }
 
-    await setDoc(doc(db, "users", userId, collectionName, draft.id), {
+    await setDoc(doc(db, collectionName, draft.id), {
       ...draft,
       updatedAt: serverTimestamp(),
     });
@@ -428,7 +404,7 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
       createNewTemplate();
       return null;
     }
-    await deleteDoc(doc(db, "users", userId, collectionName, selectedId));
+    await deleteDoc(doc(db, collectionName, selectedId));
     const nextTemplates = templates.filter((item) => item.id !== selectedId);
     setTemplates(nextTemplates);
     const nextSelected = nextTemplates[0] ?? createBasicTemplate(blankName);
@@ -438,27 +414,6 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     return existing;
   }
 
-  async function syncFromSource() {
-    const { db } = getFirebaseServices();
-    if (!db || !userId) {
-      throw new Error("Sign in to sync starter templates to Firestore.");
-    }
-
-    const templatesRef = collection(db, "users", userId, collectionName);
-    const snapshot = await getDocs(templatesRef);
-    const batch = writeBatch(db);
-    snapshot.docs.forEach((item) => batch.delete(item.ref));
-    normalizedDefaults.forEach((item) => {
-      batch.set(doc(templatesRef, item.id), { ...item, updatedAt: serverTimestamp() });
-    });
-    await batch.commit();
-    setTemplates(normalizedDefaults);
-    const next = normalizedDefaults[0] ?? createBasicTemplate(blankName);
-    setSelectedId(next.id);
-    setDraft(next);
-    setVariableValues({});
-  }
-
   async function importTemplates(items: unknown[]) {
     const { db } = getFirebaseServices();
     if (!db || !userId) {
@@ -466,7 +421,7 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     }
 
     const nextTemplates = normalizeBasicTemplates(items, blankName, hasSubject);
-    const templatesRef = collection(db, "users", userId, collectionName);
+    const templatesRef = collection(db, collectionName);
     const batch = writeBatch(db);
     nextTemplates.forEach((item) => {
       batch.set(doc(templatesRef, item.id), { ...item, updatedAt: serverTimestamp() });
@@ -504,7 +459,6 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     setDraft,
     setSearchQuery,
     setVariableValues,
-    syncFromSource,
     templates,
     variableValues,
     variables,
@@ -515,32 +469,25 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
 type PromptManagerOptions = {
   blankTitle: string;
   collectionName: string;
-  initialItems: unknown[];
   userId: string | null;
 };
 
 export function usePromptTemplateManager(options: PromptManagerOptions) {
-  const { blankTitle, collectionName, initialItems, userId } = options;
-  const normalizedDefaults = useMemo(
-    () => normalizePromptTemplates(initialItems, blankTitle),
-    [blankTitle, initialItems],
-  );
+  const { blankTitle, collectionName, userId } = options;
 
-  const [templates, setTemplates] = useState<PromptTemplate[]>(normalizedDefaults);
-  const [selectedId, setSelectedId] = useState<string | null>(
-    normalizedDefaults[0]?.id ?? null,
-  );
+  const [templates, setTemplates] = useState<PromptTemplate[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [draft, setDraft] = useState<PromptTemplate>(() =>
-    normalizedDefaults[0] ?? createPromptTemplate(blankTitle),
+    createPromptTemplate(blankTitle),
   );
   const [variableValues, setVariableValues] = useState<Record<string, string>>({});
-  const [isLoading, setIsLoading] = useState(Boolean(userId));
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const { db } = getFirebaseServices();
-    if (!db || !userId) {
+    if (!db) {
       setTemplates([]);
       const blank = createPromptTemplate(blankTitle);
       setSelectedId(blank.id);
@@ -551,7 +498,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     }
 
     setIsLoading(true);
-    const templatesRef = collection(db, "users", userId, collectionName);
+    const templatesRef = collection(db, collectionName);
     return onSnapshot(
       query(templatesRef),
       (snapshot) => {
@@ -584,7 +531,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
         setIsLoading(false);
       },
     );
-  }, [blankTitle, collectionName, userId]);
+  }, [blankTitle, collectionName]);
 
   const variables = useMemo(
     () => extractVariableNames([draft.prompt, draft.sampleInputTemplate]),
@@ -634,7 +581,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
       throw new Error("Sign in to save templates to Firestore.");
     }
 
-    await setDoc(doc(db, "users", userId, collectionName, draft.id), {
+    await setDoc(doc(db, collectionName, draft.id), {
       ...draft,
       updatedAt: serverTimestamp(),
     });
@@ -661,7 +608,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
       createNewTemplate();
       return null;
     }
-    await deleteDoc(doc(db, "users", userId, collectionName, selectedId));
+    await deleteDoc(doc(db, collectionName, selectedId));
     const nextTemplates = templates.filter((item) => item.id !== selectedId);
     setTemplates(nextTemplates);
     const nextSelected = nextTemplates[0] ?? createPromptTemplate(blankTitle);
@@ -671,27 +618,6 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     return existing;
   }
 
-  async function syncFromSource() {
-    const { db } = getFirebaseServices();
-    if (!db || !userId) {
-      throw new Error("Sign in to sync starter templates to Firestore.");
-    }
-
-    const templatesRef = collection(db, "users", userId, collectionName);
-    const snapshot = await getDocs(templatesRef);
-    const batch = writeBatch(db);
-    snapshot.docs.forEach((item) => batch.delete(item.ref));
-    normalizedDefaults.forEach((item) => {
-      batch.set(doc(templatesRef, item.id), { ...item, updatedAt: serverTimestamp() });
-    });
-    await batch.commit();
-    setTemplates(normalizedDefaults);
-    const next = normalizedDefaults[0] ?? createPromptTemplate(blankTitle);
-    setSelectedId(next.id);
-    setDraft(next);
-    setVariableValues({});
-  }
-
   async function importTemplates(items: unknown[]) {
     const { db } = getFirebaseServices();
     if (!db || !userId) {
@@ -699,7 +625,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     }
 
     const nextTemplates = normalizePromptTemplates(items, blankTitle);
-    const templatesRef = collection(db, "users", userId, collectionName);
+    const templatesRef = collection(db, collectionName);
     const batch = writeBatch(db);
     nextTemplates.forEach((item) => {
       batch.set(doc(templatesRef, item.id), { ...item, updatedAt: serverTimestamp() });
@@ -728,7 +654,6 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     setDraft,
     setSearchQuery,
     setVariableValues,
-    syncFromSource,
     templates,
     variableValues,
     variables,

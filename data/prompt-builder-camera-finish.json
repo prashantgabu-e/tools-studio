@@ -1,0 +1,167 @@
+{
+  "lighting": [],
+  "poses": [],
+  "shots": [],
+  "compositions": [],
+  "cameras": [
+    {
+      "id": "camera-eye-level",
+      "title": "Eye-level camera",
+      "text": "Eye-level camera height, full-body vertical composition, both feet fully visible.",
+      "tags": ["full body", "premium", "neutral", "campaign"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "camera-slight-low-angle",
+      "title": "Slight low angle",
+      "text": "Camera slightly below waist level for a subtle elongated fashion silhouette, without distortion.",
+      "tags": ["low angle", "hero", "fashion", "full body"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "camera-soft-elevated-angle",
+      "title": "Soft elevated angle",
+      "text": "Softly elevated three-quarter angle with clean facial perspective.",
+      "tags": ["elevated angle", "three-quarter", "waist up", "knee up"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "lenses": [
+    {
+      "id": "lens-85mm-prime",
+      "title": "85mm prime lens",
+      "text": "85mm prime lens, realistic compression, balanced full-body perspective.",
+      "tags": ["luxury", "hero portrait", "portrait compression", "full body"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lens-70mm-portrait",
+      "title": "70mm portrait lens",
+      "text": "70mm portrait lens with natural proportions and restrained background compression.",
+      "tags": ["portrait", "three-quarter", "full body", "flattering"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lens-50mm-standard-prime",
+      "title": "50mm standard prime",
+      "text": "50mm prime lens with clean natural perspective and studio context.",
+      "tags": ["editorial", "standard prime", "studio", "environment"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lens-105mm-portrait-prime",
+      "title": "105mm portrait prime",
+      "text": "105mm portrait lens with elegant compression and crisp collar texture.",
+      "tags": ["portrait", "detail", "compression", "textile"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lens-35mm-environmental-fashion",
+      "title": "35mm environmental fashion lens",
+      "text": "35mm environmental fashion lens with controlled perspective and no body distortion.",
+      "tags": ["environmental", "fashion", "low angle", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lens-90mm-macro",
+      "title": "90mm macro",
+      "text": "90mm macro lens for high-resolution fabric weave, stitching, and embroidery detail.",
+      "tags": ["macro", "texture", "fabric", "stitching", "embroidery"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [],
+  "subjects": [],
+  "wardrobeProps": [],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [
+    {
+      "id": "finish-natural-shallow-depth",
+      "title": "Natural shallow depth",
+      "text": "Natural shallow depth of field with sharp eyes and polo texture.",
+      "tags": ["depth of field", "sharp eyes", "polo texture", "luxury editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "finish-medium-depth-garment-clarity",
+      "title": "Medium depth for garment clarity",
+      "text": "Medium depth of field preserving full garment construction in sharp focus.",
+      "tags": ["depth of field", "garment clarity", "product first", "full body"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "finish-deep-product-focus",
+      "title": "Deep product focus",
+      "text": "Deep focus for full-body product clarity and crisp footwear detail.",
+      "tags": ["deep focus", "catalog", "e-commerce", "footwear"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "finish-eyes-polo-texture",
+      "title": "Eyes + polo texture",
+      "text": "Sharp focus on eyes and polo texture; retain visible weave and fabric folds.",
+      "tags": ["sharp focus", "eyes", "polo texture", "fabric folds"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "finish-collar-placket-priority",
+      "title": "Collar + placket priority",
+      "text": "Sharp focus on collar, placket, buttons, and face.",
+      "tags": ["collar", "placket", "buttons", "polo detail"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "finish-balanced-high-dynamic-range",
+      "title": "Balanced high dynamic range",
+      "text": "High dynamic range with controlled highlights, readable shadows, and accurate garment color.",
+      "tags": ["hdr", "highlights", "shadows", "garment color"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "finish-warm-neutral-campaign-grade",
+      "title": "Warm-neutral campaign grade",
+      "text": "Polished campaign-level color grade with soft warm neutrals and balanced contrast.",
+      "tags": ["color grade", "warm neutrals", "campaign", "luxury"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "finish-true-to-life-product-grade",
+      "title": "True-to-life product grade",
+      "text": "True-to-life color grading; protect exact garment tone and textile detail.",
+      "tags": ["color accuracy", "product", "fabric color", "textile"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "finish-natural-retouching",
+      "title": "Natural retouching",
+      "text": "Campaign retouching that preserves authenticity: pores, fine hair, and natural complexion remain visible.",
+      "tags": ["retouching", "realism", "pores", "natural complexion"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "negativePrompts": [],
+  "platformPresets": [],
+  "formulas": []
+}

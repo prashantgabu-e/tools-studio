@@ -13,7 +13,6 @@ import {
   MessageCircleMore,
   PanelLeft,
   Plus,
-  RefreshCcw,
   Save,
   Sparkles,
   Star,
@@ -66,7 +65,6 @@ type BasicManagerShape = {
   setVariableValues: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >;
-  syncFromSource: () => Promise<void>;
   templates: BasicTemplate[];
   variableValues: Record<string, string>;
   variables: string[];
@@ -91,7 +89,6 @@ type PromptManagerShape = {
   setVariableValues: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >;
-  syncFromSource: () => Promise<void>;
   templates: PromptTemplate[];
   variableValues: Record<string, string>;
   variables: string[];
@@ -123,7 +120,6 @@ type PromptBuilderManagerShape = {
   setComposerText: React.Dispatch<React.SetStateAction<string>>;
   setDraft: React.Dispatch<React.SetStateAction<PromptIngredient>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
-  syncFromSource: () => Promise<void>;
   toggleFavorite: (item: PromptIngredient) => Promise<void>;
   totalItems: number;
 };
@@ -243,7 +239,7 @@ export function AuthPanel(props: {
 
   return (
     <div className="auth-panel">
-      <span>{props.authError ?? "Sign in to sync"}</span>
+      <span>{props.authError ?? "Sign in"}</span>
       <button className="auth-link" type="button" onClick={props.onSignIn}>
         Google
       </button>
@@ -408,21 +404,6 @@ export function BasicTemplateView(props: {
     }
   }
 
-  async function handleSync() {
-    const confirmed = window.confirm(
-      `Sync ${props.sectionLabel.toLowerCase()} from ${props.importFileName}? This will replace the current local templates for this section.`,
-    );
-    if (!confirmed) {
-      return;
-    }
-    try {
-      await props.manager.syncFromSource();
-      props.onToast(`${props.sectionLabel} synced to Firestore`, "success");
-    } catch (error) {
-      props.onToast(error instanceof Error ? error.message : "Sync failed", "warning");
-    }
-  }
-
   function handleExport() {
     downloadJson(props.importFileName, props.manager.templates);
   }
@@ -473,11 +454,6 @@ export function BasicTemplateView(props: {
               onClick={handleExport}
               icon={<Download aria-hidden="true" />}
               title="Export JSON"
-            />
-            <ToolbarActionButton
-              onClick={handleSync}
-              icon={<RefreshCcw aria-hidden="true" />}
-              title="Sync from JSON"
             />
           </div>
 
@@ -734,21 +710,6 @@ export function PromptTemplateView(props: {
     }
   }
 
-  async function handleSync() {
-    const confirmed = window.confirm(
-      `Sync ${props.sectionLabel.toLowerCase()} from ${props.importFileName}? This will replace the current local templates for this section.`,
-    );
-    if (!confirmed) {
-      return;
-    }
-    try {
-      await props.manager.syncFromSource();
-      props.onToast(`${props.sectionLabel} synced to Firestore`, "success");
-    } catch (error) {
-      props.onToast(error instanceof Error ? error.message : "Sync failed", "warning");
-    }
-  }
-
   function handleExport() {
     downloadJson(props.importFileName, props.manager.templates);
   }
@@ -799,11 +760,6 @@ export function PromptTemplateView(props: {
               onClick={handleExport}
               icon={<Download aria-hidden="true" />}
               title="Export JSON"
-            />
-            <ToolbarActionButton
-              onClick={handleSync}
-              icon={<RefreshCcw aria-hidden="true" />}
-              title="Sync from JSON"
             />
           </div>
 
@@ -1100,25 +1056,13 @@ export function PromptBuilderView(props: {
     }
   }
 
-  async function handleSync() {
-    const confirmed = window.confirm(
-      "Replace your Firestore builder library with the bundled starter library?",
-    );
-    if (!confirmed) {
-      return;
-    }
-
-    try {
-      await props.manager.syncFromSource();
-      props.onToast("Starter library synced", "success");
-    } catch (error) {
-      props.onToast(error instanceof Error ? error.message : "Sync failed", "warning");
-    }
-  }
-
   function handleImportClick(mode: "merge" | "replace") {
     setImportMode(mode);
     fileInputRef.current?.click();
+  }
+
+  function handleExport() {
+    downloadJson("prompt-builder-library.json", props.manager.library);
   }
 
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
@@ -1204,14 +1148,9 @@ export function PromptBuilderView(props: {
               title="Merge import"
             />
             <ToolbarActionButton
-              onClick={() => handleImportClick("replace")}
+              onClick={handleExport}
               icon={<Download aria-hidden="true" />}
-              title="Replace all"
-            />
-            <ToolbarActionButton
-              onClick={handleSync}
-              icon={<RefreshCcw aria-hidden="true" />}
-              title="Sync starter library"
+              title="Export JSON"
             />
           </div>
         </div>

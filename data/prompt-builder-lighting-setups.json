@@ -1,0 +1,645 @@
+{
+  "lighting": [
+    {
+      "id": "lighting-core-large-diffused-front-left-key-soft-fill-gentle-rim",
+      "title": "Large diffused front-left key + soft fill + gentle rim",
+      "text": "Large diffused key from front-left, controlled camera-right fill, gentle rim separation, soft shadows rear-right.",
+      "tags": ["front-left key", "soft fill", "rim light", "polo campaign"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-core-clamshell-beauty-subtle-side-fill",
+      "title": "Clamshell beauty light with subtle side fill",
+      "text": "Clamshell beauty lighting with soft frontal illumination and restrained side fill.",
+      "tags": ["clamshell", "beauty", "frontal light", "polo portrait"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-core-high-key-cyclorama-wash-soft-frontal-key",
+      "title": "High-key cyclorama wash with soft frontal key",
+      "text": "High-key studio wash with a soft frontal key and clean seamless background.",
+      "tags": ["high key", "cyclorama", "e-commerce", "clean"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-core-oversized-octabox-front-left-fashion",
+      "title": "Oversized octabox front-left fashion lighting",
+      "text": "Oversized octabox from front-left with soft low fill and controlled shadow depth.",
+      "tags": ["octabox", "front-left", "fashion", "editorial"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-core-soft-side-skimming-fabric-texture",
+      "title": "Soft side-skimming light for fabric texture",
+      "text": "Soft side-skimming key designed to reveal textile weave, seams, and natural folds.",
+      "tags": ["side light", "fabric texture", "textile", "seams"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-core-butterfly-key-low-fill-hair-separation",
+      "title": "Butterfly key with low fill and hair separation",
+      "text": "Centered butterfly key, low reflector fill, and gentle hair separation.",
+      "tags": ["butterfly", "hair light", "beauty", "symmetry"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-hard-direct-flash-controlled-shadow-edge",
+      "title": "Hard direct flash with controlled shadow edge",
+      "text": "Direct hard flash with a controlled shadow edge and crisp editorial contrast.",
+      "tags": ["hard flash", "gen-z", "editorial", "shadow"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-beauty-dish-white-reflector-fill",
+      "title": "Beauty dish key + white reflector fill",
+      "text": "Beauty dish key with white reflector fill, crisp skin texture, and controlled highlights.",
+      "tags": ["beauty dish", "reflector", "skin texture", "highlights"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-soft-overhead-skylight-simulation",
+      "title": "Soft overhead skylight simulation",
+      "text": "Soft overhead skylight simulation with gentle frontal bounce and natural softness.",
+      "tags": ["overhead", "skylight", "daylight", "soft"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-window-light-simulation-negative-fill",
+      "title": "Window-light simulation with negative fill",
+      "text": "Window-light simulation from camera-left with negative fill for sculptural depth.",
+      "tags": ["window light", "negative fill", "cinematic", "depth"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-core-dual-stripbox-rim-soft-frontal-key",
+      "title": "Dual stripbox rim with soft frontal key",
+      "text": "Dual stripbox rim lights with a soft frontal key for precise edge separation.",
+      "tags": ["stripbox", "rim light", "edge separation", "dark background"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-low-key-directional-key-sculptural-falloff",
+      "title": "Low-key directional key with sculptural falloff",
+      "text": "Low-key directional side key with sculptural falloff and minimal fill.",
+      "tags": ["low key", "side key", "moody", "sculptural"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-cross-lighting-controlled-textile-highlights",
+      "title": "Cross-lighting with controlled textile highlights",
+      "text": "Cross-lighting with controlled textile highlights and a restrained frontal recovery.",
+      "tags": ["cross light", "textile highlights", "editorial", "energetic"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-backlit-halo-gentle-front-recovery",
+      "title": "Backlit halo with gentle front recovery",
+      "text": "Backlit halo around hair and shoulders with gentle front recovery for facial clarity.",
+      "tags": ["backlight", "halo", "front recovery", "campaign glow"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-spotlight-pool-ambient-fill",
+      "title": "Spotlight pool with ambient fill",
+      "text": "Focused spotlight pool with ambient fill and a grounded soft floor shadow.",
+      "tags": ["spotlight", "ambient fill", "plinth", "gallery"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-gel-accent-rim-neutral-face-key",
+      "title": "Gel-accent rim lighting with neutral face key",
+      "text": "Neutral face key with restrained gel-accent rim lighting; preserve true polo color.",
+      "tags": ["gel rim", "neutral key", "color accuracy", "led set"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-projection-gobo-clean-garment-key",
+      "title": "Projection-gobo lighting with clean garment key",
+      "text": "Gobo pattern on background only with a clean key keeping garment texture fully readable.",
+      "tags": ["gobo", "projection", "garment key", "background pattern"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-core-soft-diffused-3-point-studio",
+      "title": "Soft diffused 3-point studio lighting",
+      "text": "Soft diffused three-point lighting with natural dimensionality and restrained floor bounce.",
+      "tags": ["three-point", "soft diffused", "campaign", "all purpose"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-large-softbox-front-left",
+      "title": "Large Softbox Front-Left",
+      "text": "Large rectangular softbox at 45 degrees front-left with camera-right fill for soft premium campaign lighting and clean apparel visibility.",
+      "tags": ["softbox", "front-left", "premium", "apparel visibility"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-large-softbox-front-right",
+      "title": "Large Softbox Front-Right",
+      "text": "Large rectangular softbox at 45 degrees front-right with camera-left reflector for flattering fashion portrait light.",
+      "tags": ["softbox", "front-right", "fashion portrait", "flattering"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-centered-octabox-beauty-light",
+      "title": "Centered Octabox Beauty Light",
+      "text": "Centered octabox above and slightly in front, reflector below chin, and soft background wash for clean luxury beauty-fashion.",
+      "tags": ["octabox", "beauty", "luxury", "background wash"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-clamshell-beauty",
+      "title": "Clamshell Beauty Setup",
+      "text": "Beauty dish or octabox above camera with lower reflector or softbox for polished skin, bright eyes, and beauty editorial finish.",
+      "tags": ["clamshell", "beauty dish", "bright eyes", "editorial"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-butterfly-paramount",
+      "title": "Butterfly / Paramount Lighting",
+      "text": "Centered beauty dish above face with low frontal reflector and optional hair light for classic glamorous fashion portrait shaping.",
+      "tags": ["butterfly", "paramount", "glamour", "cheekbones"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-rembrandt-softbox",
+      "title": "Rembrandt Softbox Setup",
+      "text": "Medium softbox at 45 degree side angle with very low fill and subtle rim for sculptural editorial portrait definition.",
+      "tags": ["rembrandt", "softbox", "side angle", "portrait definition"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-loop",
+      "title": "Loop Lighting Setup",
+      "text": "Softbox slightly above and 30 to 45 degrees from camera with opposite reflector for natural flattering campaign light.",
+      "tags": ["loop lighting", "softbox", "campaign", "natural"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-split",
+      "title": "Split Lighting Setup",
+      "text": "Hard or soft key from direct side with minimal fill and thin rim for dramatic half-lit moody editorial fashion.",
+      "tags": ["split lighting", "side key", "dramatic", "moody"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-high-key-white-cyclorama",
+      "title": "High-Key White Cyclorama",
+      "text": "Two large front softboxes, reflector fill, and evenly washed white cyc for bright clean e-commerce and premium catalog imagery.",
+      "tags": ["high key", "white cyclorama", "e-commerce", "catalog"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-low-key-black-studio",
+      "title": "Low-Key Black Studio Setup",
+      "text": "Grid softbox from side-front with negative fill and shoulder rim lights for dark luxury fashion contrast.",
+      "tags": ["low key", "black studio", "grid softbox", "luxury"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-soft-window-light-simulation",
+      "title": "Soft Window-Light Simulation",
+      "text": "Large diffused softbox through frame or scrim with white bounce and window-shadow gobo for natural daylight-inspired studio fashion.",
+      "tags": ["window light", "scrim", "daylight", "fashion"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-hard-sunlight-simulation",
+      "title": "Hard Sunlight Simulation",
+      "text": "Bare flash or Fresnel through window gobo with minimal bounce for editorial midday-sun feel and bold shadows.",
+      "tags": ["hard sunlight", "fresnel", "window gobo", "bold shadows"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-direct-on-camera-flash",
+      "title": "Direct On-Camera Flash",
+      "text": "Direct flash near lens axis against a neutral or colored backdrop for urban Gen-Z candid editorial energy.",
+      "tags": ["on-camera flash", "gen-z", "urban", "candid"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-direct-flash-slow-shutter",
+      "title": "Direct Flash with Slow Shutter",
+      "text": "Near-camera flash with ambient continuous light and practical or LED background for motion blur with a sharp subject.",
+      "tags": ["slow shutter", "flash", "motion blur", "nightlife"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-beauty-dish-crisp",
+      "title": "Beauty Dish Crisp Setup",
+      "text": "Beauty dish above camera with grid, small lower reflector, and optional hair light for crisp skin and fabric texture.",
+      "tags": ["beauty dish", "grid", "skin texture", "fabric texture"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-beauty-dish-side",
+      "title": "Beauty Dish Side Setup",
+      "text": "Beauty dish at 45 degree side angle with low fill reflector and soft backdrop light for defined cheekbones and textile texture.",
+      "tags": ["beauty dish", "side light", "cheekbones", "textile"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-octabox-full-body",
+      "title": "Octabox Full-Body Setup",
+      "text": "Large octabox high front-left with white V-flat camera-right and even cyc wash for soft full-body apparel readability.",
+      "tags": ["octabox", "full body", "v-flat", "apparel"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-stripbox-edge",
+      "title": "Stripbox Edge Lighting",
+      "text": "Two vertical stripboxes behind subject with soft front fill and low background light for a sleek luxury body outline.",
+      "tags": ["stripbox", "edge light", "silhouette", "luxury"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-double-rim-light",
+      "title": "Double Rim Light Setup",
+      "text": "Two rear stripbox rim lights with soft frontal key for separation from dark backgrounds and glossy fashion polish.",
+      "tags": ["double rim", "stripbox", "dark background", "fashion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-single-rim-light",
+      "title": "Single Rim Light Setup",
+      "text": "Softbox front-left with one opposite rear stripbox and low background light for dimensional hair and shoulder separation.",
+      "tags": ["single rim", "hair separation", "shoulder", "dimensional"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-three-point-studio",
+      "title": "Three-Point Studio Setup",
+      "text": "Key softbox front-left, fill front-right, and rim behind subject for balanced professional campaign lighting.",
+      "tags": ["three-point", "key fill rim", "campaign", "balanced"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-four-light-fashion",
+      "title": "Four-Light Fashion Setup",
+      "text": "Key octabox with fill and two left-right rim lights for a high-end polished full-body campaign result.",
+      "tags": ["four light", "octabox", "rim lights", "full body"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-five-light-cyc",
+      "title": "Five-Light Cyc Setup",
+      "text": "Large frontal octabox, two side fills, and two cyc background lights for even bright infinity-wall fashion photography.",
+      "tags": ["five light", "cyc", "infinity wall", "bright"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-side-softbox-texture",
+      "title": "Side Softbox Texture Setup",
+      "text": "Tall softbox from 90 degree side with opposite negative fill and minimal rim to highlight polo knit, seams, drape, and garment texture.",
+      "tags": ["side softbox", "texture", "polo knit", "negative fill"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-cross-light-fashion",
+      "title": "Cross-Light Fashion Setup",
+      "text": "Softbox from front-left with second softbox from rear-right for graphic dimensional energetic editorial lighting.",
+      "tags": ["cross light", "front-left", "rear-right", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-cross-hard-light",
+      "title": "Cross Hard-Light Setup",
+      "text": "Hard reflector from front-left and hard light from rear-right with no fill for bold high-contrast runway editorial.",
+      "tags": ["hard light", "cross light", "runway", "high contrast"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-top-light-sculptural",
+      "title": "Top Light Sculptural Setup",
+      "text": "Large overhead softbox with low frontal fill and soft floor bounce for sculptural shadows and strong shoulder-collar definition.",
+      "tags": ["top light", "overhead", "sculptural", "collar"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-overhead-ring",
+      "title": "Overhead Ring Setup",
+      "text": "Large overhead ring or circular modifier with minimal frontal bounce and neutral cyc wash for controlled downward fashion shadows.",
+      "tags": ["overhead ring", "circular modifier", "downward shadows", "modern"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-top-light-reflective-floor",
+      "title": "Top Light with Reflective Floor",
+      "text": "Overhead octabox with front reflector and floor bounce for luxury architecture and reflective studio campaign depth.",
+      "tags": ["top light", "reflective floor", "luxury", "floor bounce"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-underlight-editorial",
+      "title": "Underlight Editorial Setup",
+      "text": "Low softbox or reflector from below with small frontal key and low-key background for experimental runway editorial mood.",
+      "tags": ["underlight", "experimental", "runway", "low key"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-negative-fill-portrait",
+      "title": "Negative Fill Portrait Setup",
+      "text": "Soft key from one side with black V-flat opposite and subtle rim for deep contrast, sharper jawline, and premium moody fashion.",
+      "tags": ["negative fill", "black v-flat", "moody", "jawline"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-white-v-flat-wrap",
+      "title": "White V-Flat Wrap Light",
+      "text": "Large soft light bounced into white V-flat with added white fill for very soft enveloping minimal luxury campaign light.",
+      "tags": ["white v-flat", "wrap light", "minimal", "luxury"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-black-v-flat-contrast",
+      "title": "Black V-Flat Contrast Setup",
+      "text": "Softbox front-left with black V-flat opposite and optional rim for controlled shadows and dramatic garment contour.",
+      "tags": ["black v-flat", "contrast", "garment contour", "shadows"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-broad-light",
+      "title": "Broad Light Setup",
+      "text": "Soft key illuminating broad side of face with low fill and optional hair light for open approachable campaign portrait lighting.",
+      "tags": ["broad light", "approachable", "portrait", "hair light"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-short-light",
+      "title": "Short Light Setup",
+      "text": "Soft key illuminating narrow side of face with low fill and optional rim for dimensional editorial facial shaping.",
+      "tags": ["short light", "editorial", "face shaping", "dimension"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-front-hard-spotlight",
+      "title": "Front Hard Spotlight",
+      "text": "Centered front Fresnel or optical spotlight with minimal fill and dark backdrop for high-fashion runway spotlight shadows.",
+      "tags": ["spotlight", "fresnel", "runway", "dark backdrop"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-side-hard-spotlight",
+      "title": "Side Hard Spotlight",
+      "text": "Side optical spotlight with no fill and projected wall shape for theatrical editorial graphic shadows.",
+      "tags": ["side spotlight", "theatrical", "graphic shadows", "projection"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-colored-gel-rim",
+      "title": "Colored Gel Rim Lighting",
+      "text": "Soft white front key with low neutral fill and colored gel rims for futuristic nightlife and Gen-Z apparel campaign energy.",
+      "tags": ["gel rim", "nightlife", "gen-z", "futuristic"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-two-color-gel",
+      "title": "Two-Color Gel Setup",
+      "text": "Blue gel from one side and magenta or red gel from opposite side with minimal neutral fill for neon cyber-fashion mood.",
+      "tags": ["two-color gel", "neon", "cyber fashion", "blue magenta"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-neutral-key-colored-background",
+      "title": "Neutral Key with Colored Background",
+      "text": "Soft neutral key with white bounce and colored gels on background only to preserve accurate garment color.",
+      "tags": ["neutral key", "colored background", "garment color", "gels"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-projection-pattern",
+      "title": "Projection Pattern Setup",
+      "text": "Soft front key with low fill and projected background patterns for editorial visual texture without distracting from outfit.",
+      "tags": ["projection", "pattern", "editorial texture", "outfit readable"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-gobo-shadow",
+      "title": "Gobo Shadow Setup",
+      "text": "Soft frontal key with white bounce and window-blind, leaf, or geometric gobo shadow for architectural campaign drama.",
+      "tags": ["gobo", "shadow", "architectural", "campaign"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-prism-glass-reflection",
+      "title": "Prism / Glass Reflection Setup",
+      "text": "Softbox through glass or prism with minimal fill and subtle rim for dreamy premium editorial reflections.",
+      "tags": ["prism", "glass", "reflection", "dreamy"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-reflector-board-sun-look",
+      "title": "Reflector Board Sun Look",
+      "text": "Hard light bounced from silver reflector with white fill for a sharp polished fashion look and metallic highlights.",
+      "tags": ["silver reflector", "sun look", "metallic highlights", "polished"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-silver-umbrella",
+      "title": "Silver Umbrella Setup",
+      "text": "Silver umbrella at front angle with low reflector and optional backdrop wash for high-contrast commercial fashion highlights.",
+      "tags": ["silver umbrella", "high contrast", "commercial", "highlights"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-white-umbrella",
+      "title": "White Umbrella Setup",
+      "text": "White shoot-through umbrella front-left with right reflector and soft background wash for broad soft apparel light.",
+      "tags": ["white umbrella", "shoot-through", "broad soft light", "apparel"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-parabolic-umbrella",
+      "title": "Parabolic Umbrella Setup",
+      "text": "Deep parabolic umbrella high front with low fill or reflector for punchy yet flattering luxury fashion lighting.",
+      "tags": ["parabolic umbrella", "punchy", "luxury", "flattering"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-deep-parabolic-soft-light",
+      "title": "Deep Parabolic Soft Light",
+      "text": "Parabolic softbox at 45 degrees with white bounce and subtle background separation for controlled premium catchlights.",
+      "tags": ["parabolic softbox", "catchlights", "controlled contrast", "premium"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-lantern-softbox",
+      "title": "Lantern Softbox Setup",
+      "text": "Lantern modifier overhead/front with reflector below for soft ambient wrap light and relaxed lifestyle fashion.",
+      "tags": ["lantern", "wrap light", "lifestyle", "soft ambient"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-lantern-negative-fill",
+      "title": "Lantern with Negative Fill",
+      "text": "Overhead lantern modifier with side black flags or V-flats for soft but sculpted fashion portrait depth.",
+      "tags": ["lantern", "negative fill", "sculpted", "portrait"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-bare-bulb-flash",
+      "title": "Bare Bulb Flash Setup",
+      "text": "Bare flash from side-front with little or no fill for a hard raw editorial streetwear aesthetic.",
+      "tags": ["bare bulb", "hard flash", "streetwear", "raw"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-bare-bulb-diffusion-scrim",
+      "title": "Bare Bulb with Diffusion Scrim",
+      "text": "Bare flash through large diffusion with low reflector and neutral backdrop for softened sunlight-style fashion contrast.",
+      "tags": ["bare flash", "diffusion scrim", "sunlight style", "contrast"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-fresnel-cinematic",
+      "title": "Fresnel Cinematic Setup",
+      "text": "Fresnel light at 45 degrees front-side with controlled fill and optional rim or haze for cinematic campaign shaping.",
+      "tags": ["fresnel", "cinematic", "directional", "campaign"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-fresnel-through-diffusion",
+      "title": "Fresnel Through Diffusion",
+      "text": "Key Fresnel through silk or scrim with white bounce and soft background falloff for refined cinematic highlights.",
+      "tags": ["fresnel", "diffusion", "silk", "refined highlights"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-book-light",
+      "title": "Book Light Setup",
+      "text": "Book light bounced into white board and diffused through silk for extremely smooth high-end beauty and luxury fashion light.",
+      "tags": ["book light", "silk", "beauty", "luxury"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-book-light-side-rim",
+      "title": "Book Light with Side Rim",
+      "text": "Book light key with low fill and rear stripbox rim for soft skin plus strong garment and hair separation.",
+      "tags": ["book light", "side rim", "soft skin", "garment separation"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-two-softboxes-symmetrical",
+      "title": "Two Softboxes Symmetrical",
+      "text": "Matching left-right softboxes with centered reflector and optional background wash for even commercial fashion and e-commerce light.",
+      "tags": ["two softboxes", "symmetrical", "commercial", "e-commerce"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-two-softboxes-asymmetrical",
+      "title": "Two Softboxes Asymmetrical",
+      "text": "Large front-left softbox, smaller softer front-right fill, and subtle rim for natural dimensional premium campaign lighting.",
+      "tags": ["two softboxes", "asymmetrical", "premium", "dimensional"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "lighting-setup-gradient-background",
+      "title": "Gradient Background Setup",
+      "text": "Soft front-left key with reflector and feathered background lights for a stylish tonal editorial catalog backdrop.",
+      "tags": ["gradient background", "feathered light", "catalog", "tonal"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "lighting-setup-reflective-floor-fashion",
+      "title": "Reflective Floor Fashion Setup",
+      "text": "Large high front-left softbox with front fill bounce, side rim, and controlled floor bounce for luxury full-body campaign depth.",
+      "tags": ["reflective floor", "front-left softbox", "side rim", "luxury"],
+      "useFor": "both",
+      "favorite": true
+    }
+  ],
+  "poses": [],
+  "shots": [],
+  "compositions": [],
+  "cameras": [],
+  "lenses": [],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [],
+  "subjects": [],
+  "wardrobeProps": [],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [],
+  "negativePrompts": [],
+  "platformPresets": [],
+  "formulas": []
+}

@@ -1,0 +1,645 @@
+{
+  "lighting": [],
+  "poses": [],
+  "shots": [],
+  "compositions": [],
+  "cameras": [],
+  "lenses": [],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [
+    {
+      "id": "environment-warm-neutral-seamless-cyclorama",
+      "title": "Warm neutral seamless cyclorama",
+      "text": "Warm neutral seamless cyclorama with a lightly reflective floor and uncluttered negative space.",
+      "tags": ["cyclorama", "warm neutral", "premium", "soft diffused"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-clean-white-infinity-cyclorama",
+      "title": "Clean white infinity cyclorama",
+      "text": "Clean white infinity cyclorama, airy high-key lighting, no visible wall seam.",
+      "tags": ["cyclorama", "white", "high key", "retail"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-soft-beige-paper-sweep",
+      "title": "Soft beige paper sweep",
+      "text": "Soft beige paper sweep transitioning smoothly onto the floor.",
+      "tags": ["paper sweep", "beige", "editorial", "warm"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-matte-warm-gray-cyclorama",
+      "title": "Matte warm-gray cyclorama",
+      "text": "Matte warm-gray cyclorama with soft tonal falloff and clear garment separation.",
+      "tags": ["cyclorama", "warm gray", "neutral", "garment separation"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-muted-pastel-curved-studio-wall",
+      "title": "Muted pastel curved studio wall",
+      "text": "Muted pastel curved studio wall with clean controlled shadows.",
+      "tags": ["pastel", "curved wall", "modern fashion", "controlled shadows"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-sculptural-plaster-panel-studio",
+      "title": "Sculptural plaster panel studio",
+      "text": "Sculptural plaster panels with soft raking light and restrained texture.",
+      "tags": ["plaster", "sculptural", "luxury", "texture"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-textured-microcement-wall-set",
+      "title": "Textured microcement wall set",
+      "text": "Minimal microcement wall with directional natural-style studio shadows.",
+      "tags": ["microcement", "matte", "utilitarian", "studio shadows"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-curved-backdrop-panel-installation",
+      "title": "Curved backdrop panel installation",
+      "text": "Curved backdrop panels arranged with clean negative space and no visual clutter.",
+      "tags": ["curved panels", "editorial", "negative space", "contemporary"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-minimal-arched-architectural-studio",
+      "title": "Minimal arched architectural studio",
+      "text": "Minimal arched architecture in a neutral studio, softly lit with refined shadow depth.",
+      "tags": ["arches", "architecture", "luxury", "neutral studio"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-flat-color-block-editorial-wall",
+      "title": "Flat color-block editorial wall",
+      "text": "Bold but minimal color-block wall, clean geometric shadow, garment remains hero.",
+      "tags": ["color block", "graphic", "gen-z", "geometric"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-vinyl-backdrop-muted-neutral",
+      "title": "Vinyl backdrop in muted neutral",
+      "text": "Muted neutral vinyl backdrop with clean studio reflections held to a minimum.",
+      "tags": ["vinyl", "muted neutral", "catalog", "controlled highlight"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-soft-linen-drape-studio",
+      "title": "Soft linen drape studio",
+      "text": "Soft linen drapes in neutral tones, arranged to stay behind the garment silhouette.",
+      "tags": ["linen", "drape", "soft", "romantic editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-projection-wall-fashion-set",
+      "title": "Projection-wall fashion set",
+      "text": "Projection wall with abstract neutral light pattern only in the background.",
+      "tags": ["projection", "abstract", "experimental", "background only"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-led-screen-neutral-gradient",
+      "title": "LED screen wall with abstract neutral gradient",
+      "text": "LED screen wall showing a restrained neutral gradient, no text or graphic artifacts.",
+      "tags": ["led screen", "gradient", "contemporary", "no text"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-minimal-gallery-monolithic-plinth",
+      "title": "Minimal gallery set with monolithic plinth",
+      "text": "Minimal gallery set with a single monolithic plinth and clean architectural shadow.",
+      "tags": ["gallery", "plinth", "product hero", "architectural"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-corner-studio-sunlight-shadow",
+      "title": "Corner studio room with strong sunlight shadow",
+      "text": "Neutral corner studio with long diagonal window-style shadows and uncluttered floor.",
+      "tags": ["corner studio", "sunlight shadow", "window light", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-polished-stone-backdrop-studio",
+      "title": "Polished stone backdrop studio",
+      "text": "Polished stone backdrop with soft highlights and a subdued reflection below the model.",
+      "tags": ["stone", "luxury", "reflection", "soft side light"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-gloss-black-low-key-infinity-wall",
+      "title": "Gloss-black low-key infinity wall",
+      "text": "Gloss-black infinity wall with controlled edge light and no distracting mirror effect.",
+      "tags": ["black cyclorama", "low key", "rim light", "high fashion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-white-cyclorama",
+      "title": "White Cyclorama",
+      "text": "White cyclorama with a seamless curved wall flowing into the floor for clean luxury campaign and e-commerce fashion.",
+      "tags": ["cyclorama", "white", "e-commerce", "full body"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-warm-beige-cyclorama",
+      "title": "Warm Beige Cyclorama",
+      "text": "Warm beige cyclorama with a seamless infinity wall for a soft premium neutral fashion look.",
+      "tags": ["cyclorama", "beige", "neutral", "premium"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-cream-cyclorama",
+      "title": "Cream Cyclorama",
+      "text": "Matte cream curved studio backdrop for a minimal elevated apparel campaign.",
+      "tags": ["cyclorama", "cream", "minimal", "apparel"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-light-gray-cyclorama",
+      "title": "Light Gray Cyclorama",
+      "text": "Soft gray seamless infinity wall for modern catalog and editorial fashion.",
+      "tags": ["cyclorama", "light gray", "catalog", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-dark-gray-cyclorama",
+      "title": "Dark Gray Cyclorama",
+      "text": "Charcoal-gray seamless curved backdrop for moody premium apparel photography.",
+      "tags": ["cyclorama", "dark gray", "moody", "premium"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-black-cyclorama",
+      "title": "Black Cyclorama",
+      "text": "Deep black infinity wall for high-contrast luxury and dramatic fashion.",
+      "tags": ["cyclorama", "black", "high contrast", "dramatic"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-pastel-pink-cyclorama",
+      "title": "Pastel Pink Cyclorama",
+      "text": "Soft blush-pink seamless studio wall for feminine fashion and Gen-Z campaign styling.",
+      "tags": ["cyclorama", "pastel pink", "gen-z", "fashion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-pastel-blue-cyclorama",
+      "title": "Pastel Blue Cyclorama",
+      "text": "Powder-blue seamless backdrop for a fresh youthful streetwear campaign.",
+      "tags": ["cyclorama", "pastel blue", "streetwear", "youthful"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-pastel-green-cyclorama",
+      "title": "Pastel Green Cyclorama",
+      "text": "Muted sage or mint curved backdrop for relaxed lifestyle and modern fashion.",
+      "tags": ["cyclorama", "pastel green", "sage", "lifestyle"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-mustard-yellow-cyclorama",
+      "title": "Mustard Yellow Cyclorama",
+      "text": "Warm mustard seamless studio set for a bold retro editorial campaign.",
+      "tags": ["cyclorama", "mustard", "retro", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-burnt-orange-cyclorama",
+      "title": "Burnt Orange Cyclorama",
+      "text": "Terracotta-orange infinity backdrop for a fashion-forward autumn palette.",
+      "tags": ["cyclorama", "burnt orange", "terracotta", "autumn"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-deep-red-cyclorama",
+      "title": "Deep Red Cyclorama",
+      "text": "Rich burgundy or crimson curved wall for a dramatic luxury fashion campaign.",
+      "tags": ["cyclorama", "deep red", "burgundy", "luxury"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-cobalt-blue-cyclorama",
+      "title": "Cobalt Blue Cyclorama",
+      "text": "Saturated blue seamless background for a strong high-energy editorial look.",
+      "tags": ["cyclorama", "cobalt blue", "high energy", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-olive-green-cyclorama",
+      "title": "Olive Green Cyclorama",
+      "text": "Muted olive infinity wall for earthy premium casualwear campaigns.",
+      "tags": ["cyclorama", "olive", "earthy", "casualwear"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-lavender-cyclorama",
+      "title": "Lavender Cyclorama",
+      "text": "Soft lavender seamless studio set for contemporary beauty and fashion imagery.",
+      "tags": ["cyclorama", "lavender", "beauty", "fashion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-seamless-paper-sweep",
+      "title": "Seamless Paper Sweep",
+      "text": "Large seamless paper sweep curved onto the floor for simple catalog, lookbook, and product-focused photos.",
+      "tags": ["paper sweep", "catalog", "lookbook", "product"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-two-tone-paper-sweep",
+      "title": "Two-Tone Paper Sweep",
+      "text": "Two-tone paper sweep with contrasting color blocks for a graphic Gen-Z apparel campaign.",
+      "tags": ["paper sweep", "two-tone", "color block", "gen-z"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-color-gradient-paper-backdrop",
+      "title": "Color Gradient Paper Backdrop",
+      "text": "Paper background lit into a soft ombre gradient for editorial campaign depth.",
+      "tags": ["paper backdrop", "gradient", "editorial", "depth"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-flat-matte-painted-wall",
+      "title": "Flat Matte Painted Wall",
+      "text": "Clean single-color matte painted wall for minimal fashion portraits and apparel details.",
+      "tags": ["painted wall", "matte", "minimal", "apparel"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-textured-plaster-wall",
+      "title": "Textured Plaster Wall",
+      "text": "Matte textured plaster wall with natural uneven surface for luxury editorial and tactile garment shoots.",
+      "tags": ["plaster", "texture", "luxury", "tactile"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-microcement-wall",
+      "title": "Microcement Wall",
+      "text": "Smooth microcement wall for a modern premium fashion and streetwear set.",
+      "tags": ["microcement", "modern", "premium", "streetwear"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-concrete-industrial-wall",
+      "title": "Concrete Industrial Wall",
+      "text": "Raw concrete industrial studio wall for urban, masculine, raw fashion campaigns.",
+      "tags": ["concrete", "industrial", "urban", "streetwear"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-limewash-wall",
+      "title": "Limewash Wall",
+      "text": "Soft hand-painted limewash wall with tonal variation for an organic luxury editorial look.",
+      "tags": ["limewash", "organic", "luxury", "tonal variation"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-stucco-wall",
+      "title": "Stucco Wall",
+      "text": "Subtle rough stucco wall for Mediterranean-inspired fashion set styling.",
+      "tags": ["stucco", "rough plaster", "mediterranean", "fashion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-distressed-painted-wall",
+      "title": "Distressed Painted Wall",
+      "text": "Distressed painted wall with worn paint and faded tones for vintage or artistic editorial styling.",
+      "tags": ["distressed", "painted wall", "vintage", "artistic"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-brick-wall-studio-set",
+      "title": "Brick Wall Studio Set",
+      "text": "Exposed brick wall studio set for urban lifestyle and streetwear shoots.",
+      "tags": ["brick wall", "urban", "lifestyle", "streetwear"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-white-brick-wall",
+      "title": "White Brick Wall",
+      "text": "Painted white brick backdrop for a clean urban casual fashion setting.",
+      "tags": ["white brick", "urban", "casual", "clean"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-wood-panel-wall",
+      "title": "Wood Panel Wall",
+      "text": "Warm wood panel wall with vertical or horizontal panels for premium lifestyle fashion.",
+      "tags": ["wood panel", "warm", "lifestyle", "premium"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-dark-wood-panel-wall",
+      "title": "Dark Wood Panel Wall",
+      "text": "Deep walnut or smoked wood panel wall for luxury menswear and moody campaigns.",
+      "tags": ["dark wood", "walnut", "menswear", "moody"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-fluted-wall-set",
+      "title": "Fluted Wall Set",
+      "text": "Vertical ribbed or fluted wall panels for an architectural premium editorial look.",
+      "tags": ["fluted wall", "ribbed", "architectural", "editorial"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-corrugated-metal-wall",
+      "title": "Corrugated Metal Wall",
+      "text": "Industrial ribbed corrugated metal wall for utilitywear, streetwear, and Gen-Z style.",
+      "tags": ["metal", "corrugated", "utilitywear", "streetwear"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-metallic-foil-backdrop",
+      "title": "Metallic Foil Backdrop",
+      "text": "Crinkled metallic foil backdrop in silver, gold, or chrome for flash fashion and high-energy visuals.",
+      "tags": ["metallic foil", "chrome", "flash", "nightlife"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-mirror-wall-set",
+      "title": "Mirror Wall Set",
+      "text": "Mirror wall or partial mirror panels for reflection-driven editorial and beauty campaigns.",
+      "tags": ["mirror", "reflection", "editorial", "beauty"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-smoked-mirror-wall",
+      "title": "Smoked Mirror Wall",
+      "text": "Dark smoked mirror wall panels for moody luxury and sophisticated campaign lighting.",
+      "tags": ["smoked mirror", "luxury", "moody", "reflection"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-reflective-chrome-panels",
+      "title": "Reflective Chrome Panels",
+      "text": "Reflective chrome panels for futuristic tech-fashion editorial styling.",
+      "tags": ["chrome", "reflective", "futuristic", "tech fashion"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-translucent-acrylic-panels",
+      "title": "Translucent Acrylic Panels",
+      "text": "Frosted, clear, or tinted acrylic panels for soft futuristic studio layers.",
+      "tags": ["acrylic", "translucent", "frosted", "futuristic"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-colored-acrylic-panels",
+      "title": "Colored Acrylic Panels",
+      "text": "Bold transparent colored acrylic panels for playful fashion and Gen-Z campaign visuals.",
+      "tags": ["acrylic", "colored", "gen-z", "playful"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-curved-backdrop-panels",
+      "title": "Curved Backdrop Panels",
+      "text": "Freestanding curved sculptural backdrop panels for soft architectural editorial composition.",
+      "tags": ["curved panels", "sculptural", "architectural", "editorial"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-layered-curved-panels",
+      "title": "Layered Curved Panels",
+      "text": "Layered curved panels with arches or waves at different depths for high-end set design.",
+      "tags": ["curved panels", "layered", "depth", "high-end set"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-arched-studio-wall",
+      "title": "Arched Studio Wall",
+      "text": "Built-in rounded arch opening or niche for an elegant luxury fashion backdrop.",
+      "tags": ["arch", "niche", "luxury", "fashion backdrop"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-multiple-arch-set",
+      "title": "Multiple Arch Set",
+      "text": "Repeating arches in a studio space for runway-inspired editorial campaign imagery.",
+      "tags": ["arches", "repeating", "runway", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-niche-wall-set",
+      "title": "Niche Wall Set",
+      "text": "Wall with recessed geometric niches for minimal architectural fashion imagery.",
+      "tags": ["niche", "geometric", "architectural", "minimal"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-geometric-block-wall",
+      "title": "Geometric Block Wall",
+      "text": "Stacked geometric block wall with cubes, rectangles, or angular forms for graphic editorial full-body fashion.",
+      "tags": ["geometric", "blocks", "graphic", "full body"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-color-block-wall",
+      "title": "Color-Block Wall",
+      "text": "Contrasting painted geometric color-block wall for bold commercial fashion campaigns.",
+      "tags": ["color block", "geometric", "commercial", "bold"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-checkerboard-wall",
+      "title": "Checkerboard Wall",
+      "text": "Large graphic checkerboard wall in black-white or color for youthful pop-fashion styling.",
+      "tags": ["checkerboard", "graphic", "pop fashion", "youthful"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-grid-wall-set",
+      "title": "Grid Wall Set",
+      "text": "Minimal square or rectangular grid wall structure for a clean modern fashion visual identity.",
+      "tags": ["grid wall", "modern", "minimal", "visual identity"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-modular-panel-wall",
+      "title": "Modular Panel Wall",
+      "text": "Movable modular panel wall in different colors or textures for a flexible studio editorial setup.",
+      "tags": ["modular panels", "flexible", "studio", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-cube-room-set",
+      "title": "Cube Room Set",
+      "text": "Cube room set with three visible studio walls for editorial poses, shadows, and depth.",
+      "tags": ["cube room", "studio walls", "depth", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-corner-studio-set",
+      "title": "Corner Studio Set",
+      "text": "Corner studio set with two visible walls for fashion poses with stronger perspective.",
+      "tags": ["corner studio", "perspective", "fashion poses", "depth"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-minimal-apartment-set",
+      "title": "Minimal Apartment Set",
+      "text": "Minimal apartment-style set with simple wall, floor, and furniture for lifestyle apparel campaigns.",
+      "tags": ["apartment set", "lifestyle", "furniture", "apparel"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-window-light-studio-set",
+      "title": "Window-Light Studio Set",
+      "text": "Studio set with artificial window frame and sunlight-style shadows for a natural editorial fashion mood.",
+      "tags": ["window light", "sunlight shadow", "natural", "editorial"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "environment-sheer-curtain-set",
+      "title": "Sheer Curtain Set",
+      "text": "Soft translucent curtain set behind or around the model for romantic premium fashion photography.",
+      "tags": ["sheer curtain", "translucent", "romantic", "premium"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-heavy-draped-curtain-set",
+      "title": "Heavy Draped Curtain Set",
+      "text": "Heavy velvet, satin, or thick fabric drapes for dramatic luxury campaign and eveningwear styling.",
+      "tags": ["curtain", "velvet", "satin", "dramatic"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-fabric-sweep-set",
+      "title": "Fabric Sweep Set",
+      "text": "Large flowing fabric sweep dropping from wall to floor for a soft sculptural editorial background.",
+      "tags": ["fabric sweep", "flowing fabric", "sculptural", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-pleated-fabric-backdrop",
+      "title": "Pleated Fabric Backdrop",
+      "text": "Vertical pleated or gathered textile backdrop for fashion portraits with depth and texture.",
+      "tags": ["pleated fabric", "textile", "portrait", "texture"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-canvas-backdrop",
+      "title": "Canvas Backdrop",
+      "text": "Hand-painted canvas backdrop with subtle color variation for classic magazine editorial imagery.",
+      "tags": ["canvas", "hand-painted", "magazine", "editorial"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-muslin-backdrop",
+      "title": "Muslin Backdrop",
+      "text": "Soft wrinkled cotton muslin backdrop for relaxed portrait and vintage campaign feel.",
+      "tags": ["muslin", "wrinkled cotton", "portrait", "vintage"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-vinyl-backdrop",
+      "title": "Vinyl Backdrop",
+      "text": "Smooth matte vinyl backdrop for clean, easy-to-light product and apparel shoots.",
+      "tags": ["vinyl", "matte", "product", "apparel"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-projection-wall",
+      "title": "Projection Wall",
+      "text": "Plain projection wall with controlled patterns, textures, or graphics for creative editorial without physical set construction.",
+      "tags": ["projection", "patterns", "creative editorial", "controlled graphics"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "environment-led-screen-wall",
+      "title": "LED Screen Wall",
+      "text": "Large LED screen wall displaying controlled visuals for digital fashion campaign and futuristic scenes.",
+      "tags": ["led screen", "digital", "futuristic", "fashion campaign"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "subjects": [],
+  "wardrobeProps": [],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [],
+  "negativePrompts": [],
+  "platformPresets": [],
+  "formulas": []
+}

@@ -1,0 +1,125 @@
+{
+  "lighting": [],
+  "poses": [],
+  "shots": [
+    {
+      "id": "shot-full-body-vertical-hero-portrait",
+      "title": "Full-body vertical hero portrait",
+      "text": "Full-body vertical fashion portrait with both feet visible and ample headroom.",
+      "tags": ["full body", "vertical", "hero portrait", "head to toe"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "shot-full-body-front-product-frame",
+      "title": "Full-body front product frame",
+      "text": "Full-body front product frame, square posture, collar and placket fully visible.",
+      "tags": ["full body", "front frame", "product", "symmetry"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "shot-full-body-three-quarter-fashion-frame",
+      "title": "Full-body three-quarter fashion frame",
+      "text": "Full-body three-quarter fashion frame showing side seam, shoulder line, and polished silhouette.",
+      "tags": ["full body", "three-quarter", "side seam", "silhouette"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "shot-full-body-side-profile-fashion-frame",
+      "title": "Full-body side-profile fashion frame",
+      "text": "Full-body side-profile fashion frame with clean shoulder and sleeve construction visibility.",
+      "tags": ["full body", "side profile", "sleeve", "garment depth"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "shot-full-body-back-detail-product-frame",
+      "title": "Full-body back-detail product frame",
+      "text": "Full-body back-detail product frame, garment back construction fully readable.",
+      "tags": ["full body", "back detail", "back yoke", "fit"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "shot-three-quarter-length-portrait",
+      "title": "Three-quarter length portrait",
+      "text": "Three-quarter length fashion portrait with collar, placket, and waist folds in crisp focus.",
+      "tags": ["three-quarter length", "mid-calf", "collar", "placket"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "shot-knee-up-editorial-portrait",
+      "title": "Knee-up editorial portrait",
+      "text": "Knee-up editorial portrait with clean collar and sleeve visibility.",
+      "tags": ["knee up", "editorial", "collar", "sleeve"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "shot-thigh-up-campaign-portrait",
+      "title": "Thigh-up campaign portrait",
+      "text": "Thigh-up luxury campaign portrait, eyes and polo texture in sharp focus.",
+      "tags": ["thigh up", "campaign", "eyes", "polo texture"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "shot-waist-up-polo-detail-portrait",
+      "title": "Waist-up polo detail portrait",
+      "text": "Waist-up product-and-face portrait emphasizing collar, placket, and textile weave.",
+      "tags": ["waist up", "polo detail", "collar", "textile weave"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "shot-chest-up-collar-face-portrait",
+      "title": "Chest-up collar and face portrait",
+      "text": "Chest-up campaign portrait with collar construction and skin texture clearly rendered.",
+      "tags": ["chest up", "collar", "face", "skin texture"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "shot-close-up-collar-placket-detail-crop",
+      "title": "Close-up collar/placket detail crop",
+      "text": "Close-up crop of collar, placket, buttons, ribbing, and fabric weave.",
+      "tags": ["close up", "collar", "placket", "buttons", "ribbing"],
+      "useFor": "both",
+      "favorite": true
+    },
+    {
+      "id": "shot-macro-fabric-texture-insert",
+      "title": "Macro fabric texture insert",
+      "text": "Macro textile detail showing authentic weave, stitching, ribbing, and natural fiber texture.",
+      "tags": ["macro", "fabric", "textile", "stitching", "fiber"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "shot-dynamic-walking-full-body-frame",
+      "title": "Dynamic walking full-body frame",
+      "text": "Dynamic full-body walking frame with controlled motion, full feet visible, and natural polo folds.",
+      "tags": ["walking", "full body", "motion", "natural folds"],
+      "useFor": "both",
+      "favorite": false
+    }
+  ],
+  "compositions": [],
+  "cameras": [],
+  "lenses": [],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [],
+  "subjects": [],
+  "wardrobeProps": [],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [],
+  "negativePrompts": [],
+  "platformPresets": [],
+  "formulas": []
+}

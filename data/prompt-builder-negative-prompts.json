@@ -1,0 +1,101 @@
+{
+  "lighting": [],
+  "poses": [],
+  "shots": [],
+  "compositions": [],
+  "cameras": [],
+  "lenses": [],
+  "styles": [],
+  "moods": [],
+  "colors": [],
+  "environments": [],
+  "subjects": [],
+  "wardrobeProps": [],
+  "motion": [],
+  "videoMoves": [],
+  "rendering": [],
+  "negativePrompts": [
+    {
+      "id": "negative-identity-drift",
+      "title": "Identity drift",
+      "text": "Do not change facial features, face shape, skin tone, ethnicity, hairstyle essence, age appearance, body proportions, or overall natural likeness.",
+      "tags": ["identity", "reference fidelity", "face", "likeness"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-garment-mismatch",
+      "title": "Garment mismatch",
+      "text": "Avoid inaccurate polo color, wrong collar shape, incorrect placket, wrong buttons, sleeve length, ribbing, seams, stitching, hem, print placement, branding, or fabric texture.",
+      "tags": ["fashion", "garment", "polo", "outfit fidelity"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-product-occlusion",
+      "title": "Product occlusion",
+      "text": "Avoid hair, hands, accessories, layered clothing, or props covering the collar, placket, sleeves, hem, or branding.",
+      "tags": ["product visibility", "occlusion", "fashion", "polo"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-anatomy-errors",
+      "title": "Anatomy errors",
+      "text": "Avoid distorted hands, extra fingers, fused fingers, malformed limbs, stiff posture, unnatural body angles, duplicate limbs, or warped clothing.",
+      "tags": ["anatomy", "hands", "limbs", "artifacts"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-skin-face-artifacts",
+      "title": "Skin and face artifacts",
+      "text": "Avoid facial blur, poor eye detail, plastic skin, waxy face, excessive smoothing, artificial hair, artificial skin, mannequin appearance, or CGI look.",
+      "tags": ["skin", "face", "realism", "human"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-framing-errors",
+      "title": "Framing errors",
+      "text": "Avoid poor crop, cropped feet in full-body images, incorrect perspective, warped proportions, or unbalanced negative space.",
+      "tags": ["framing", "crop", "perspective", "composition"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-lighting-errors",
+      "title": "Lighting errors",
+      "text": "Avoid harsh glare, overexposure, underexposure, flat lighting, muddy shadows, inconsistent shadow direction, or incorrect garment color under light.",
+      "tags": ["lighting", "exposure", "shadows", "color fidelity"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-set-distractions",
+      "title": "Set distractions",
+      "text": "Avoid cluttered scenes, outdoor scenery, street elements, irrelevant props, distracting reflections, and background distractions.",
+      "tags": ["background", "studio", "clutter", "props"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-render-artifacts",
+      "title": "Render artifacts",
+      "text": "Avoid text artifacts, watermark, logo invention, duplicated elements, floating objects, and anything that compromises realism.",
+      "tags": ["artifacts", "watermark", "text", "realism"],
+      "useFor": "both",
+      "favorite": false
+    },
+    {
+      "id": "negative-comprehensive-fashion",
+      "title": "Comprehensive fashion negative",
+      "text": "Do not change identity or outfit; avoid anatomy errors, garment occlusion, crop errors, plastic skin, CGI, incorrect lighting, background clutter, text artifacts, watermark, duplicate limbs, warped clothing, or inaccurate reference details.",
+      "tags": ["fashion", "comprehensive", "identity", "outfit fidelity"],
+      "useFor": "both",
+      "favorite": true
+    }
+  ],
+  "platformPresets": [],
+  "formulas": []
+}

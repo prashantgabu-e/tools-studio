@@ -14,8 +14,8 @@ GitHub Pages: https://prashantgabu-e.github.io/tools-studio/
 - Prompt template workspace with categories, sample input, sample output, and copy-ready previews
 - Gen AI prompt template workspace for storing reusable prompt patterns
 - Prompt Builder workspace for reusable image/video prompt ingredients such as lighting, poses, shots, compositions, camera, lenses, styles, moods, motion, negative prompts, and formulas
-- Firestore-backed template storage with add, edit, delete, list, import, export, and starter sync flows
-- Google sign-in with per-user template collections
+- Firestore-backed template storage with add, edit, delete, list, import, and export flows
+- Public Firestore reads with Google sign-in required for write operations
 - Route-based navigation with `HashRouter` for GitHub Pages compatibility
 - Mobile-friendly interface
 
@@ -29,7 +29,7 @@ GitHub Pages: https://prashantgabu-e.github.io/tools-studio/
 - Cloud Firestore
 - Custom CSS
 - Lucide React
-- JSON data files for starter templates
+- Optional JSON files for manual imports
 
 ## Project Structure
 
@@ -83,15 +83,16 @@ The app builds to `docs/`, which is intended for GitHub Pages deployment from `m
    - `127.0.0.1`
    - `prashantgabu-e.github.io`
 4. Create a Cloud Firestore database.
-5. Use rules like this to keep each user's templates private:
+5. Use rules like this to allow public reads and signed-in writes:
 
 ```txt
 rules_version = '2';
 
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    match /{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
     }
   }
 }
@@ -99,6 +100,8 @@ service cloud.firestore {
 
 ## Data Behavior
 
-Template edits are stored in Cloud Firestore under `users/{uid}`. The JSON files in this repo remain starter content and can be pushed into Firestore through the in-app sync flow.
+Template edits are stored in shared Cloud Firestore collections. The app loads menu data from Firestore without requiring sign-in; add, edit, delete, and import operations require Google sign-in.
 
-Prompt Builder stores the full ingredient library in one Firestore document at `users/{uid}/promptBuilder/library` to keep reads and writes low. Bulk imports accept a JSON object with category arrays such as `lighting`, `poses`, `shots`, `compositions`, `cameras`, `lenses`, `styles`, `moods`, `colors`, `environments`, `subjects`, `wardrobeProps`, `motion`, `videoMoves`, `rendering`, `negativePrompts`, `platformPresets`, and `formulas`.
+Prompt Builder stores the full ingredient library in one Firestore document at `promptBuilder/library` to keep reads and writes low. Bulk imports accept a JSON object with category arrays such as `lighting`, `poses`, `shots`, `compositions`, `cameras`, `lenses`, `styles`, `moods`, `colors`, `environments`, `subjects`, `wardrobeProps`, `motion`, `videoMoves`, `rendering`, `negativePrompts`, `platformPresets`, and `formulas`.
+
+Each data menu has an export button that downloads the currently loaded Firestore data as JSON.
