@@ -29,7 +29,7 @@ type RouteMeta = {
 };
 
 const routeMeta: RouteMeta[] = [
-  { id: "text-tools", label: "Text", title: "Transform", path: "/" },
+  { id: "text-tools", label: "Text", title: "Transform", path: "/text-tools" },
   {
     id: "template-tools",
     label: "Emails",
@@ -170,6 +170,10 @@ export function App() {
         <Routes>
           <Route
             path="/"
+            element={<Navigate to="/prompt-builder" replace />}
+          />
+          <Route
+            path="/text-tools"
             element={
               <TextToolsView
                 sourceText={sourceText}
@@ -244,7 +248,7 @@ export function App() {
               <PromptBuilderView manager={promptBuilderManager} onToast={pushToast} />
             }
           />
-          <Route path="*" element={<Navigate to="/" replace />} />
+          <Route path="*" element={<Navigate to="/prompt-builder" replace />} />
         </Routes>
       </main>
 

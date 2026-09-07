@@ -44,7 +44,7 @@ const navigationItems: NavItem[] = [
   { label: "Prompts", to: "/prompt-templates", icon: <WandSparkles aria-hidden="true" /> },
   { label: "Messages", to: "/dm-templates", icon: <MessageCircleMore aria-hidden="true" /> },
   { label: "Emails", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
-  { label: "Text", to: "/", icon: <Type aria-hidden="true" /> },
+  { label: "Text", to: "/text-tools", icon: <Type aria-hidden="true" /> },
 ];
 
 type BasicManagerShape = {
