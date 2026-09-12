@@ -190,17 +190,17 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     setSelectedId(draft.id);
   }
 
-  async function deleteIngredient() {
-    if (!selectedId) {
+  async function deleteIngredient(ingredientId = selectedId) {
+    if (!ingredientId) {
       return null;
     }
-    const existing = library[selectedCategory].find((item) => item.id === selectedId);
+    const existing = library[selectedCategory].find((item) => item.id === ingredientId);
     if (!existing) {
       createNewIngredient();
       return null;
     }
 
-    const nextItems = library[selectedCategory].filter((item) => item.id !== selectedId);
+    const nextItems = library[selectedCategory].filter((item) => item.id !== ingredientId);
     const nextLibrary = { ...library, [selectedCategory]: nextItems };
     await persistLibrary(nextLibrary);
     const nextSelected = nextItems[0] ?? createPromptIngredient();

@@ -12,6 +12,7 @@ import {
   Menu,
   MessageCircleMore,
   PanelLeft,
+  Pencil,
   Plus,
   Save,
   Sparkles,
@@ -104,7 +105,7 @@ type PromptBuilderManagerShape = {
   }>;
   composerText: string;
   createNewIngredient: () => void;
-  deleteIngredient: () => Promise<PromptIngredient | null>;
+  deleteIngredient: (ingredientId?: string | null) => Promise<PromptIngredient | null>;
   draft: PromptIngredient;
   error: string | null;
   filteredItems: PromptIngredient[];
@@ -1023,6 +1024,8 @@ export function PromptBuilderView(props: {
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [importMode, setImportMode] = useState<"merge" | "replace">("merge");
+  const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [isComposerOpen, setIsComposerOpen] = useState(false);
 
   const activeCategory = props.manager.categories.find(
     (item) => item.id === props.manager.selectedCategory,
@@ -1032,30 +1035,46 @@ export function PromptBuilderView(props: {
     try {
       await props.manager.saveIngredient();
       props.onToast(`${props.manager.draft.title || "Ingredient"} saved`, "success");
+      setIsEditorOpen(false);
     } catch (error) {
       props.onToast(error instanceof Error ? error.message : "Save failed", "warning");
     }
   }
 
-  async function handleDelete() {
-    if (!props.manager.selectedId) {
+  async function handleDelete(item?: PromptIngredient) {
+    const targetId = item?.id ?? props.manager.selectedId;
+    const targetTitle = item?.title ?? props.manager.draft.title;
+    if (!targetId) {
       return;
     }
     const confirmed = window.confirm(
-      `Delete "${props.manager.draft.title || "this ingredient"}"? This cannot be undone.`,
+      `Delete "${targetTitle || "this ingredient"}"? This cannot be undone.`,
     );
     if (!confirmed) {
       return;
     }
 
     try {
-      const deleted = await props.manager.deleteIngredient();
+      const deleted = await props.manager.deleteIngredient(targetId);
       if (deleted) {
         props.onToast(`${deleted.title} deleted`, "warning");
+        if (!item || item.id === props.manager.selectedId) {
+          setIsEditorOpen(false);
+        }
       }
     } catch (error) {
       props.onToast(error instanceof Error ? error.message : "Delete failed", "warning");
     }
+  }
+
+  function handleNew() {
+    props.manager.createNewIngredient();
+    setIsEditorOpen(true);
+  }
+
+  function handleEdit(item: PromptIngredient) {
+    props.manager.selectIngredient(item.id);
+    setIsEditorOpen(true);
   }
 
   function handleImportClick(mode: "merge" | "replace") {
@@ -1118,7 +1137,7 @@ export function PromptBuilderView(props: {
       <section className="panel-card builder-categories-panel">
         <div className="section-heading">
           <h3>Kit</h3>
-          <button className="ghost-button" type="button" onClick={props.manager.createNewIngredient}>
+          <button className="ghost-button" type="button" onClick={handleNew}>
             <Plus aria-hidden="true" />
             <span>New</span>
           </button>
@@ -1133,7 +1152,7 @@ export function PromptBuilderView(props: {
               type="button"
               onClick={() => props.manager.selectCategory(category.id)}
             >
-              <span>{category.shortLabel}</span>
+              <span>{category.label}</span>
               <strong>{props.manager.library[category.id].length}</strong>
             </button>
           ))}
@@ -1168,7 +1187,7 @@ export function PromptBuilderView(props: {
         <input
           className="compact-input"
           type="search"
-          placeholder="Search..."
+          placeholder="Search cards..."
           value={props.manager.searchQuery}
           onChange={(event) => props.manager.setSearchQuery(event.target.value)}
         />
@@ -1184,46 +1203,72 @@ export function PromptBuilderView(props: {
                 key={item.id}
                 className={`builder-item${item.id === props.manager.selectedId ? " is-active" : ""}`}
               >
+                <div className="builder-card-top">
+                  <p className="builder-use-pill">{item.useFor}</p>
+                  <div className="builder-item-actions">
+                    <button
+                      className={`icon-action${item.favorite ? " is-active" : ""}`}
+                      type="button"
+                      title="Favorite"
+                      aria-label="Favorite"
+                      onClick={() =>
+                        void props.manager
+                          .toggleFavorite(item)
+                          .catch((error: unknown) =>
+                            props.onToast(
+                              error instanceof Error ? error.message : "Favorite failed",
+                              "warning",
+                            ),
+                          )
+                      }
+                    >
+                      <Star aria-hidden="true" />
+                    </button>
+                    <CopyButton className="icon-action" text={item.text} icon={<Copy aria-hidden="true" />} />
+                    <button
+                      className="icon-action"
+                      type="button"
+                      title="Add to compose"
+                      aria-label="Add to compose"
+                      onClick={() => props.manager.appendToComposer(item.text)}
+                    >
+                      <Plus aria-hidden="true" />
+                    </button>
+                    <button
+                      className="icon-action"
+                      type="button"
+                      title="Edit"
+                      aria-label="Edit"
+                      onClick={() => handleEdit(item)}
+                    >
+                      <Pencil aria-hidden="true" />
+                    </button>
+                    <button
+                      className="icon-action is-danger"
+                      type="button"
+                      title="Delete"
+                      aria-label="Delete"
+                      onClick={() => void handleDelete(item)}
+                    >
+                      <Trash2 aria-hidden="true" />
+                    </button>
+                  </div>
+                </div>
                 <button
                   className="builder-item-main"
                   type="button"
-                  onClick={() => props.manager.selectIngredient(item.id)}
+                  onClick={() => handleEdit(item)}
                 >
                   <span>{item.title}</span>
-                  <small>
-                    {item.useFor} · {item.tags.join(", ") || "no tags"}
-                  </small>
                 </button>
-                <div className="builder-item-actions">
-                  <button
-                    className={`icon-action${item.favorite ? " is-active" : ""}`}
-                    type="button"
-                    title="Favorite"
-                    aria-label="Favorite"
-                    onClick={() =>
-                      void props.manager
-                        .toggleFavorite(item)
-                        .catch((error: unknown) =>
-                          props.onToast(
-                            error instanceof Error ? error.message : "Favorite failed",
-                            "warning",
-                          ),
-                        )
-                    }
-                  >
-                    <Star aria-hidden="true" />
-                  </button>
-                  <CopyButton className="icon-action" text={item.text} icon={<Copy aria-hidden="true" />} />
-                  <button
-                    className="icon-action"
-                    type="button"
-                    title="Add to composer"
-                    aria-label="Add to composer"
-                    onClick={() => props.manager.appendToComposer(item.text)}
-                  >
-                    <Plus aria-hidden="true" />
-                  </button>
+                <div className="builder-card-tags">
+                  {item.tags.length ? (
+                    item.tags.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)
+                  ) : (
+                    <span>No tags</span>
+                  )}
                 </div>
+                <p className="builder-card-text">{item.text}</p>
               </article>
             ))
           ) : (
@@ -1240,74 +1285,23 @@ export function PromptBuilderView(props: {
         />
       </section>
 
-      <section className="panel-card builder-editor-panel">
-        <div className="section-heading">
-          <h3>Edit</h3>
-          <div className="button-row">
-            <button className="ghost-button" type="button" onClick={handleDelete}>
-              <Trash2 aria-hidden="true" />
-              <span>Delete</span>
-            </button>
-            <button className="copy-button" type="button" onClick={handleSave}>
-              <Save aria-hidden="true" />
-              <span>Save</span>
-            </button>
-          </div>
-        </div>
+      <button
+        className="composer-float-tab"
+        type="button"
+        aria-expanded={isComposerOpen}
+        onClick={() => setIsComposerOpen((current) => !current)}
+      >
+        <Braces aria-hidden="true" />
+        <span>Compose</span>
+      </button>
 
-        <div className="builder-editor-grid">
-          <label className="field">
-            <span>Title</span>
-            <input
-              className="compact-input"
-              type="text"
-              value={props.manager.draft.title}
-              onChange={(event) =>
-                props.manager.setDraft((current) => ({ ...current, title: event.target.value }))
-              }
-            />
-          </label>
-          <label className="field">
-            <span>Use</span>
-            <select
-              className="compact-input"
-              value={props.manager.draft.useFor}
-              onChange={(event) => handleUseForChange(event.target.value)}
-            >
-              <option value="both">Both</option>
-              <option value="image">Image</option>
-              <option value="video">Video</option>
-            </select>
-          </label>
-        </div>
-
-        <label className="field">
-          <span>Tags</span>
-          <input
-            className="compact-input"
-            type="text"
-            value={props.manager.draft.tags.join(", ")}
-            onChange={(event) => handleTagsChange(event.target.value)}
-          />
-        </label>
-
-        <label className="field">
-          <span>Text</span>
-          <textarea
-            className="text-input builder-textarea"
-            spellCheck={false}
-            value={props.manager.draft.text}
-            onChange={(event) =>
-              props.manager.setDraft((current) => ({ ...current, text: event.target.value }))
-            }
-          />
-        </label>
-      </section>
-
-      <section className="panel-card builder-composer-panel">
+      <section className={`panel-card builder-composer-panel${isComposerOpen ? " is-open" : ""}`}>
         <div className="section-heading">
           <h3>Compose</h3>
           <div className="button-row">
+            <button className="ghost-button" type="button" onClick={() => setIsComposerOpen(false)}>
+              <span>Close</span>
+            </button>
             <button className="ghost-button" type="button" onClick={() => props.manager.setComposerText("")}>
               <Eraser aria-hidden="true" />
               <span>Clear</span>
@@ -1330,6 +1324,82 @@ export function PromptBuilderView(props: {
           <span>Add current</span>
         </button>
       </section>
+
+      {isEditorOpen ? (
+        <div className="dialog-backdrop" role="presentation">
+          <section
+            className="panel-card builder-editor-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="builder-editor-title"
+          >
+            <div className="section-heading">
+              <h3 id="builder-editor-title">Edit</h3>
+              <div className="button-row">
+                <button className="ghost-button" type="button" onClick={() => setIsEditorOpen(false)}>
+                  <span>Cancel</span>
+                </button>
+                <button className="ghost-button" type="button" onClick={() => void handleDelete()}>
+                  <Trash2 aria-hidden="true" />
+                  <span>Delete</span>
+                </button>
+                <button className="copy-button" type="button" onClick={() => void handleSave()}>
+                  <Save aria-hidden="true" />
+                  <span>Save</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="builder-editor-grid">
+              <label className="field">
+                <span>Title</span>
+                <input
+                  className="compact-input"
+                  type="text"
+                  value={props.manager.draft.title}
+                  onChange={(event) =>
+                    props.manager.setDraft((current) => ({ ...current, title: event.target.value }))
+                  }
+                />
+              </label>
+              <label className="field">
+                <span>Use</span>
+                <select
+                  className="compact-input"
+                  value={props.manager.draft.useFor}
+                  onChange={(event) => handleUseForChange(event.target.value)}
+                >
+                  <option value="both">Both</option>
+                  <option value="image">Image</option>
+                  <option value="video">Video</option>
+                </select>
+              </label>
+            </div>
+
+            <label className="field">
+              <span>Tags</span>
+              <input
+                className="compact-input"
+                type="text"
+                value={props.manager.draft.tags.join(", ")}
+                onChange={(event) => handleTagsChange(event.target.value)}
+              />
+            </label>
+
+            <label className="field">
+              <span>Text</span>
+              <textarea
+                className="text-input builder-textarea"
+                spellCheck={false}
+                value={props.manager.draft.text}
+                onChange={(event) =>
+                  props.manager.setDraft((current) => ({ ...current, text: event.target.value }))
+                }
+              />
+            </label>
+          </section>
+        </div>
+      ) : null}
     </section>
   );
 }
