@@ -1454,18 +1454,20 @@ a {
     max-width: none;
   }
 
-  .section-heading,
-  .preview-block-header {
+  .section-heading {
     align-items: stretch;
     flex-direction: column;
   }
 
   .section-heading .ghost-button,
-  .preview-block-header .ghost-button,
-  .preview-block-header .copy-button,
   .button-row,
   .button-row > button {
     width: 100%;
+  }
+
+  .preview-block-header {
+    align-items: flex-start;
+    flex-direction: row;
   }
 
   .mobile-section-tabs {
