@@ -1,4 +1,4 @@
-import { useRef, useState, type ChangeEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 import {
   Braces,
@@ -39,6 +39,7 @@ import {
   downloadJson,
   extractVariableNames,
   formatBytes,
+  parseTags,
   placeholderText,
   promptLibraryMaxImages,
   transforms,
@@ -1264,10 +1265,15 @@ export function PromptLibraryView(props: {
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [isCompressing, setIsCompressing] = useState(false);
   const [typeFilter, setTypeFilter] = useState<"all" | "image" | "video">("all");
+  const [tagsText, setTagsText] = useState("");
   const filteredItems =
     typeFilter === "all"
       ? props.manager.items
       : props.manager.items.filter((item) => item.outputType === typeFilter);
+
+  useEffect(() => {
+    setTagsText(props.manager.draft.tags.join(", "));
+  }, [props.manager.draft.id]);
 
   function openNewItem() {
     props.manager.createNewItem();
@@ -1414,6 +1420,13 @@ export function PromptLibraryView(props: {
                   </div>
                   <div className="prompt-library-card-body">
                     <span className="prompt-library-type-pill">{item.outputType}</span>
+                    {item.tags.length ? (
+                      <div className="prompt-library-card-tags">
+                        {item.tags.slice(0, 4).map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
+                    ) : null}
                     <p>{item.promptText || "Untitled prompt"}</p>
                   </div>
                 </button>
@@ -1540,13 +1553,61 @@ export function PromptLibraryView(props: {
 
                 <label className="field">
                   <span className="field-header">
+                    <span>Tags</span>
+                    <span className="field-actions">
+                      <CopyButton
+                        className="icon-action"
+                        defaultLabel="Copy tags"
+                        text={props.manager.draft.tags.join(", ")}
+                        icon={<Copy aria-hidden="true" />}
+                      />
+                      <PasteButton
+                        title="Paste tags"
+                        onPaste={(text) => {
+                          setTagsText(text);
+                          props.manager.setDraft((current) => ({
+                            ...current,
+                            tags: parseTags(text),
+                          }));
+                        }}
+                      />
+                    </span>
+                  </span>
+                  <input
+                    className="compact-input"
+                    type="text"
+                    placeholder="portrait, product, cinematic"
+                    value={tagsText}
+                    onChange={(event) => {
+                      setTagsText(event.target.value);
+                      props.manager.setDraft((current) => ({
+                        ...current,
+                        tags: parseTags(event.target.value),
+                      }));
+                    }}
+                  />
+                </label>
+
+                <label className="field">
+                  <span className="field-header">
                     <span>Prompt Text</span>
-                    <CopyButton
-                      className="icon-action"
-                      defaultLabel="Copy prompt"
-                      text={props.manager.draft.promptText}
-                      icon={<Copy aria-hidden="true" />}
-                    />
+                    <span className="field-actions">
+                      <CopyButton
+                        className="icon-action"
+                        defaultLabel="Copy prompt"
+                        text={props.manager.draft.promptText}
+                        icon={<Copy aria-hidden="true" />}
+                      />
+                      <PasteButton
+                        title="Paste prompt"
+                        onPaste={(text) =>
+                          props.manager.setDraft((current) => ({
+                            ...current,
+                            promptText: text,
+                          }))
+                        }
+                      />
+                    </span>
                   </span>
                   <textarea
                     className="text-input prompt-library-prompt-input"
