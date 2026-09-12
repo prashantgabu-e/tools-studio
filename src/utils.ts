@@ -4,10 +4,15 @@ import type {
   PromptBuilderLibrary,
   PromptBuilderUseFor,
   PromptIngredient,
+  PromptLibraryImage,
+  PromptLibraryItem,
   PromptTemplate,
 } from "./types";
 
 export const placeholderText = "Your transformed text will appear here.";
+export const promptLibraryMaxImages = 3;
+export const promptLibraryMaxImageBytes = 220 * 1024;
+export const promptLibraryMaxImageEdge = 900;
 
 export const transforms = [
   {
@@ -126,12 +131,31 @@ export function normalizePromptTemplates(items: unknown[], blankTitle: string) {
   });
 }
 
+export function normalizePromptLibraryItems(items: unknown[]) {
+  return items
+    .map((item, index) => normalizePromptLibraryItem(item, index))
+    .sort((left, right) => right.updatedAt.localeCompare(left.updatedAt));
+}
+
 export function createBasicTemplate(blankName: string): BasicTemplate {
   return {
     id: `template-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
     name: blankName,
     subject: "",
     body: "",
+  };
+}
+
+export function createPromptLibraryItem(): PromptLibraryItem {
+  const now = new Date().toISOString();
+  return {
+    id: `library-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
+    outputType: "image",
+    promptText: "",
+    tags: [],
+    images: [],
+    createdAt: now,
+    updatedAt: now,
   };
 }
 
@@ -257,4 +281,161 @@ export function downloadJson(filename: string, data: unknown) {
   link.download = filename;
   link.click();
   URL.revokeObjectURL(url);
+}
+
+export function downloadDataUrl(filename: string, dataUrl: string) {
+  const link = document.createElement("a");
+  link.href = dataUrl;
+  link.download = filename || "prompt-output.webp";
+  link.click();
+}
+
+export async function compressPromptLibraryImage(file: File): Promise<PromptLibraryImage> {
+  if (!file.type.startsWith("image/")) {
+    throw new Error(`${file.name} is not an image file.`);
+  }
+
+  const bitmap = await loadImageBitmap(file);
+  const scale = Math.min(1, promptLibraryMaxImageEdge / Math.max(bitmap.width, bitmap.height));
+  let width = Math.max(1, Math.round(bitmap.width * scale));
+  let height = Math.max(1, Math.round(bitmap.height * scale));
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+  if (!context) {
+    throw new Error("Image compression is not available in this browser.");
+  }
+
+  let quality = 0.62;
+  let dataUrl = "";
+  let sizeBytes = Number.POSITIVE_INFINITY;
+
+  for (let attempt = 0; attempt < 10; attempt += 1) {
+    canvas.width = width;
+    canvas.height = height;
+    context.clearRect(0, 0, width, height);
+    context.drawImage(bitmap, 0, 0, width, height);
+    dataUrl = canvas.toDataURL("image/webp", quality);
+    sizeBytes = estimateDataUrlStorageBytes(dataUrl);
+    if (sizeBytes <= promptLibraryMaxImageBytes) {
+      break;
+    }
+    if (quality > 0.34) {
+      quality -= 0.08;
+    } else {
+      width = Math.max(120, Math.round(width * 0.82));
+      height = Math.max(120, Math.round(height * 0.82));
+    }
+  }
+
+  if (sizeBytes > promptLibraryMaxImageBytes) {
+    throw new Error(
+      `${file.name} could not be compressed below ${formatBytes(promptLibraryMaxImageBytes)}.`,
+    );
+  }
+
+  const now = new Date().toISOString();
+  return {
+    id: `image-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
+    dataUrl,
+    fileName: toWebpFileName(file.name),
+    mimeType: "image/webp",
+    sizeBytes,
+    width,
+    height,
+    createdAt: now,
+  };
+}
+
+export function formatBytes(bytes: number) {
+  if (bytes < 1024) {
+    return `${bytes} B`;
+  }
+  if (bytes < 1024 * 1024) {
+    return `${Math.round(bytes / 1024)} KB`;
+  }
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+export function parseTags(value: string) {
+  return [
+    ...new Set(
+      value
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean),
+    ),
+  ];
+}
+
+function normalizePromptLibraryItem(item: unknown, index: number): PromptLibraryItem {
+  const value = (item ?? {}) as Partial<PromptLibraryItem> & {
+    images?: unknown;
+    tags?: unknown;
+  };
+  const now = new Date().toISOString();
+  return {
+    id: value.id || `library-${index + 1}-${Date.now()}`,
+    outputType: normalizePromptLibraryOutputType(value.outputType),
+    promptText: value.promptText || "",
+    tags: normalizeTags(value.tags),
+    images: Array.isArray(value.images)
+      ? value.images.slice(0, promptLibraryMaxImages).map(normalizePromptLibraryImage)
+      : [],
+    createdAt: value.createdAt || now,
+    updatedAt: value.updatedAt || value.createdAt || now,
+  };
+}
+
+function normalizeTags(value: unknown) {
+  if (Array.isArray(value)) {
+    return [...new Set(value.map(String).map((tag) => tag.trim()).filter(Boolean))];
+  }
+  return parseTags(String(value || ""));
+}
+
+function normalizePromptLibraryOutputType(value: unknown): PromptLibraryItem["outputType"] {
+  return value === "video" ? "video" : "image";
+}
+
+function normalizePromptLibraryImage(item: unknown): PromptLibraryImage {
+  const value = (item ?? {}) as Partial<PromptLibraryImage>;
+  const now = new Date().toISOString();
+  return {
+    id: value.id || `image-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
+    dataUrl: value.dataUrl || "",
+    fileName: value.fileName || "prompt-output.webp",
+    mimeType: value.mimeType || "image/webp",
+    sizeBytes: Number(value.sizeBytes || estimateDataUrlStorageBytes(value.dataUrl || "")),
+    width: Number(value.width || 0),
+    height: Number(value.height || 0),
+    createdAt: value.createdAt || now,
+  };
+}
+
+function estimateDataUrlStorageBytes(dataUrl: string) {
+  return new Blob([dataUrl]).size;
+}
+
+function toWebpFileName(fileName: string) {
+  const cleanName = fileName.trim() || "prompt-output";
+  return cleanName.replace(/\.[^.]+$/, "") + ".webp";
+}
+
+async function loadImageBitmap(file: File) {
+  if ("createImageBitmap" in window) {
+    return createImageBitmap(file);
+  }
+
+  const url = URL.createObjectURL(file);
+  try {
+    const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const element = new Image();
+      element.onload = () => resolve(element);
+      element.onerror = () => reject(new Error(`Could not read ${file.name}.`));
+      element.src = url;
+    });
+    return image;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
 }

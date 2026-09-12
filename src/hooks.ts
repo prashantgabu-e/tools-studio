@@ -10,7 +10,13 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { getFirebaseServices } from "./firebase";
-import type { BasicTemplate, PromptTemplate, ToastItem, ToastTone } from "./types";
+import type {
+  BasicTemplate,
+  PromptLibraryItem,
+  PromptTemplate,
+  ToastItem,
+  ToastTone,
+} from "./types";
 import type {
   PromptBuilderCategory,
   PromptBuilderLibrary,
@@ -20,11 +26,13 @@ import {
   applyVariables,
   createBasicTemplate,
   createEmptyPromptBuilderLibrary,
+  createPromptLibraryItem,
   createPromptIngredient,
   createPromptTemplate,
   extractVariableNames,
   mergePromptBuilderLibraries,
   normalizeBasicTemplates,
+  normalizePromptLibraryItems,
   normalizePromptBuilderLibrary,
   normalizePromptTemplates,
   promptBuilderCategories,
@@ -265,6 +273,144 @@ function upsertIngredient(items: PromptIngredient[], ingredient: PromptIngredien
     return items.map((item) => (item.id === ingredient.id ? ingredient : item));
   }
   return [ingredient, ...items];
+}
+
+type PromptLibraryOptions = {
+  userId: string | null;
+};
+
+export function usePromptLibraryManager(options: PromptLibraryOptions) {
+  const { userId } = options;
+  const [items, setItems] = useState<PromptLibraryItem[]>([]);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [draft, setDraft] = useState<PromptLibraryItem>(() => createPromptLibraryItem());
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { db } = getFirebaseServices();
+    if (!db) {
+      setItems([]);
+      setSelectedId(null);
+      setDraft(createPromptLibraryItem());
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    const itemsRef = collection(db, "promptLibrary");
+    return onSnapshot(
+      query(itemsRef),
+      (snapshot) => {
+        const nextItems = normalizePromptLibraryItems(
+          snapshot.docs.map((item) => ({ id: item.id, ...item.data() })),
+        );
+        setItems(nextItems);
+        setSelectedId((currentSelectedId) => {
+          const nextSelected =
+            nextItems.find((item) => item.id === currentSelectedId) ?? nextItems[0];
+          if (nextSelected) {
+            setDraft((currentDraft) =>
+              currentDraft.id === nextSelected.id
+                ? nextSelected
+                : nextItems.find((item) => item.id === currentDraft.id) ?? nextSelected,
+            );
+            return nextSelected.id;
+          }
+
+          setDraft(createPromptLibraryItem());
+          return null;
+        });
+        setError(null);
+        setIsLoading(false);
+      },
+      (snapshotError) => {
+        setError(snapshotError.message);
+        setIsLoading(false);
+      },
+    );
+  }, []);
+
+  function selectItem(itemId: string | null) {
+    const found = items.find((item) => item.id === itemId);
+    if (!found) {
+      const blank = createPromptLibraryItem();
+      setSelectedId(blank.id);
+      setDraft(blank);
+      return;
+    }
+    setSelectedId(found.id);
+    setDraft(found);
+  }
+
+  function createNewItem() {
+    const blank = createPromptLibraryItem();
+    setSelectedId(blank.id);
+    setDraft(blank);
+  }
+
+  async function saveItem(nextDraft = draft) {
+    const { db } = getFirebaseServices();
+    if (!db || !userId) {
+      throw new Error("Sign in to save the prompt library to Firestore.");
+    }
+
+    const now = new Date().toISOString();
+    const itemToSave = {
+      ...nextDraft,
+      updatedAt: now,
+      createdAt: nextDraft.createdAt || now,
+    };
+    await setDoc(doc(db, "promptLibrary", itemToSave.id), itemToSave);
+    setItems((current) => {
+      const existingIndex = current.findIndex((item) => item.id === itemToSave.id);
+      const nextItems =
+        existingIndex >= 0
+          ? current.map((item) => (item.id === itemToSave.id ? itemToSave : item))
+          : [itemToSave, ...current];
+      return normalizePromptLibraryItems(nextItems);
+    });
+    setSelectedId(itemToSave.id);
+    setDraft(itemToSave);
+    return itemToSave;
+  }
+
+  async function deleteItem(itemId = selectedId) {
+    if (!itemId) {
+      return null;
+    }
+    const { db } = getFirebaseServices();
+    if (!db || !userId) {
+      throw new Error("Sign in to delete prompt library items from Firestore.");
+    }
+
+    const existing = items.find((item) => item.id === itemId);
+    if (!existing) {
+      createNewItem();
+      return null;
+    }
+
+    await deleteDoc(doc(db, "promptLibrary", itemId));
+    const nextItems = items.filter((item) => item.id !== itemId);
+    setItems(nextItems);
+    const nextSelected = nextItems[0] ?? createPromptLibraryItem();
+    setSelectedId(nextItems[0]?.id ?? null);
+    setDraft(nextSelected);
+    return existing;
+  }
+
+  return {
+    createNewItem,
+    deleteItem,
+    draft,
+    error,
+    isLoading,
+    items,
+    saveItem,
+    selectedId,
+    selectItem,
+    setDraft,
+  };
 }
 
 type BasicManagerOptions = {
@@ -539,8 +685,8 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
   }, [blankTitle, collectionName]);
 
   const variables = useMemo(
-    () => extractVariableNames([draft.prompt, draft.sampleInputTemplate]),
-    [draft.prompt, draft.sampleInputTemplate],
+    () => extractVariableNames([draft.prompt, draft.sampleInputTemplate, draft.sampleOutput]),
+    [draft.prompt, draft.sampleInputTemplate, draft.sampleOutput],
   );
 
   useEffect(() => {
@@ -653,6 +799,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     isLoading,
     renderedPrompt: applyVariables(draft.prompt, variableValues),
     renderedSampleInput: applyVariables(draft.sampleInputTemplate, variableValues),
+    renderedSampleOutput: applyVariables(draft.sampleOutput, variableValues),
     saveTemplate,
     searchQuery,
     selectedId,

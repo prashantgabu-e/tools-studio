@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 import {
   Braces,
   Copy,
+  ClipboardPaste,
   Download,
   Eraser,
   FileInput,
-  FileText,
-  Inbox,
+  ImagePlus,
   Mail,
   Menu,
   MessageCircleMore,
@@ -27,11 +27,22 @@ import type {
   PromptBuilderLibrary,
   PromptBuilderUseFor,
   PromptIngredient,
+  PromptLibraryImage,
+  PromptLibraryItem,
   PromptTemplate,
   ToastItem,
   ToastTone,
 } from "./types";
-import { downloadJson, extractVariableNames, placeholderText, transforms } from "./utils";
+import {
+  compressPromptLibraryImage,
+  downloadDataUrl,
+  downloadJson,
+  extractVariableNames,
+  formatBytes,
+  placeholderText,
+  promptLibraryMaxImages,
+  transforms,
+} from "./utils";
 
 type NavItem = {
   label: string;
@@ -40,12 +51,13 @@ type NavItem = {
 };
 
 const navigationItems: NavItem[] = [
-  { label: "Builder", to: "/prompt-builder", icon: <Braces aria-hidden="true" /> },
-  { label: "AI", to: "/gen-ai-prompts", icon: <Sparkles aria-hidden="true" /> },
-  { label: "Prompts", to: "/prompt-templates", icon: <WandSparkles aria-hidden="true" /> },
+  { label: "Prompt Builder", to: "/prompt-builder", icon: <Braces aria-hidden="true" /> },
+  { label: "Prompt Library", to: "/prompt-library", icon: <ImagePlus aria-hidden="true" /> },
+  { label: "Gen AI Templates", to: "/gen-ai-prompts", icon: <Sparkles aria-hidden="true" /> },
+  { label: "Prompt Templates", to: "/prompt-templates", icon: <WandSparkles aria-hidden="true" /> },
   { label: "Messages", to: "/dm-templates", icon: <MessageCircleMore aria-hidden="true" /> },
   { label: "Emails", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
-  { label: "Text", to: "/text-tools", icon: <Type aria-hidden="true" /> },
+  { label: "Text Transformation", to: "/text-tools", icon: <Type aria-hidden="true" /> },
 ];
 
 type BasicManagerShape = {
@@ -82,6 +94,7 @@ type PromptManagerShape = {
   isLoading: boolean;
   renderedPrompt: string;
   renderedSampleInput: string;
+  renderedSampleOutput: string;
   saveTemplate: () => Promise<void>;
   searchQuery: string;
   selectedId: string | null;
@@ -127,6 +140,19 @@ type PromptBuilderManagerShape = {
   totalItems: number;
 };
 
+type PromptLibraryManagerShape = {
+  createNewItem: () => void;
+  deleteItem: (itemId?: string | null) => Promise<PromptLibraryItem | null>;
+  draft: PromptLibraryItem;
+  error: string | null;
+  isLoading: boolean;
+  items: PromptLibraryItem[];
+  saveItem: (item?: PromptLibraryItem) => Promise<PromptLibraryItem>;
+  selectedId: string | null;
+  selectItem: (id: string | null) => void;
+  setDraft: React.Dispatch<React.SetStateAction<PromptLibraryItem>>;
+};
+
 export function Sidebar(props: {
   collapsed: boolean;
   onToggle: () => void;
@@ -135,8 +161,8 @@ export function Sidebar(props: {
     <aside className={`sidebar${props.collapsed ? " is-collapsed" : ""}`}>
       <div className="sidebar-top">
         <div className="brand-block">
-          <p className="app-kicker">Toolbox</p>
-          <h1 className="app-title">Text Studio</h1>
+          <p className="app-kicker">AI Workspace</p>
+          <h1 className="app-title">Prompt Studio</h1>
         </div>
         <button
           className="sidebar-toggle"
@@ -342,6 +368,32 @@ function CopyButton(props: {
   );
 }
 
+function PasteButton(props: {
+  onPaste: (text: string) => void;
+  title?: string;
+}) {
+  async function handleClick() {
+    try {
+      const text = await navigator.clipboard.readText();
+      props.onPaste(text);
+    } catch {
+      return;
+    }
+  }
+
+  return (
+    <button
+      className="icon-action"
+      type="button"
+      title={props.title ?? "Paste"}
+      aria-label={props.title ?? "Paste"}
+      onClick={handleClick}
+    >
+      <ClipboardPaste aria-hidden="true" />
+    </button>
+  );
+}
+
 function ToolbarActionButton(props: {
   icon: ReactNode;
   onClick: () => void;
@@ -376,6 +428,7 @@ export function BasicTemplateView(props: {
   sectionLabel: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const hasAnyVariables = props.manager.variables.length > 0;
 
   async function handleDelete() {
     if (!props.manager.selectedId) {
@@ -517,8 +570,24 @@ export function BasicTemplateView(props: {
             </div>
 
             <div className={`editor-grid${props.hasSubject ? "" : " editor-grid-single"}`}>
-              <label className="field">
-                <span>Name</span>
+              <label className="field field-full">
+                <span className="field-header">
+                  <span>Name</span>
+                  <span className="field-actions">
+                    <CopyButton
+                      className="icon-action"
+                      defaultLabel="Copy name"
+                      text={props.manager.draft.name}
+                      icon={<Copy aria-hidden="true" />}
+                    />
+                    <PasteButton
+                      title="Paste name"
+                      onPaste={(text) =>
+                        props.manager.setDraft((current) => ({ ...current, name: text }))
+                      }
+                    />
+                  </span>
+                </span>
                 <input
                   className="compact-input"
                   type="text"
@@ -536,7 +605,23 @@ export function BasicTemplateView(props: {
 
             {props.hasSubject ? (
               <label className="field">
-                <span>Subject</span>
+                <span className="field-header">
+                  <span>Subject</span>
+                  <span className="field-actions">
+                    <CopyButton
+                      className="icon-action"
+                      defaultLabel="Copy subject"
+                      text={props.manager.draft.subject}
+                      icon={<Copy aria-hidden="true" />}
+                    />
+                    <PasteButton
+                      title="Paste subject"
+                      onPaste={(text) =>
+                        props.manager.setDraft((current) => ({ ...current, subject: text }))
+                      }
+                    />
+                  </span>
+                </span>
                 <input
                   className="compact-input"
                   type="text"
@@ -553,7 +638,23 @@ export function BasicTemplateView(props: {
             ) : null}
 
             <label className="field">
-              <span>{props.bodyLabel}</span>
+              <span className="field-header">
+                <span>{props.bodyLabel}</span>
+                <span className="field-actions">
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel={`Copy ${props.bodyLabel.toLowerCase()}`}
+                    text={props.manager.draft.body}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                  <PasteButton
+                    title={`Paste ${props.bodyLabel.toLowerCase()}`}
+                    onPaste={(text) =>
+                      props.manager.setDraft((current) => ({ ...current, body: text }))
+                    }
+                  />
+                </span>
+              </span>
               <textarea
                 className="text-input template-body-input"
                 spellCheck={false}
@@ -568,28 +669,41 @@ export function BasicTemplateView(props: {
             </label>
           </section>
 
-          <section className="panel-card template-variable-panel">
-            <div className="section-heading">
-              <h3>Variables</h3>
-            </div>
-            <div className="variable-summary">
-              {props.manager.variables.length ? (
-                props.manager.variables.map((name) => (
+          {hasAnyVariables ? (
+            <section className="panel-card template-variable-panel">
+              <div className="section-heading">
+                <h3>Variables</h3>
+              </div>
+              <div className="variable-summary">
+                {props.manager.variables.map((name) => (
                   <div key={name} className="variable-pill">
                     {`{{${name}}}`}
                   </div>
-                ))
-              ) : (
-                <div className="empty-state">
-                  No variables found. Use {`{{name}}`} style placeholders.
-                </div>
-              )}
-            </div>
-            <div className="variable-grid">
-              {props.manager.variables.length ? (
-                props.manager.variables.map((name) => (
+                ))}
+              </div>
+              <div className="variable-grid">
+                {props.manager.variables.map((name) => (
                   <label key={name} className="variable-chip">
-                    <code>{`{{${name}}}`}</code>
+                    <span className="field-header">
+                      <code>{`{{${name}}}`}</code>
+                      <span className="field-actions">
+                        <CopyButton
+                          className="icon-action"
+                          defaultLabel={`Copy ${name}`}
+                          text={props.manager.variableValues[name] || ""}
+                          icon={<Copy aria-hidden="true" />}
+                        />
+                        <PasteButton
+                          title={`Paste ${name}`}
+                          onPaste={(text) =>
+                            props.manager.setVariableValues((current) => ({
+                              ...current,
+                              [name]: text,
+                            }))
+                          }
+                        />
+                      </span>
+                    </span>
                     <input
                       className="compact-input"
                       type="text"
@@ -603,14 +717,10 @@ export function BasicTemplateView(props: {
                       }
                     />
                   </label>
-                ))
-              ) : (
-                <div className="empty-state">
-                  No variables found. Use {`{{name}}`} style placeholders.
-                </div>
-              )}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <section className="panel-card template-preview-panel">
             <div className="section-heading sticky-heading">
@@ -622,10 +732,10 @@ export function BasicTemplateView(props: {
                   <div className="preview-block-header">
                     <p className="preview-label">Subject</p>
                     <CopyButton
-                      className="ghost-button"
+                      className="icon-action"
                       defaultLabel={props.copySubjectLabel ?? "Copy Subject"}
                       text={props.manager.renderedSubject}
-                      icon={<Mail aria-hidden="true" />}
+                      icon={<Copy aria-hidden="true" />}
                     />
                   </div>
                   <pre className="preview-output">{props.manager.renderedSubject}</pre>
@@ -634,35 +744,12 @@ export function BasicTemplateView(props: {
               <div className="preview-block">
                 <div className="preview-block-header">
                   <p className="preview-label">{props.bodyLabel}</p>
-                  <div className="button-row">
-                    {props.hasSubject ? (
-                      <CopyButton
-                        className="ghost-button"
-                        defaultLabel={props.copyBodyLabel ?? "Copy Body"}
-                        text={props.manager.renderedBody}
-                        icon={<FileText aria-hidden="true" />}
-                      />
-                    ) : null}
-                    <CopyButton
-                      className="ghost-button"
-                      defaultLabel="Copy Raw"
-                      text={
-                        props.hasSubject
-                          ? `${props.manager.draft.subject}\n\n${props.manager.draft.body}`
-                          : props.manager.draft.body
-                      }
-                      icon={<Braces aria-hidden="true" />}
-                    />
-                    <CopyButton
-                      className="ghost-button"
-                      defaultLabel="Copy Rendered"
-                      text={
-                        props.hasSubject
-                          ? `Subject: ${props.manager.renderedSubject}\n\n${props.manager.renderedBody}`.trim()
-                          : props.manager.renderedBody.trim()
-                      }
-                    />
-                  </div>
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel={props.copyBodyLabel ?? "Copy Body"}
+                    text={props.manager.renderedBody}
+                    icon={<Copy aria-hidden="true" />}
+                  />
                 </div>
                 <pre className="preview-output">{props.manager.renderedBody}</pre>
               </div>
@@ -682,6 +769,12 @@ export function PromptTemplateView(props: {
   sectionLabel: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const promptVariables = extractVariableNames([props.manager.draft.prompt]);
+  const sampleInputVariables = extractVariableNames([props.manager.draft.sampleInputTemplate]);
+  const sampleOutputVariables = extractVariableNames([props.manager.draft.sampleOutput]);
+  const hasAnyVariables = props.manager.variables.length > 0;
+  const hasAnyPreview =
+    promptVariables.length > 0 || sampleInputVariables.length > 0 || sampleOutputVariables.length > 0;
 
   async function handleDelete() {
     if (!props.manager.selectedId) {
@@ -825,7 +918,23 @@ export function PromptTemplateView(props: {
 
             <div className="editor-grid">
               <label className="field">
-                <span>Title</span>
+                <span className="field-header">
+                  <span>Title</span>
+                  <span className="field-actions">
+                    <CopyButton
+                      className="icon-action"
+                      defaultLabel="Copy title"
+                      text={props.manager.draft.title}
+                      icon={<Copy aria-hidden="true" />}
+                    />
+                    <PasteButton
+                      title="Paste title"
+                      onPaste={(text) =>
+                        props.manager.setDraft((current) => ({ ...current, title: text }))
+                      }
+                    />
+                  </span>
+                </span>
                 <input
                   className="compact-input"
                   type="text"
@@ -840,7 +949,23 @@ export function PromptTemplateView(props: {
                 />
               </label>
               <label className="field">
-                <span>Categories</span>
+                <span className="field-header">
+                  <span>Categories</span>
+                  <span className="field-actions">
+                    <CopyButton
+                      className="icon-action"
+                      defaultLabel="Copy categories"
+                      text={props.manager.draft.categories}
+                      icon={<Copy aria-hidden="true" />}
+                    />
+                    <PasteButton
+                      title="Paste categories"
+                      onPaste={(text) =>
+                        props.manager.setDraft((current) => ({ ...current, categories: text }))
+                      }
+                    />
+                  </span>
+                </span>
                 <input
                   className="compact-input"
                   type="text"
@@ -857,7 +982,23 @@ export function PromptTemplateView(props: {
             </div>
 
             <label className="field">
-              <span>Prompt</span>
+              <span className="field-header">
+                <span>Prompt</span>
+                <span className="field-actions">
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy prompt"
+                    text={props.manager.draft.prompt}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                  <PasteButton
+                    title="Paste prompt"
+                    onPaste={(text) =>
+                      props.manager.setDraft((current) => ({ ...current, prompt: text }))
+                    }
+                  />
+                </span>
+              </span>
               <textarea
                 className="text-input template-body-input"
                 spellCheck={false}
@@ -872,7 +1013,26 @@ export function PromptTemplateView(props: {
             </label>
 
             <label className="field">
-              <span>Sample Input Template</span>
+              <span className="field-header">
+                <span>Sample Input Template</span>
+                <span className="field-actions">
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy sample input"
+                    text={props.manager.draft.sampleInputTemplate}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                  <PasteButton
+                    title="Paste sample input"
+                    onPaste={(text) =>
+                      props.manager.setDraft((current) => ({
+                        ...current,
+                        sampleInputTemplate: text,
+                      }))
+                    }
+                  />
+                </span>
+              </span>
               <textarea
                 className="text-input sample-input-textarea"
                 spellCheck={false}
@@ -887,7 +1047,23 @@ export function PromptTemplateView(props: {
             </label>
 
             <label className="field">
-              <span>Sample Output</span>
+              <span className="field-header">
+                <span>Sample Output</span>
+                <span className="field-actions">
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy sample output"
+                    text={props.manager.draft.sampleOutput}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                  <PasteButton
+                    title="Paste sample output"
+                    onPaste={(text) =>
+                      props.manager.setDraft((current) => ({ ...current, sampleOutput: text }))
+                    }
+                  />
+                </span>
+              </span>
               <textarea
                 className="text-input sample-output-textarea"
                 spellCheck={false}
@@ -902,28 +1078,41 @@ export function PromptTemplateView(props: {
             </label>
           </section>
 
-          <section className="panel-card template-variable-panel">
-            <div className="section-heading">
-              <h3>Variables</h3>
-            </div>
-            <div className="variable-summary">
-              {props.manager.variables.length ? (
-                props.manager.variables.map((name) => (
+          {hasAnyVariables ? (
+            <section className="panel-card template-variable-panel">
+              <div className="section-heading">
+                <h3>Variables</h3>
+              </div>
+              <div className="variable-summary">
+                {props.manager.variables.map((name) => (
                   <div key={name} className="variable-pill">
                     {`{{${name}}}`}
                   </div>
-                ))
-              ) : (
-                <div className="empty-state">
-                  No variables found. Use {`{{name}}`} style placeholders.
-                </div>
-              )}
-            </div>
-            <div className="variable-grid">
-              {props.manager.variables.length ? (
-                props.manager.variables.map((name) => (
+                ))}
+              </div>
+              <div className="variable-grid">
+                {props.manager.variables.map((name) => (
                   <label key={name} className="variable-chip">
-                    <code>{`{{${name}}}`}</code>
+                    <span className="field-header">
+                      <code>{`{{${name}}}`}</code>
+                      <span className="field-actions">
+                        <CopyButton
+                          className="icon-action"
+                          defaultLabel={`Copy ${name}`}
+                          text={props.manager.variableValues[name] || ""}
+                          icon={<Copy aria-hidden="true" />}
+                        />
+                        <PasteButton
+                          title={`Paste ${name}`}
+                          onPaste={(text) =>
+                            props.manager.setVariableValues((current) => ({
+                              ...current,
+                              [name]: text,
+                            }))
+                          }
+                        />
+                      </span>
+                    </span>
                     <input
                       className="compact-input"
                       type="text"
@@ -937,83 +1126,386 @@ export function PromptTemplateView(props: {
                       }
                     />
                   </label>
-                ))
-              ) : (
-                <div className="empty-state">
-                  No variables found. Use {`{{name}}`} style placeholders.
-                </div>
-              )}
-            </div>
-          </section>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
-          <section className="panel-card template-preview-panel">
-            <div className="section-heading sticky-heading">
-              <h3>Preview</h3>
-            </div>
-            <div className="preview-card">
-              <div className="preview-block">
-                <div className="preview-block-header">
-                  <p className="preview-label">Rendered Prompt</p>
-                  <div className="button-row">
-                    <CopyButton
-                      className="ghost-button"
-                      defaultLabel="Copy Prompt"
-                      text={props.manager.draft.prompt}
-                      icon={<WandSparkles aria-hidden="true" />}
-                    />
-                    <CopyButton
-                      className="ghost-button"
-                      defaultLabel="Copy Rendered Prompt"
-                      text={props.manager.renderedPrompt}
-                    />
-                    <CopyButton
-                      className="copy-button"
-                      defaultLabel="Use Prompt"
-                      text={props.manager.renderedPrompt}
-                      icon={<Sparkles aria-hidden="true" />}
-                    />
+          {hasAnyPreview ? (
+            <section className="panel-card template-preview-panel">
+              <div className="section-heading sticky-heading">
+                <h3>Preview</h3>
+              </div>
+              <div className="preview-card">
+                {promptVariables.length ? (
+                  <div className="preview-block">
+                    <div className="preview-block-header">
+                      <p className="preview-label">Rendered Prompt</p>
+                      <CopyButton
+                        className="icon-action"
+                        defaultLabel="Copy rendered prompt"
+                        text={props.manager.renderedPrompt}
+                        icon={<Copy aria-hidden="true" />}
+                      />
+                    </div>
+                    <pre className="preview-output">{props.manager.renderedPrompt}</pre>
                   </div>
-                </div>
-                <pre className="preview-output">{props.manager.renderedPrompt}</pre>
-              </div>
+                ) : null}
 
-              <div className="preview-block">
-                <div className="preview-block-header">
-                  <p className="preview-label">Rendered Sample Input</p>
-                  <div className="button-row">
-                    <CopyButton
-                      className="ghost-button"
-                      defaultLabel="Copy Sample Input"
-                      text={props.manager.draft.sampleInputTemplate}
-                      icon={<Braces aria-hidden="true" />}
-                    />
-                    <CopyButton
-                      className="ghost-button"
-                      defaultLabel="Copy Rendered Input"
-                      text={props.manager.renderedSampleInput}
-                      icon={<Inbox aria-hidden="true" />}
-                    />
+                {sampleInputVariables.length ? (
+                  <div className="preview-block">
+                    <div className="preview-block-header">
+                      <p className="preview-label">Rendered Sample Input</p>
+                      <CopyButton
+                        className="icon-action"
+                        defaultLabel="Copy rendered input"
+                        text={props.manager.renderedSampleInput}
+                        icon={<Copy aria-hidden="true" />}
+                      />
+                    </div>
+                    <pre className="preview-output">{props.manager.renderedSampleInput}</pre>
                   </div>
-                </div>
-                <pre className="preview-output">{props.manager.renderedSampleInput}</pre>
-              </div>
+                ) : null}
 
-              <div className="preview-block">
-                <div className="preview-block-header">
-                  <p className="preview-label">Sample Output</p>
-                  <CopyButton
-                    className="ghost-button"
-                    defaultLabel="Copy Sample Output"
-                    text={props.manager.draft.sampleOutput}
-                    icon={<FileText aria-hidden="true" />}
-                  />
-                </div>
-                <pre className="preview-output">{props.manager.draft.sampleOutput}</pre>
+                {sampleOutputVariables.length ? (
+                  <div className="preview-block">
+                    <div className="preview-block-header">
+                      <p className="preview-label">Rendered Sample Output</p>
+                      <CopyButton
+                        className="icon-action"
+                        defaultLabel="Copy rendered output"
+                        text={props.manager.renderedSampleOutput}
+                        icon={<Copy aria-hidden="true" />}
+                      />
+                    </div>
+                    <pre className="preview-output">{props.manager.renderedSampleOutput}</pre>
+                  </div>
+                ) : null}
               </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
         </section>
       </section>
+    </section>
+  );
+}
+
+export function PromptLibraryView(props: {
+  manager: PromptLibraryManagerShape;
+  onToast: (message: string, tone?: ToastTone) => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [isCompressing, setIsCompressing] = useState(false);
+  const [typeFilter, setTypeFilter] = useState<"all" | "image" | "video">("all");
+  const filteredItems =
+    typeFilter === "all"
+      ? props.manager.items
+      : props.manager.items.filter((item) => item.outputType === typeFilter);
+
+  function openNewItem() {
+    props.manager.createNewItem();
+    setIsDetailOpen(true);
+  }
+
+  function openItem(item: PromptLibraryItem) {
+    props.manager.selectItem(item.id);
+    setIsDetailOpen(true);
+  }
+
+  async function handleSave() {
+    try {
+      await props.manager.saveItem();
+      props.onToast("Prompt library item saved", "success");
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Save failed", "warning");
+    }
+  }
+
+  async function handleDelete() {
+    if (!props.manager.selectedId) {
+      return;
+    }
+    const confirmed = window.confirm("Delete this prompt library item? This cannot be undone.");
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      const deleted = await props.manager.deleteItem();
+      if (deleted) {
+        props.onToast("Prompt library item deleted", "warning");
+        setIsDetailOpen(false);
+      }
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Delete failed", "warning");
+    }
+  }
+
+  async function handleImageFiles(event: ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(event.target.files ?? []);
+    event.target.value = "";
+    if (!files.length) {
+      return;
+    }
+
+    const remainingSlots = promptLibraryMaxImages - props.manager.draft.images.length;
+    if (remainingSlots <= 0) {
+      props.onToast(`Maximum ${promptLibraryMaxImages} images allowed`, "warning");
+      return;
+    }
+
+    setIsCompressing(true);
+    try {
+      const compressedImages: PromptLibraryImage[] = [];
+      for (const file of files.slice(0, remainingSlots)) {
+        compressedImages.push(await compressPromptLibraryImage(file));
+      }
+      props.manager.setDraft((current) => ({
+        ...current,
+        images: [...current.images, ...compressedImages].slice(0, promptLibraryMaxImages),
+      }));
+      props.onToast(
+        `${compressedImages.length} image${compressedImages.length === 1 ? "" : "s"} compressed`,
+        "success",
+      );
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Image compression failed", "warning");
+    } finally {
+      setIsCompressing(false);
+    }
+  }
+
+  function removeImage(imageId: string) {
+    props.manager.setDraft((current) => ({
+      ...current,
+      images: current.images.filter((image) => image.id !== imageId),
+    }));
+  }
+
+  function handleExportPrompts() {
+    downloadJson(
+      "prompt-library-prompts.json",
+      props.manager.items.map((item) => ({
+        promptText: item.promptText,
+        outputType: item.outputType,
+      })),
+    );
+  }
+
+  return (
+    <section className="view-panel prompt-library-view">
+      <section className="panel-card prompt-library-toolbar">
+        <div className="section-heading">
+          <h3>Library</h3>
+          <div className="prompt-library-actions">
+            <div className="prompt-library-filter" aria-label="Filter prompt library by type">
+              {(["all", "image", "video"] as const).map((filter) => (
+                <button
+                  key={filter}
+                  className={`category-chip${typeFilter === filter ? " is-active" : ""}`}
+                  type="button"
+                  onClick={() => setTypeFilter(filter)}
+                >
+                  <span>{filter}</span>
+                </button>
+              ))}
+            </div>
+            <button className="ghost-button icon-only-button" type="button" title="Export prompts" aria-label="Export prompts" onClick={handleExportPrompts}>
+              <Download aria-hidden="true" />
+            </button>
+            <button className="copy-button" type="button" onClick={openNewItem}>
+              <Plus aria-hidden="true" />
+              <span>New</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section className="prompt-library-grid" aria-label="Prompt library items">
+        {props.manager.isLoading ? (
+          <div className="empty-state">Loading prompt library...</div>
+        ) : props.manager.error ? (
+          <div className="empty-state is-error">{props.manager.error}</div>
+        ) : filteredItems.length ? (
+          filteredItems.map((item) => {
+            const coverImage = item.images[0];
+            return (
+              <article key={item.id} className="prompt-library-card">
+                <button
+                  className="prompt-library-card-button"
+                  type="button"
+                  onClick={() => openItem(item)}
+                >
+                  <div className="prompt-library-cover">
+                    {coverImage ? (
+                      <img src={coverImage.dataUrl} alt="" />
+                    ) : (
+                      <div className="prompt-library-empty-cover">
+                        <ImagePlus aria-hidden="true" />
+                      </div>
+                    )}
+                  </div>
+                  <div className="prompt-library-card-body">
+                    <span className="prompt-library-type-pill">{item.outputType}</span>
+                    <p>{item.promptText || "Untitled prompt"}</p>
+                  </div>
+                </button>
+                <div className="prompt-library-card-footer">
+                  <time dateTime={item.updatedAt}>{formatDateTime(item.updatedAt)}</time>
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy prompt"
+                    text={item.promptText}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                </div>
+              </article>
+            );
+          })
+        ) : (
+          <div className="empty-state">
+            {props.manager.items.length ? "No prompt outputs match this filter." : "No prompt outputs saved yet."}
+          </div>
+        )}
+      </section>
+
+      {isDetailOpen ? (
+        <div className="dialog-backdrop" role="presentation">
+          <section
+            className="panel-card prompt-library-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="prompt-library-dialog-title"
+          >
+            <div className="section-heading">
+              <h3 id="prompt-library-dialog-title">Prompt Output</h3>
+              <div className="button-row">
+                <button className="ghost-button" type="button" onClick={() => setIsDetailOpen(false)}>
+                  <span>Close</span>
+                </button>
+                <button className="ghost-button" type="button" onClick={() => void handleDelete()}>
+                  <Trash2 aria-hidden="true" />
+                  <span>Delete</span>
+                </button>
+                <button className="copy-button" type="button" onClick={() => void handleSave()}>
+                  <Save aria-hidden="true" />
+                  <span>Save</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="prompt-library-detail-grid">
+              <section className="prompt-library-images-panel">
+                <div className="prompt-library-image-grid">
+                  {props.manager.draft.images.length ? (
+                    props.manager.draft.images.map((image) => (
+                      <article key={image.id} className="prompt-library-image-tile">
+                        <img src={image.dataUrl} alt="" />
+                        <div className="prompt-library-image-actions">
+                          <button
+                            className="icon-action"
+                            type="button"
+                            title="Download image"
+                            aria-label="Download image"
+                            onClick={() => downloadDataUrl(image.fileName, image.dataUrl)}
+                          >
+                            <Download aria-hidden="true" />
+                          </button>
+                          <button
+                            className="icon-action is-danger"
+                            type="button"
+                            title="Remove image"
+                            aria-label="Remove image"
+                            onClick={() => removeImage(image.id)}
+                          >
+                            <Trash2 aria-hidden="true" />
+                          </button>
+                        </div>
+                        <p>{formatBytes(image.sizeBytes)}</p>
+                      </article>
+                    ))
+                  ) : (
+                    <div className="prompt-library-empty-detail">
+                      <ImagePlus aria-hidden="true" />
+                      <span>No images yet</span>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  className="ghost-button prompt-library-upload-button"
+                  type="button"
+                  disabled={
+                    isCompressing || props.manager.draft.images.length >= promptLibraryMaxImages
+                  }
+                  onClick={() => fileInputRef.current?.click()}
+                >
+                  <ImagePlus aria-hidden="true" />
+                  <span>{isCompressing ? "Compressing..." : "Add images"}</span>
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                  multiple
+                  hidden
+                  onChange={(event) => void handleImageFiles(event)}
+                />
+              </section>
+
+              <section className="prompt-library-form-panel">
+                <label className="field">
+                  <span>Type</span>
+                  <select
+                    className="compact-input"
+                    value={props.manager.draft.outputType}
+                    onChange={(event) =>
+                      props.manager.setDraft((current) => ({
+                        ...current,
+                        outputType: event.target.value === "video" ? "video" : "image",
+                      }))
+                    }
+                  >
+                    <option value="image">Image</option>
+                    <option value="video">Video</option>
+                  </select>
+                </label>
+
+                <label className="field">
+                  <span className="field-header">
+                    <span>Prompt Text</span>
+                    <CopyButton
+                      className="icon-action"
+                      defaultLabel="Copy prompt"
+                      text={props.manager.draft.promptText}
+                      icon={<Copy aria-hidden="true" />}
+                    />
+                  </span>
+                  <textarea
+                    className="text-input prompt-library-prompt-input"
+                    spellCheck={false}
+                    value={props.manager.draft.promptText}
+                    onChange={(event) =>
+                      props.manager.setDraft((current) => ({
+                        ...current,
+                        promptText: event.target.value,
+                      }))
+                    }
+                  />
+                </label>
+
+                <div className="prompt-library-date-panel">
+                  <p className="preview-label">Updated</p>
+                  <time dateTime={props.manager.draft.updatedAt}>
+                    {formatDateTime(props.manager.draft.updatedAt)}
+                  </time>
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </section>
   );
 }
@@ -1352,7 +1844,23 @@ export function PromptBuilderView(props: {
 
             <div className="builder-editor-grid">
               <label className="field">
-                <span>Title</span>
+                <span className="field-header">
+                  <span>Title</span>
+                  <span className="field-actions">
+                    <CopyButton
+                      className="icon-action"
+                      defaultLabel="Copy title"
+                      text={props.manager.draft.title}
+                      icon={<Copy aria-hidden="true" />}
+                    />
+                    <PasteButton
+                      title="Paste title"
+                      onPaste={(text) =>
+                        props.manager.setDraft((current) => ({ ...current, title: text }))
+                      }
+                    />
+                  </span>
+                </span>
                 <input
                   className="compact-input"
                   type="text"
@@ -1363,7 +1871,15 @@ export function PromptBuilderView(props: {
                 />
               </label>
               <label className="field">
-                <span>Use</span>
+                <span className="field-header">
+                  <span>Use</span>
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy use"
+                    text={props.manager.draft.useFor}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                </span>
                 <select
                   className="compact-input"
                   value={props.manager.draft.useFor}
@@ -1377,7 +1893,18 @@ export function PromptBuilderView(props: {
             </div>
 
             <label className="field">
-              <span>Tags</span>
+              <span className="field-header">
+                <span>Tags</span>
+                <span className="field-actions">
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy tags"
+                    text={props.manager.draft.tags.join(", ")}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                  <PasteButton title="Paste tags" onPaste={handleTagsChange} />
+                </span>
+              </span>
               <input
                 className="compact-input"
                 type="text"
@@ -1387,7 +1914,23 @@ export function PromptBuilderView(props: {
             </label>
 
             <label className="field">
-              <span>Text</span>
+              <span className="field-header">
+                <span>Text</span>
+                <span className="field-actions">
+                  <CopyButton
+                    className="icon-action"
+                    defaultLabel="Copy text"
+                    text={props.manager.draft.text}
+                    icon={<Copy aria-hidden="true" />}
+                  />
+                  <PasteButton
+                    title="Paste text"
+                    onPaste={(text) =>
+                      props.manager.setDraft((current) => ({ ...current, text }))
+                    }
+                  />
+                </span>
+              </span>
               <textarea
                 className="text-input builder-textarea"
                 spellCheck={false}
@@ -1402,6 +1945,17 @@ export function PromptBuilderView(props: {
       ) : null}
     </section>
   );
+}
+
+function formatDateTime(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) {
+    return "Not saved yet";
+  }
+  return new Intl.DateTimeFormat(undefined, {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(date);
 }
 
 export function ToastStack(props: { items: ToastItem[] }) {

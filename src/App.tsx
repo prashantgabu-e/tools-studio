@@ -5,6 +5,7 @@ import {
   BasicTemplateView,
   BottomNavigation,
   PromptBuilderView,
+  PromptLibraryView,
   PromptTemplateView,
   Sidebar,
   TextToolsView,
@@ -15,6 +16,7 @@ import { useFirebaseAuth } from "./firebase";
 import {
   useBasicTemplateManager,
   usePromptBuilderManager,
+  usePromptLibraryManager,
   usePromptTemplateManager,
   useToasts,
 } from "./hooks";
@@ -29,7 +31,12 @@ type RouteMeta = {
 };
 
 const routeMeta: RouteMeta[] = [
-  { id: "text-tools", label: "Text", title: "Transform", path: "/text-tools" },
+  {
+    id: "text-tools",
+    label: "Text Transformation",
+    title: "Text Transformation",
+    path: "/text-tools",
+  },
   {
     id: "template-tools",
     label: "Emails",
@@ -43,21 +50,27 @@ const routeMeta: RouteMeta[] = [
     path: "/dm-templates",
   },
   {
+    id: "prompt-library-tools",
+    label: "Prompt Library",
+    title: "Prompt Library",
+    path: "/prompt-library",
+  },
+  {
     id: "prompt-template-tools",
-    label: "Prompts",
-    title: "Prompt templates",
+    label: "Prompt Templates",
+    title: "Prompt Templates",
     path: "/prompt-templates",
   },
   {
     id: "gen-ai-prompt-template-tools",
-    label: "Gen AI",
-    title: "AI prompts",
+    label: "Gen AI Templates",
+    title: "Gen AI Templates",
     path: "/gen-ai-prompts",
   },
   {
     id: "prompt-builder-tools",
-    label: "Builder",
-    title: "Prompt kit",
+    label: "Prompt Builder",
+    title: "Prompt Builder",
     path: "/prompt-builder",
   },
 ];
@@ -95,6 +108,9 @@ export function App() {
   const promptBuilderManager = usePromptBuilderManager({
     userId,
   });
+  const promptLibraryManager = usePromptLibraryManager({
+    userId,
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -128,17 +144,21 @@ export function App() {
       return `${dmManager.templates.length} dm templates stored`;
     }
     if (activeRoute.id === "prompt-template-tools") {
-      return `${promptManager.templates.length} prompt templates stored`;
+      return `${promptManager.templates.length} Prompt Templates stored`;
+    }
+    if (activeRoute.id === "prompt-library-tools") {
+      return `${promptLibraryManager.items.length} prompt outputs stored`;
     }
     if (activeRoute.id === "gen-ai-prompt-template-tools") {
-      return `${genAiPromptManager.templates.length} gen ai prompt templates stored`;
+      return `${genAiPromptManager.templates.length} Gen AI Templates stored`;
     }
-    return `${promptBuilderManager.totalItems} builder items`;
+    return `${promptBuilderManager.totalItems} Prompt Builder items`;
   }, [
     activeRoute.id,
     dmManager.templates.length,
     emailManager.templates.length,
     genAiPromptManager.templates.length,
+    promptLibraryManager.items.length,
     promptBuilderManager.totalItems,
     promptManager.templates.length,
     sourceText,
@@ -152,7 +172,7 @@ export function App() {
   }
 
   return (
-    <div className="page-shell">
+    <div className={`page-shell${sidebarCollapsed ? " is-sidebar-collapsed" : ""}`}>
       <Sidebar collapsed={sidebarCollapsed} onToggle={toggleSidebar} />
 
       <main className="workspace">
@@ -228,6 +248,12 @@ export function App() {
                 onToast={pushToast}
                 sectionLabel="Prompt Templates"
               />
+            }
+          />
+          <Route
+            path="/prompt-library"
+            element={
+              <PromptLibraryView manager={promptLibraryManager} onToast={pushToast} />
             }
           />
           <Route

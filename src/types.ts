@@ -14,6 +14,27 @@ export type PromptTemplate = {
   sampleOutput: string;
 };
 
+export type PromptLibraryImage = {
+  id: string;
+  dataUrl: string;
+  fileName: string;
+  mimeType: string;
+  sizeBytes: number;
+  width: number;
+  height: number;
+  createdAt: string;
+};
+
+export type PromptLibraryItem = {
+  id: string;
+  outputType: "image" | "video";
+  promptText: string;
+  tags: string[];
+  images: PromptLibraryImage[];
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type PromptBuilderCategory =
   | "lighting"
   | "poses"
@@ -59,6 +80,7 @@ export type RouteView =
   | "text-tools"
   | "template-tools"
   | "dm-template-tools"
+  | "prompt-library-tools"
   | "prompt-template-tools"
   | "gen-ai-prompt-template-tools"
   | "prompt-builder-tools";

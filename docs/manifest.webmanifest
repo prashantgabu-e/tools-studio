@@ -1,6 +1,6 @@
 {
-  "name": "Text Studio",
-  "short_name": "Text Studio",
+  "name": "Prompt Studio",
+  "short_name": "Prompt Studio",
   "description": "A calm workspace for text, templates, and prompts.",
   "start_url": "./#/",
   "scope": "./",
