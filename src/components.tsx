@@ -438,6 +438,60 @@ function PasteButton(props: {
   );
 }
 
+function WhatsAppIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+      <path
+        fill="currentColor"
+        d="M12.04 3.5a8.43 8.43 0 0 0-7.28 12.67l-.86 3.15 3.22-.84a8.45 8.45 0 1 0 4.92-14.98Zm0 1.5a6.95 6.95 0 1 1-3.74 12.8l-.27-.16-1.91.5.51-1.86-.18-.29A6.94 6.94 0 0 1 12.04 5Zm-2.68 3.63c-.15 0-.4.06-.61.29-.21.23-.8.78-.8 1.9s.82 2.21.93 2.36c.11.15 1.58 2.53 3.91 3.44 1.94.76 2.33.61 2.75.57.42-.04 1.36-.56 1.55-1.09.19-.54.19-1 .13-1.09-.06-.1-.21-.15-.44-.27-.23-.12-1.36-.67-1.57-.75-.21-.08-.36-.12-.51.12-.15.23-.59.75-.72.9-.13.15-.27.17-.5.06-.23-.12-.98-.36-1.86-1.15-.69-.61-1.15-1.37-1.29-1.6-.13-.23-.01-.36.1-.47.1-.1.23-.27.34-.4.12-.13.15-.23.23-.38.08-.15.04-.29-.02-.4-.06-.12-.51-1.24-.7-1.7-.18-.44-.37-.38-.51-.39h-.43Z"
+      />
+    </svg>
+  );
+}
+
+function ShareToWhatsAppButton(props: { text: string }) {
+  function handleClick() {
+    const url = `https://wa.me/?text=${encodeURIComponent(props.text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  return (
+    <button
+      className="icon-action whatsapp-action"
+      type="button"
+      title="Share to WhatsApp"
+      aria-label="Share to WhatsApp"
+      onClick={handleClick}
+    >
+      <WhatsAppIcon />
+    </button>
+  );
+}
+
+function OpenInGmailButton(props: { body: string; subject: string }) {
+  function handleClick() {
+    const params = new URLSearchParams({
+      view: "cm",
+      fs: "1",
+      su: props.subject,
+      body: props.body,
+    });
+    window.open(`https://mail.google.com/mail/?${params.toString()}`, "_blank", "noopener,noreferrer");
+  }
+
+  return (
+    <button
+      className="icon-action gmail-action"
+      type="button"
+      title="Open in Gmail"
+      aria-label="Open in Gmail"
+      onClick={handleClick}
+    >
+      <Mail aria-hidden="true" />
+    </button>
+  );
+}
+
 function ToolbarActionButton(props: {
   icon: ReactNode;
   onClick: () => void;
@@ -470,6 +524,8 @@ export function BasicTemplateView(props: {
   onToast: (message: string, tone?: ToastTone) => void;
   searchPlaceholder: string;
   sectionLabel: string;
+  shareBodyToGmail?: boolean;
+  shareBodyToWhatsapp?: boolean;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const editorRef = useRef<HTMLElement | null>(null);
@@ -479,6 +535,8 @@ export function BasicTemplateView(props: {
   const [activeTemplateSection, setActiveTemplateSection] =
     useState<"editor" | "variables" | "preview">("variables");
   const [mobileTabsTop, setMobileTabsTop] = useState(74);
+  const [isWhatsappNumberOpen, setIsWhatsappNumberOpen] = useState(false);
+  const [whatsappPhoneNumber, setWhatsappPhoneNumber] = useState("+91 ");
   const hasAnyVariables = props.manager.variables.length > 0;
 
   useEffect(() => {
@@ -583,6 +641,24 @@ export function BasicTemplateView(props: {
     setActiveTemplateSection(section);
     scrollSpyPausedUntilRef.current = Date.now() + 900;
     ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function handleOpenWhatsappNumberChat() {
+    const phoneNumber = whatsappPhoneNumber.replace(/\D/g, "").replace(/^00/, "");
+    if (phoneNumber.length < 8) {
+      props.onToast("Paste a WhatsApp number first", "warning");
+      return;
+    }
+
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      props.manager.renderedBody,
+    )}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  }
+
+  function handlePasteWhatsappNumber(text: string) {
+    const trimmed = text.trim();
+    setWhatsappPhoneNumber(/^\+|^00/.test(trimmed) ? trimmed : `+91 ${trimmed}`);
   }
 
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
@@ -979,7 +1055,60 @@ export function BasicTemplateView(props: {
                     text={props.manager.renderedBody}
                     icon={<Copy aria-hidden="true" />}
                   />
+                  {props.shareBodyToWhatsapp ? (
+                    <>
+                      <ShareToWhatsAppButton text={props.manager.renderedBody} />
+                      <button
+                        className={`icon-action whatsapp-action${
+                          isWhatsappNumberOpen ? " is-active" : ""
+                        }`}
+                        type="button"
+                        title="Share to WhatsApp number"
+                        aria-label="Share to WhatsApp number"
+                        aria-expanded={isWhatsappNumberOpen}
+                        onClick={() => setIsWhatsappNumberOpen((current) => !current)}
+                      >
+                        <MessageCircleMore aria-hidden="true" />
+                      </button>
+                    </>
+                  ) : null}
+                  {props.shareBodyToGmail ? (
+                    <OpenInGmailButton
+                      subject={props.manager.renderedSubject}
+                      body={props.manager.renderedBody}
+                    />
+                  ) : null}
                 </div>
+                {props.shareBodyToWhatsapp && isWhatsappNumberOpen ? (
+                  <form
+                    className="whatsapp-number-panel"
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      handleOpenWhatsappNumberChat();
+                    }}
+                  >
+                    <label className="sr-only" htmlFor="whatsapp-phone-number">
+                      WhatsApp phone number
+                    </label>
+                    <input
+                      id="whatsapp-phone-number"
+                      className="compact-input"
+                      type="tel"
+                      inputMode="tel"
+                      placeholder="+91 mobile number"
+                      value={whatsappPhoneNumber}
+                      onChange={(event) => setWhatsappPhoneNumber(event.target.value)}
+                    />
+                    <PasteButton
+                      title="Paste number"
+                      onPaste={handlePasteWhatsappNumber}
+                    />
+                    <button className="copy-button" type="submit">
+                      <WhatsAppIcon />
+                      <span>Open chat</span>
+                    </button>
+                  </form>
+                ) : null}
                 <pre className="preview-output">{props.manager.renderedBody}</pre>
               </div>
             </div>

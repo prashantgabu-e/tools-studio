@@ -340,6 +340,18 @@ a {
   margin-bottom: 12px;
 }
 
+.preview-block-header {
+  justify-content: flex-start;
+}
+
+.preview-block-header .preview-label {
+  margin-right: auto;
+}
+
+.preview-block-header .icon-action {
+  flex: 0 0 auto;
+}
+
 .card-title {
   margin: 3px 0 0;
   font-size: 0.98rem;
@@ -649,6 +661,41 @@ a {
 .field-header .icon-action {
   width: 28px;
   height: 28px;
+}
+
+.whatsapp-action {
+  color: #128c7e;
+}
+
+.whatsapp-action:hover {
+  border-color: rgba(18, 140, 126, 0.35);
+  background: #e4f7ef;
+}
+
+.gmail-action {
+  color: #b3261e;
+}
+
+.gmail-action:hover {
+  border-color: rgba(179, 38, 30, 0.28);
+  background: #fff1ef;
+}
+
+.whatsapp-number-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 6px;
+  align-items: center;
+  margin: -2px 0 10px;
+}
+
+.whatsapp-number-panel .compact-input {
+  min-height: 36px;
+}
+
+.whatsapp-number-panel .copy-button {
+  min-height: 36px;
+  padding: 0 11px;
 }
 
 .template-body-input {

@@ -218,6 +218,7 @@ export function App() {
                 onToast={pushToast}
                 searchPlaceholder="Search templates..."
                 sectionLabel="Email Templates"
+                shareBodyToGmail
               />
             }
           />
@@ -235,6 +236,7 @@ export function App() {
                 onToast={pushToast}
                 searchPlaceholder="Search templates..."
                 sectionLabel="DM Templates"
+                shareBodyToWhatsapp
               />
             }
           />
