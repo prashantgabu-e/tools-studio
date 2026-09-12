@@ -111,6 +111,8 @@ export function normalizeBasicTemplates(
     return {
       favorite: Boolean(value.favorite),
       id: value.id || `template-${index + 1}-${Date.now()}`,
+      iconName: value.iconName || "message",
+      iconTone: value.iconTone || "teal",
       name: value.name || blankName,
       subject: hasSubject ? value.subject || "" : "",
       body: value.body || "",
@@ -143,6 +145,8 @@ export function createBasicTemplate(blankName: string): BasicTemplate {
   return {
     favorite: false,
     id: `template-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
+    iconName: "message",
+    iconTone: "teal",
     name: blankName,
     subject: "",
     body: "",

@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "templates:icons": "node scripts/assign-template-icons.mjs",
     "deploy": "powershell -ExecutionPolicy Bypass -File .\\deploy.ps1",
     "deploy:msg": "powershell -ExecutionPolicy Bypass -File .\\deploy.ps1 -Message"
   },

@@ -1,6 +1,8 @@
 export type BasicTemplate = {
   favorite: boolean;
   id: string;
+  iconName: string;
+  iconTone: string;
   name: string;
   subject: string;
   body: string;

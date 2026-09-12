@@ -1,24 +1,37 @@
-import { useEffect, useRef, useState, type ChangeEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ChangeEvent, type ReactNode, type RefObject } from "react";
 import { NavLink } from "react-router-dom";
 import {
+  BadgeCheck,
+  Bell,
   Braces,
+  CalendarDays,
+  CheckCircle2,
   Copy,
   ClipboardPaste,
+  CreditCard,
   Download,
   Eraser,
   FileInput,
+  FileText,
+  Gift,
   ImagePlus,
   Mail,
+  Megaphone,
   Menu,
   MessageCircleMore,
+  Package,
   PanelLeft,
   Pencil,
   Plus,
   Save,
+  Send,
+  ShieldCheck,
   Sparkles,
   Star,
   Trash2,
+  Truck,
   Type,
+  UserRound,
   WandSparkles,
 } from "lucide-react";
 import type {
@@ -60,6 +73,30 @@ const navigationItems: NavItem[] = [
   { label: "Emails", to: "/email-templates", icon: <Mail aria-hidden="true" /> },
   { label: "Text Transformation", to: "/text-tools", icon: <Type aria-hidden="true" /> },
 ];
+
+const templateIconOptions = [
+  { id: "message", label: "Message", icon: <MessageCircleMore aria-hidden="true" /> },
+  { id: "mail", label: "Mail", icon: <Mail aria-hidden="true" /> },
+  { id: "send", label: "Send", icon: <Send aria-hidden="true" /> },
+  { id: "package", label: "Package", icon: <Package aria-hidden="true" /> },
+  { id: "truck", label: "Delivery", icon: <Truck aria-hidden="true" /> },
+  { id: "check", label: "Confirmed", icon: <CheckCircle2 aria-hidden="true" /> },
+  { id: "bell", label: "Alert", icon: <Bell aria-hidden="true" /> },
+  { id: "gift", label: "Offer", icon: <Gift aria-hidden="true" /> },
+  { id: "calendar", label: "Schedule", icon: <CalendarDays aria-hidden="true" /> },
+  { id: "payment", label: "Payment", icon: <CreditCard aria-hidden="true" /> },
+  { id: "user", label: "Customer", icon: <UserRound aria-hidden="true" /> },
+  { id: "promo", label: "Promo", icon: <Megaphone aria-hidden="true" /> },
+  { id: "secure", label: "Verified", icon: <ShieldCheck aria-hidden="true" /> },
+  { id: "file", label: "Document", icon: <FileText aria-hidden="true" /> },
+  { id: "badge", label: "Status", icon: <BadgeCheck aria-hidden="true" /> },
+];
+
+const templateToneOptions = ["teal", "sky", "violet", "amber", "rose", "emerald", "slate"];
+
+function getTemplateIcon(iconName: string) {
+  return templateIconOptions.find((item) => item.id === iconName)?.icon ?? templateIconOptions[0].icon;
+}
 
 type BasicManagerShape = {
   createNewTemplate: () => void;
@@ -435,7 +472,67 @@ export function BasicTemplateView(props: {
   sectionLabel: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const editorRef = useRef<HTMLElement | null>(null);
+  const variablesRef = useRef<HTMLElement | null>(null);
+  const previewRef = useRef<HTMLElement | null>(null);
+  const scrollSpyPausedUntilRef = useRef(0);
+  const [activeTemplateSection, setActiveTemplateSection] =
+    useState<"editor" | "variables" | "preview">("variables");
+  const [mobileTabsTop, setMobileTabsTop] = useState(74);
   const hasAnyVariables = props.manager.variables.length > 0;
+
+  useEffect(() => {
+    function measureTabsTop() {
+      const topbar = document.querySelector(".topbar");
+      const bottom = topbar?.getBoundingClientRect().bottom ?? 66;
+      setMobileTabsTop(Math.max(56, Math.ceil(bottom + 6)));
+    }
+
+    measureTabsTop();
+    window.addEventListener("resize", measureTabsTop);
+    const observer =
+      "ResizeObserver" in window
+        ? new ResizeObserver(measureTabsTop)
+        : null;
+    const topbar = document.querySelector(".topbar");
+    if (topbar && observer) {
+      observer.observe(topbar);
+    }
+
+    return () => {
+      window.removeEventListener("resize", measureTabsTop);
+      observer?.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (Date.now() < scrollSpyPausedUntilRef.current) {
+        return;
+      }
+      const spyAnchor = mobileTabsTop + 44;
+      const sections = [
+        { id: "variables" as const, element: variablesRef.current },
+        { id: "preview" as const, element: previewRef.current },
+        { id: "editor" as const, element: editorRef.current },
+      ].filter((item): item is { id: "editor" | "variables" | "preview"; element: HTMLElement } =>
+        Boolean(item.element),
+      );
+      const current = sections
+        .map((item) => ({
+          id: item.id,
+          distance: Math.abs(item.element.getBoundingClientRect().top - spyAnchor),
+        }))
+        .sort((left, right) => left.distance - right.distance)[0];
+      if (current) {
+        setActiveTemplateSection(current.id);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasAnyVariables, mobileTabsTop, props.manager.selectedId]);
 
   async function handleDelete() {
     if (!props.manager.selectedId) {
@@ -479,6 +576,15 @@ export function BasicTemplateView(props: {
       );
   }
 
+  function scrollToSection(
+    section: "editor" | "variables" | "preview",
+    ref: RefObject<HTMLElement | null>,
+  ) {
+    setActiveTemplateSection(section);
+    scrollSpyPausedUntilRef.current = Date.now() + 900;
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) {
@@ -504,7 +610,7 @@ export function BasicTemplateView(props: {
   }
 
   return (
-    <section className="view-panel">
+    <section className="view-panel basic-template-view">
       <section className="template-layout">
         <section className="panel-card template-list-panel">
           <div className="section-heading">
@@ -561,10 +667,12 @@ export function BasicTemplateView(props: {
                     type="button"
                     onClick={() => props.manager.selectTemplate(item.id)}
                   >
-                    <p className="template-list-name">{item.name}</p>
-                    <p className="template-list-meta">
-                      {extractVariableNames([item.subject, item.body]).length} variables
-                    </p>
+                    <span className={`template-list-icon is-${item.iconTone}`}>
+                      {getTemplateIcon(item.iconName)}
+                    </span>
+                    <span className="template-list-copy">
+                      <p className="template-list-name">{item.name}</p>
+                    </span>
                   </button>
                   <button
                     className={`icon-action template-favorite-action${item.favorite ? " is-active" : ""}`}
@@ -591,7 +699,39 @@ export function BasicTemplateView(props: {
         </section>
 
         <section className="panel-card template-work-panel">
-          <section className="panel-card template-editor-panel">
+          <div
+            className="mobile-section-tabs"
+            aria-label="Template sections"
+            style={{ top: mobileTabsTop }}
+          >
+            <button
+              className={activeTemplateSection === "variables" ? "is-active" : ""}
+              type="button"
+              onClick={() => scrollToSection("variables", variablesRef)}
+            >
+              Variables
+            </button>
+            <button
+              className={activeTemplateSection === "preview" ? "is-active" : ""}
+              type="button"
+              onClick={() => scrollToSection("preview", previewRef)}
+            >
+              Preview
+            </button>
+            <button
+              className={activeTemplateSection === "editor" ? "is-active" : ""}
+              type="button"
+              onClick={() => scrollToSection("editor", editorRef)}
+            >
+              Editor
+            </button>
+          </div>
+
+          <section
+            ref={editorRef}
+            className="panel-card template-editor-panel"
+            style={{ scrollMarginTop: mobileTabsTop + 56 }}
+          >
             <div className="section-heading sticky-heading">
               <h3>Editor</h3>
               <div className="button-row">
@@ -638,6 +778,46 @@ export function BasicTemplateView(props: {
                   }
                 />
               </label>
+              <div className="field field-full">
+                <span>Icon</span>
+                <div className="template-icon-grid">
+                  {templateIconOptions.map((item) => (
+                    <button
+                      key={item.id}
+                      className={`template-icon-choice is-${props.manager.draft.iconTone}${
+                        props.manager.draft.iconName === item.id ? " is-active" : ""
+                      }`}
+                      type="button"
+                      title={item.label}
+                      aria-label={item.label}
+                      onClick={() =>
+                        props.manager.setDraft((current) => ({ ...current, iconName: item.id }))
+                      }
+                    >
+                      {item.icon}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="field field-full">
+                <span>Icon Color</span>
+                <div className="template-tone-grid">
+                  {templateToneOptions.map((tone) => (
+                    <button
+                      key={tone}
+                      className={`template-tone-choice is-${tone}${
+                        props.manager.draft.iconTone === tone ? " is-active" : ""
+                      }`}
+                      type="button"
+                      title={tone}
+                      aria-label={tone}
+                      onClick={() =>
+                        props.manager.setDraft((current) => ({ ...current, iconTone: tone }))
+                      }
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
 
             {props.hasSubject ? (
@@ -706,11 +886,16 @@ export function BasicTemplateView(props: {
             </label>
           </section>
 
-          {hasAnyVariables ? (
-            <section className="panel-card template-variable-panel">
-              <div className="section-heading">
-                <h3>Variables</h3>
-              </div>
+          <section
+            ref={variablesRef}
+            className="panel-card template-variable-panel"
+            style={{ scrollMarginTop: mobileTabsTop + 56 }}
+          >
+            <div className="section-heading">
+              <h3>Variables</h3>
+            </div>
+            {hasAnyVariables ? (
+              <>
               <div className="variable-summary">
                 {props.manager.variables.map((name) => (
                   <div key={name} className="variable-pill">
@@ -756,10 +941,17 @@ export function BasicTemplateView(props: {
                   </label>
                 ))}
               </div>
-            </section>
-          ) : null}
+              </>
+            ) : (
+              <div className="empty-state">No variables found.</div>
+            )}
+          </section>
 
-          <section className="panel-card template-preview-panel">
+          <section
+            ref={previewRef}
+            className="panel-card template-preview-panel"
+            style={{ scrollMarginTop: mobileTabsTop + 56 }}
+          >
             <div className="section-heading sticky-heading">
               <h3>Preview</h3>
             </div>
@@ -806,12 +998,72 @@ export function PromptTemplateView(props: {
   sectionLabel: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const editorRef = useRef<HTMLElement | null>(null);
+  const variablesRef = useRef<HTMLElement | null>(null);
+  const previewRef = useRef<HTMLElement | null>(null);
+  const scrollSpyPausedUntilRef = useRef(0);
+  const [activeTemplateSection, setActiveTemplateSection] =
+    useState<"editor" | "variables" | "preview">("variables");
+  const [mobileTabsTop, setMobileTabsTop] = useState(74);
   const promptVariables = extractVariableNames([props.manager.draft.prompt]);
   const sampleInputVariables = extractVariableNames([props.manager.draft.sampleInputTemplate]);
   const sampleOutputVariables = extractVariableNames([props.manager.draft.sampleOutput]);
   const hasAnyVariables = props.manager.variables.length > 0;
   const hasAnyPreview =
     promptVariables.length > 0 || sampleInputVariables.length > 0 || sampleOutputVariables.length > 0;
+
+  useEffect(() => {
+    function measureTabsTop() {
+      const topbar = document.querySelector(".topbar");
+      const bottom = topbar?.getBoundingClientRect().bottom ?? 66;
+      setMobileTabsTop(Math.max(56, Math.ceil(bottom + 6)));
+    }
+
+    measureTabsTop();
+    window.addEventListener("resize", measureTabsTop);
+    const observer =
+      "ResizeObserver" in window
+        ? new ResizeObserver(measureTabsTop)
+        : null;
+    const topbar = document.querySelector(".topbar");
+    if (topbar && observer) {
+      observer.observe(topbar);
+    }
+
+    return () => {
+      window.removeEventListener("resize", measureTabsTop);
+      observer?.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (Date.now() < scrollSpyPausedUntilRef.current) {
+        return;
+      }
+      const spyAnchor = mobileTabsTop + 44;
+      const sections = [
+        { id: "variables" as const, element: variablesRef.current },
+        { id: "preview" as const, element: previewRef.current },
+        { id: "editor" as const, element: editorRef.current },
+      ].filter((item): item is { id: "editor" | "variables" | "preview"; element: HTMLElement } =>
+        Boolean(item.element),
+      );
+      const current = sections
+        .map((item) => ({
+          id: item.id,
+          distance: Math.abs(item.element.getBoundingClientRect().top - spyAnchor),
+        }))
+        .sort((left, right) => left.distance - right.distance)[0];
+      if (current) {
+        setActiveTemplateSection(current.id);
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasAnyPreview, hasAnyVariables, mobileTabsTop, props.manager.selectedId]);
 
   async function handleDelete() {
     if (!props.manager.selectedId) {
@@ -855,6 +1107,15 @@ export function PromptTemplateView(props: {
       );
   }
 
+  function scrollToSection(
+    section: "editor" | "variables" | "preview",
+    ref: RefObject<HTMLElement | null>,
+  ) {
+    setActiveTemplateSection(section);
+    scrollSpyPausedUntilRef.current = Date.now() + 900;
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) {
@@ -880,7 +1141,7 @@ export function PromptTemplateView(props: {
   }
 
   return (
-    <section className="view-panel">
+    <section className="view-panel prompt-template-view">
       <section className="template-layout">
         <section className="panel-card template-list-panel">
           <div className="section-heading">
@@ -968,7 +1229,39 @@ export function PromptTemplateView(props: {
         </section>
 
         <section className="panel-card template-work-panel">
-          <section className="panel-card template-editor-panel">
+          <div
+            className="mobile-section-tabs"
+            aria-label="Prompt template sections"
+            style={{ top: mobileTabsTop }}
+          >
+            <button
+              className={activeTemplateSection === "variables" ? "is-active" : ""}
+              type="button"
+              onClick={() => scrollToSection("variables", variablesRef)}
+            >
+              Variables
+            </button>
+            <button
+              className={activeTemplateSection === "preview" ? "is-active" : ""}
+              type="button"
+              onClick={() => scrollToSection("preview", previewRef)}
+            >
+              Preview
+            </button>
+            <button
+              className={activeTemplateSection === "editor" ? "is-active" : ""}
+              type="button"
+              onClick={() => scrollToSection("editor", editorRef)}
+            >
+              Editor
+            </button>
+          </div>
+
+          <section
+            ref={editorRef}
+            className="panel-card template-editor-panel"
+            style={{ scrollMarginTop: mobileTabsTop + 56 }}
+          >
             <div className="section-heading sticky-heading">
               <h3>Editor</h3>
               <div className="button-row">
@@ -1145,11 +1438,16 @@ export function PromptTemplateView(props: {
             </label>
           </section>
 
-          {hasAnyVariables ? (
-            <section className="panel-card template-variable-panel">
-              <div className="section-heading">
-                <h3>Variables</h3>
-              </div>
+          <section
+            ref={variablesRef}
+            className="panel-card template-variable-panel"
+            style={{ scrollMarginTop: mobileTabsTop + 56 }}
+          >
+            <div className="section-heading">
+              <h3>Variables</h3>
+            </div>
+            {hasAnyVariables ? (
+              <>
               <div className="variable-summary">
                 {props.manager.variables.map((name) => (
                   <div key={name} className="variable-pill">
@@ -1195,14 +1493,21 @@ export function PromptTemplateView(props: {
                   </label>
                 ))}
               </div>
-            </section>
-          ) : null}
+              </>
+            ) : (
+              <div className="empty-state">No variables found.</div>
+            )}
+          </section>
 
-          {hasAnyPreview ? (
-            <section className="panel-card template-preview-panel">
-              <div className="section-heading sticky-heading">
-                <h3>Preview</h3>
-              </div>
+          <section
+            ref={previewRef}
+            className="panel-card template-preview-panel"
+            style={{ scrollMarginTop: mobileTabsTop + 56 }}
+          >
+            <div className="section-heading sticky-heading">
+              <h3>Preview</h3>
+            </div>
+            {hasAnyPreview ? (
               <div className="preview-card">
                 {promptVariables.length ? (
                   <div className="preview-block">
@@ -1249,8 +1554,10 @@ export function PromptTemplateView(props: {
                   </div>
                 ) : null}
               </div>
-            </section>
-          ) : null}
+            ) : (
+              <div className="empty-state">No preview yet.</div>
+            )}
+          </section>
         </section>
       </section>
     </section>
