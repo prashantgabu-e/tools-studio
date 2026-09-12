@@ -430,6 +430,7 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     createBasicTemplate(blankName),
   );
   const [variableValues, setVariableValues] = useState<Record<string, string>>({});
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -499,13 +500,16 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
 
   const filteredTemplates = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
+    const source = showFavoritesOnly
+      ? templates.filter((item) => item.favorite)
+      : templates;
     if (!query) {
-      return templates;
+      return source;
     }
-    return templates.filter((item) =>
+    return source.filter((item) =>
       `${item.name} ${item.subject} ${item.body}`.toLowerCase().includes(query),
     );
-  }, [searchQuery, templates]);
+  }, [searchQuery, showFavoritesOnly, templates]);
 
   function selectTemplate(templateId: string | null) {
     const found =
@@ -565,6 +569,25 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     return existing;
   }
 
+  async function toggleFavorite(template: BasicTemplate) {
+    const { db } = getFirebaseServices();
+    if (!db || !userId) {
+      throw new Error("Sign in to update favorites in Firestore.");
+    }
+
+    const nextTemplate = { ...template, favorite: !template.favorite };
+    await setDoc(doc(db, collectionName, nextTemplate.id), {
+      ...nextTemplate,
+      updatedAt: serverTimestamp(),
+    });
+    setTemplates((current) =>
+      current.map((item) => (item.id === nextTemplate.id ? nextTemplate : item)),
+    );
+    if (draft.id === nextTemplate.id) {
+      setDraft(nextTemplate);
+    }
+  }
+
   async function importTemplates(items: unknown[]) {
     const { db } = getFirebaseServices();
     if (!db || !userId) {
@@ -608,9 +631,12 @@ export function useBasicTemplateManager(options: BasicManagerOptions) {
     searchQuery,
     selectedId,
     setDraft,
+    setShowFavoritesOnly,
     setSearchQuery,
     setVariableValues,
+    showFavoritesOnly,
     templates,
+    toggleFavorite,
     variableValues,
     variables,
     selectTemplate,
@@ -633,6 +659,7 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     createPromptTemplate(blankTitle),
   );
   const [variableValues, setVariableValues] = useState<Record<string, string>>({});
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -701,15 +728,18 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
 
   const filteredTemplates = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
+    const source = showFavoritesOnly
+      ? templates.filter((item) => item.favorite)
+      : templates;
     if (!query) {
-      return templates;
+      return source;
     }
-    return templates.filter((item) =>
+    return source.filter((item) =>
       `${item.title} ${item.categories} ${item.prompt} ${item.sampleInputTemplate} ${item.sampleOutput}`
         .toLowerCase()
         .includes(query),
     );
-  }, [searchQuery, templates]);
+  }, [searchQuery, showFavoritesOnly, templates]);
 
   function selectTemplate(templateId: string | null) {
     const found =
@@ -769,6 +799,25 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     return existing;
   }
 
+  async function toggleFavorite(template: PromptTemplate) {
+    const { db } = getFirebaseServices();
+    if (!db || !userId) {
+      throw new Error("Sign in to update favorites in Firestore.");
+    }
+
+    const nextTemplate = { ...template, favorite: !template.favorite };
+    await setDoc(doc(db, collectionName, nextTemplate.id), {
+      ...nextTemplate,
+      updatedAt: serverTimestamp(),
+    });
+    setTemplates((current) =>
+      current.map((item) => (item.id === nextTemplate.id ? nextTemplate : item)),
+    );
+    if (draft.id === nextTemplate.id) {
+      setDraft(nextTemplate);
+    }
+  }
+
   async function importTemplates(items: unknown[]) {
     const { db } = getFirebaseServices();
     if (!db || !userId) {
@@ -804,9 +853,12 @@ export function usePromptTemplateManager(options: PromptManagerOptions) {
     searchQuery,
     selectedId,
     setDraft,
+    setShowFavoritesOnly,
     setSearchQuery,
     setVariableValues,
+    showFavoritesOnly,
     templates,
+    toggleFavorite,
     variableValues,
     variables,
     selectTemplate,

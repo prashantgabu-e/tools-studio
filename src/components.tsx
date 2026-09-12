@@ -74,11 +74,14 @@ type BasicManagerShape = {
   searchQuery: string;
   selectedId: string | null;
   setDraft: React.Dispatch<React.SetStateAction<BasicTemplate>>;
+  setShowFavoritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   setVariableValues: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >;
+  showFavoritesOnly: boolean;
   templates: BasicTemplate[];
+  toggleFavorite: (template: BasicTemplate) => Promise<void>;
   variableValues: Record<string, string>;
   variables: string[];
   selectTemplate: (id: string | null) => void;
@@ -99,11 +102,14 @@ type PromptManagerShape = {
   searchQuery: string;
   selectedId: string | null;
   setDraft: React.Dispatch<React.SetStateAction<PromptTemplate>>;
+  setShowFavoritesOnly: React.Dispatch<React.SetStateAction<boolean>>;
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
   setVariableValues: React.Dispatch<
     React.SetStateAction<Record<string, string>>
   >;
+  showFavoritesOnly: boolean;
   templates: PromptTemplate[];
+  toggleFavorite: (template: PromptTemplate) => Promise<void>;
   variableValues: Record<string, string>;
   variables: string[];
   selectTemplate: (id: string | null) => void;
@@ -464,6 +470,14 @@ export function BasicTemplateView(props: {
     downloadJson(props.importFileName, props.manager.templates);
   }
 
+  function handleToggleFavorite(item: BasicTemplate) {
+    void props.manager
+      .toggleFavorite(item)
+      .catch((error: unknown) =>
+        props.onToast(error instanceof Error ? error.message : "Favorite failed", "warning"),
+      );
+  }
+
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) {
@@ -501,6 +515,15 @@ export function BasicTemplateView(props: {
           </div>
 
           <div className="template-toolbar">
+            <button
+              className={`ghost-button icon-only-button${props.manager.showFavoritesOnly ? " is-active" : ""}`}
+              type="button"
+              title="Show favorites only"
+              aria-label="Show favorites only"
+              onClick={() => props.manager.setShowFavoritesOnly((current) => !current)}
+            >
+              <Star aria-hidden="true" />
+            </button>
             <ToolbarActionButton
               onClick={() => fileInputRef.current?.click()}
               icon={<FileInput aria-hidden="true" />}
@@ -528,17 +551,30 @@ export function BasicTemplateView(props: {
               <div className="empty-state is-error">{props.manager.error}</div>
             ) : props.manager.filteredTemplates.length ? (
               props.manager.filteredTemplates.map((item) => (
-                <button
+                <article
                   key={item.id}
-                  type="button"
                   className={`template-list-item${item.id === props.manager.selectedId ? " is-active" : ""}`}
-                  onClick={() => props.manager.selectTemplate(item.id)}
                 >
-                  <p className="template-list-name">{item.name}</p>
-                  <p className="template-list-meta">
-                    {extractVariableNames([item.subject, item.body]).length} variables
-                  </p>
-                </button>
+                  <button
+                    className="template-list-main"
+                    type="button"
+                    onClick={() => props.manager.selectTemplate(item.id)}
+                  >
+                    <p className="template-list-name">{item.name}</p>
+                    <p className="template-list-meta">
+                      {extractVariableNames([item.subject, item.body]).length} variables
+                    </p>
+                  </button>
+                  <button
+                    className={`icon-action template-favorite-action${item.favorite ? " is-active" : ""}`}
+                    type="button"
+                    title={item.favorite ? "Remove favorite" : "Add favorite"}
+                    aria-label={item.favorite ? "Remove favorite" : "Add favorite"}
+                    onClick={() => handleToggleFavorite(item)}
+                  >
+                    <Star aria-hidden="true" />
+                  </button>
+                </article>
               ))
             ) : (
               <div className="empty-state">{props.emptySearchMessage}</div>
@@ -810,6 +846,14 @@ export function PromptTemplateView(props: {
     downloadJson(props.importFileName, props.manager.templates);
   }
 
+  function handleToggleFavorite(item: PromptTemplate) {
+    void props.manager
+      .toggleFavorite(item)
+      .catch((error: unknown) =>
+        props.onToast(error instanceof Error ? error.message : "Favorite failed", "warning"),
+      );
+  }
+
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) {
@@ -847,6 +891,15 @@ export function PromptTemplateView(props: {
           </div>
 
           <div className="template-toolbar">
+            <button
+              className={`ghost-button icon-only-button${props.manager.showFavoritesOnly ? " is-active" : ""}`}
+              type="button"
+              title="Show favorites only"
+              aria-label="Show favorites only"
+              onClick={() => props.manager.setShowFavoritesOnly((current) => !current)}
+            >
+              <Star aria-hidden="true" />
+            </button>
             <ToolbarActionButton
               onClick={() => fileInputRef.current?.click()}
               icon={<FileInput aria-hidden="true" />}
@@ -874,18 +927,31 @@ export function PromptTemplateView(props: {
               <div className="empty-state is-error">{props.manager.error}</div>
             ) : props.manager.filteredTemplates.length ? (
               props.manager.filteredTemplates.map((item) => (
-                <button
+                <article
                   key={item.id}
-                  type="button"
                   className={`template-list-item${item.id === props.manager.selectedId ? " is-active" : ""}`}
-                  onClick={() => props.manager.selectTemplate(item.id)}
                 >
-                  <p className="template-list-name">{item.title}</p>
-                  <p className="template-list-meta">
-                    {item.categories || "No categories"} •{" "}
-                    {extractVariableNames([item.prompt, item.sampleInputTemplate]).length} variables
-                  </p>
-                </button>
+                  <button
+                    className="template-list-main"
+                    type="button"
+                    onClick={() => props.manager.selectTemplate(item.id)}
+                  >
+                    <p className="template-list-name">{item.title}</p>
+                    <p className="template-list-meta">
+                      {item.categories || "No categories"} •{" "}
+                      {extractVariableNames([item.prompt, item.sampleInputTemplate]).length} variables
+                    </p>
+                  </button>
+                  <button
+                    className={`icon-action template-favorite-action${item.favorite ? " is-active" : ""}`}
+                    type="button"
+                    title={item.favorite ? "Remove favorite" : "Add favorite"}
+                    aria-label={item.favorite ? "Remove favorite" : "Add favorite"}
+                    onClick={() => handleToggleFavorite(item)}
+                  >
+                    <Star aria-hidden="true" />
+                  </button>
+                </article>
               ))
             ) : (
               <div className="empty-state">No prompts match your search.</div>

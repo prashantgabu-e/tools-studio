@@ -109,6 +109,7 @@ export function normalizeBasicTemplates(
   return items.map((item, index) => {
     const value = (item ?? {}) as Partial<BasicTemplate>;
     return {
+      favorite: Boolean(value.favorite),
       id: value.id || `template-${index + 1}-${Date.now()}`,
       name: value.name || blankName,
       subject: hasSubject ? value.subject || "" : "",
@@ -121,6 +122,7 @@ export function normalizePromptTemplates(items: unknown[], blankTitle: string) {
   return items.map((item, index) => {
     const value = (item ?? {}) as Partial<PromptTemplate>;
     return {
+      favorite: Boolean(value.favorite),
       id: value.id || `prompt-${index + 1}-${Date.now()}`,
       title: value.title || blankTitle,
       categories: value.categories || "",
@@ -139,6 +141,7 @@ export function normalizePromptLibraryItems(items: unknown[]) {
 
 export function createBasicTemplate(blankName: string): BasicTemplate {
   return {
+    favorite: false,
     id: `template-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
     name: blankName,
     subject: "",
@@ -161,6 +164,7 @@ export function createPromptLibraryItem(): PromptLibraryItem {
 
 export function createPromptTemplate(blankTitle: string): PromptTemplate {
   return {
+    favorite: false,
     id: `prompt-${crypto.randomUUID ? crypto.randomUUID() : Date.now()}`,
     title: blankTitle,
     categories: "",

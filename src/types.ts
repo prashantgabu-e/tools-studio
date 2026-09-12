@@ -1,4 +1,5 @@
 export type BasicTemplate = {
+  favorite: boolean;
   id: string;
   name: string;
   subject: string;
@@ -6,6 +7,7 @@ export type BasicTemplate = {
 };
 
 export type PromptTemplate = {
+  favorite: boolean;
   id: string;
   title: string;
   categories: string;
