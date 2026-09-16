@@ -26,6 +26,7 @@ import {
   applyVariables,
   createBasicTemplate,
   createEmptyPromptBuilderLibrary,
+  createPromptBuilderCategory,
   createPromptLibraryItem,
   createPromptIngredient,
   createPromptTemplate,
@@ -33,6 +34,7 @@ import {
   mergePromptBuilderLibraries,
   normalizeBasicTemplates,
   normalizePromptLibraryItems,
+  normalizePromptBuilderCategories,
   normalizePromptBuilderLibrary,
   normalizePromptTemplates,
   promptBuilderCategories,
@@ -60,8 +62,10 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
   const { userId } = options;
   const emptyLibrary = useMemo(() => createEmptyPromptBuilderLibrary(), []);
   const [library, setLibrary] = useState<PromptBuilderLibrary>(emptyLibrary);
-  const [selectedCategory, setSelectedCategory] =
-    useState<PromptBuilderCategory>("lighting");
+  const [categories, setCategories] = useState(promptBuilderCategories);
+  const [selectedCategory, setSelectedCategory] = useState<PromptBuilderCategory>(
+    promptBuilderCategories[0].id,
+  );
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [draft, setDraft] = useState<PromptIngredient>(() => createPromptIngredient());
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,7 +84,8 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     if (!db) {
       setLibrary(emptyLibrary);
       const blank = createPromptIngredient();
-      setSelectedCategory("lighting");
+      setCategories(promptBuilderCategories);
+      setSelectedCategory(promptBuilderCategories[0].id);
       setSelectedId(blank.id);
       setDraft(blank);
       setIsLoading(false);
@@ -92,12 +97,25 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     return onSnapshot(
       libraryRef,
       (snapshot) => {
+        const nextCategories = snapshot.exists()
+          ? normalizePromptBuilderCategories(snapshot.data())
+          : promptBuilderCategories;
         const nextLibrary = snapshot.exists()
-          ? normalizePromptBuilderLibrary(snapshot.data())
-          : createEmptyPromptBuilderLibrary();
+          ? normalizePromptBuilderLibrary(snapshot.data(), nextCategories)
+          : createEmptyPromptBuilderLibrary(nextCategories);
+        setCategories(nextCategories);
         setLibrary(nextLibrary);
         setSelectedId((currentSelectedId) => {
-          const categoryItems = nextLibrary[selectedCategoryRef.current];
+          const currentCategory = nextCategories.some(
+            (category) => category.id === selectedCategoryRef.current,
+          )
+            ? selectedCategoryRef.current
+            : nextCategories[0].id;
+          if (currentCategory !== selectedCategoryRef.current) {
+            selectedCategoryRef.current = currentCategory;
+            setSelectedCategory(currentCategory);
+          }
+          const categoryItems = nextLibrary[currentCategory] ?? [];
           const nextSelected =
             categoryItems.find((item) => item.id === currentSelectedId) ?? categoryItems[0];
           if (nextSelected) {
@@ -125,11 +143,11 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
 
   const totalItems = useMemo(
     () =>
-      promptBuilderCategories.reduce(
-        (total, category) => total + library[category.id].length,
+      categories.reduce(
+        (total, category) => total + (library[category.id]?.length ?? 0),
         0,
       ),
-    [library],
+    [categories, library],
   );
 
   const filteredItems = useMemo(() => {
@@ -149,7 +167,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
   }, [library, searchQuery, selectedCategory, showFavoritesOnly]);
 
   function selectCategory(category: PromptBuilderCategory) {
-    const nextItem = library[category][0] ?? createPromptIngredient();
+    const nextItem = (library[category] ?? [])[0] ?? createPromptIngredient();
     setSelectedCategory(category);
     setSelectedId(nextItem.id);
     setDraft(nextItem);
@@ -157,7 +175,8 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
 
   function selectIngredient(id: string | null) {
     const found =
-      library[selectedCategory].find((item) => item.id === id) ?? createPromptIngredient();
+      (library[selectedCategory] ?? []).find((item) => item.id === id) ??
+      createPromptIngredient();
     setSelectedId(found.id);
     setDraft(found);
   }
@@ -176,23 +195,28 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     setComposerText((current) => (current.trim() ? `${current.trim()}, ${trimmed}` : trimmed));
   }
 
-  async function persistLibrary(nextLibrary: PromptBuilderLibrary) {
+  async function persistLibrary(
+    nextLibrary: PromptBuilderLibrary,
+    nextCategories = categories,
+  ) {
     const { db } = getFirebaseServices();
     if (!db || !userId) {
       throw new Error("Sign in to save the builder library to Firestore.");
     }
 
     await setDoc(doc(db, "promptBuilder", "library"), {
+      categories: nextCategories,
       ...nextLibrary,
       updatedAt: serverTimestamp(),
     });
+    setCategories(nextCategories);
     setLibrary(nextLibrary);
   }
 
   async function saveIngredient() {
     const nextLibrary = {
       ...library,
-      [selectedCategory]: upsertIngredient(library[selectedCategory], draft),
+      [selectedCategory]: upsertIngredient(library[selectedCategory] ?? [], draft),
     };
     await persistLibrary(nextLibrary);
     setSelectedId(draft.id);
@@ -202,13 +226,13 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     if (!ingredientId) {
       return null;
     }
-    const existing = library[selectedCategory].find((item) => item.id === ingredientId);
+    const existing = (library[selectedCategory] ?? []).find((item) => item.id === ingredientId);
     if (!existing) {
       createNewIngredient();
       return null;
     }
 
-    const nextItems = library[selectedCategory].filter((item) => item.id !== ingredientId);
+    const nextItems = (library[selectedCategory] ?? []).filter((item) => item.id !== ingredientId);
     const nextLibrary = { ...library, [selectedCategory]: nextItems };
     await persistLibrary(nextLibrary);
     const nextSelected = nextItems[0] ?? createPromptIngredient();
@@ -221,7 +245,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     const nextItem = { ...item, favorite: !item.favorite };
     const nextLibrary = {
       ...library,
-      [selectedCategory]: upsertIngredient(library[selectedCategory], nextItem),
+      [selectedCategory]: upsertIngredient(library[selectedCategory] ?? [], nextItem),
     };
     await persistLibrary(nextLibrary);
     if (draft.id === item.id) {
@@ -230,19 +254,76 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
   }
 
   async function importLibrary(items: unknown, mode: "merge" | "replace") {
-    const incoming = normalizePromptBuilderLibrary(items);
+    const incomingCategories = normalizePromptBuilderCategories(items);
+    const nextCategories =
+      mode === "merge"
+        ? mergePromptBuilderCategories(categories, incomingCategories)
+        : incomingCategories;
+    const incoming = normalizePromptBuilderLibrary(items, nextCategories);
     const nextLibrary =
-      mode === "merge" ? mergePromptBuilderLibraries(library, incoming) : incoming;
-    await persistLibrary(nextLibrary);
-    const nextSelected = nextLibrary[selectedCategory][0] ?? createPromptIngredient();
+      mode === "merge"
+        ? mergePromptBuilderLibraries(library, incoming, nextCategories)
+        : incoming;
+    await persistLibrary(nextLibrary, nextCategories);
+    const nextCategory = nextCategories.some((category) => category.id === selectedCategory)
+      ? selectedCategory
+      : nextCategories[0].id;
+    setSelectedCategory(nextCategory);
+    const nextSelected = nextLibrary[nextCategory][0] ?? createPromptIngredient();
     setSelectedId(nextSelected.id);
     setDraft(nextSelected);
   }
 
+  async function saveCategory(category: {
+    id?: string;
+    label: string;
+    shortLabel: string;
+  }) {
+    const existing = category.id
+      ? categories.find((item) => item.id === category.id)
+      : undefined;
+    const nextCategory = existing
+      ? {
+          ...existing,
+          label: category.label.trim() || "Untitled Category",
+          shortLabel: category.shortLabel.trim() || category.label.trim().slice(0, 8) || "Cat",
+        }
+      : createPromptBuilderCategory(category.label, categories);
+    const nextCategories = existing
+      ? categories.map((item) => (item.id === nextCategory.id ? nextCategory : item))
+      : [...categories, nextCategory];
+    const nextLibrary = {
+      ...library,
+      [nextCategory.id]: library[nextCategory.id] ?? [],
+    };
+    await persistLibrary(nextLibrary, nextCategories);
+    setSelectedCategory(nextCategory.id);
+    selectedCategoryRef.current = nextCategory.id;
+  }
+
+  async function deleteCategory(categoryId: PromptBuilderCategory) {
+    if (categories.length <= 1) {
+      throw new Error("Keep at least one kit category.");
+    }
+    const nextCategories = categories.filter((category) => category.id !== categoryId);
+    const nextLibrary = { ...library };
+    delete nextLibrary[categoryId];
+    await persistLibrary(nextLibrary, nextCategories);
+    if (selectedCategory === categoryId) {
+      const nextCategory = nextCategories[0].id;
+      const nextSelected = nextLibrary[nextCategory]?.[0] ?? createPromptIngredient();
+      setSelectedCategory(nextCategory);
+      selectedCategoryRef.current = nextCategory;
+      setSelectedId(nextSelected.id);
+      setDraft(nextSelected);
+    }
+  }
+
   return {
     appendToComposer,
-    categories: promptBuilderCategories,
+    categories,
     composerText,
+    deleteCategory,
     createNewIngredient,
     deleteIngredient,
     draft,
@@ -251,6 +332,7 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     importLibrary,
     isLoading,
     library,
+    saveCategory,
     saveIngredient,
     searchQuery,
     selectedCategory,
@@ -265,6 +347,15 @@ export function usePromptBuilderManager(options: PromptBuilderOptions) {
     toggleFavorite,
     totalItems,
   };
+}
+
+function mergePromptBuilderCategories(
+  current: typeof promptBuilderCategories,
+  incoming: typeof promptBuilderCategories,
+) {
+  const byId = new Map(current.map((category) => [category.id, category]));
+  incoming.forEach((category) => byId.set(category.id, category));
+  return [...byId.values()];
 }
 
 function upsertIngredient(items: PromptIngredient[], ingredient: PromptIngredient) {
@@ -347,6 +438,7 @@ export function usePromptLibraryManager(options: PromptLibraryOptions) {
     const blank = createPromptLibraryItem();
     setSelectedId(blank.id);
     setDraft(blank);
+    return blank;
   }
 
   async function saveItem(nextDraft = draft) {

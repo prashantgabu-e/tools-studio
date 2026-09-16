@@ -1,4 +1,12 @@
-import { useEffect, useRef, useState, type ChangeEvent, type ReactNode, type RefObject } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type DragEvent,
+  type ReactNode,
+  type RefObject,
+} from "react";
 import { NavLink } from "react-router-dom";
 import {
   BadgeCheck,
@@ -37,6 +45,7 @@ import {
 import type {
   BasicTemplate,
   PromptBuilderCategory,
+  PromptBuilderCategoryMeta,
   PromptBuilderLibrary,
   PromptBuilderUseFor,
   PromptIngredient,
@@ -155,12 +164,9 @@ type PromptManagerShape = {
 
 type PromptBuilderManagerShape = {
   appendToComposer: (text?: string) => void;
-  categories: Array<{
-    id: PromptBuilderCategory;
-    label: string;
-    shortLabel: string;
-  }>;
+  categories: PromptBuilderCategoryMeta[];
   composerText: string;
+  deleteCategory: (categoryId: PromptBuilderCategory) => Promise<void>;
   createNewIngredient: () => void;
   deleteIngredient: (ingredientId?: string | null) => Promise<PromptIngredient | null>;
   draft: PromptIngredient;
@@ -169,6 +175,11 @@ type PromptBuilderManagerShape = {
   importLibrary: (items: unknown, mode: "merge" | "replace") => Promise<void>;
   isLoading: boolean;
   library: PromptBuilderLibrary;
+  saveCategory: (category: {
+    id?: string;
+    label: string;
+    shortLabel: string;
+  }) => Promise<void>;
   saveIngredient: () => Promise<void>;
   searchQuery: string;
   selectedCategory: PromptBuilderCategory;
@@ -185,7 +196,7 @@ type PromptBuilderManagerShape = {
 };
 
 type PromptLibraryManagerShape = {
-  createNewItem: () => void;
+  createNewItem: () => PromptLibraryItem;
   deleteItem: (itemId?: string | null) => Promise<PromptLibraryItem | null>;
   draft: PromptLibraryItem;
   error: string | null;
@@ -1700,6 +1711,7 @@ export function PromptLibraryView(props: {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const [isCompressing, setIsCompressing] = useState(false);
+  const [isDragActive, setIsDragActive] = useState(false);
   const [typeFilter, setTypeFilter] = useState<"all" | "image" | "video">("all");
   const [tagsText, setTagsText] = useState("");
   const filteredItems =
@@ -1710,6 +1722,59 @@ export function PromptLibraryView(props: {
   useEffect(() => {
     setTagsText(props.manager.draft.tags.join(", "));
   }, [props.manager.draft.id]);
+
+  useEffect(() => {
+    function handleWindowDragEnter(event: globalThis.DragEvent) {
+      if (!hasFileTransfer(event.dataTransfer)) {
+        return;
+      }
+      event.preventDefault();
+      setIsDragActive(true);
+    }
+
+    function handleWindowDragOver(event: globalThis.DragEvent) {
+      if (!hasFileTransfer(event.dataTransfer)) {
+        return;
+      }
+      event.preventDefault();
+      if (event.dataTransfer) {
+        event.dataTransfer.dropEffect = "copy";
+      }
+      setIsDragActive(true);
+    }
+
+    function handleWindowDragLeave(event: globalThis.DragEvent) {
+      if (event.relatedTarget) {
+        return;
+      }
+      setIsDragActive(false);
+    }
+
+    function handleWindowDrop(event: globalThis.DragEvent) {
+      if (!hasFileTransfer(event.dataTransfer)) {
+        return;
+      }
+      event.preventDefault();
+      setIsDragActive(false);
+      const files = getImageFiles(event.dataTransfer?.files ?? null);
+      if (!files.length) {
+        props.onToast("Drop image files to create a prompt output", "warning");
+        return;
+      }
+      void attachImageFiles(files, "new");
+    }
+
+    window.addEventListener("dragenter", handleWindowDragEnter);
+    window.addEventListener("dragover", handleWindowDragOver);
+    window.addEventListener("dragleave", handleWindowDragLeave);
+    window.addEventListener("drop", handleWindowDrop);
+    return () => {
+      window.removeEventListener("dragenter", handleWindowDragEnter);
+      window.removeEventListener("dragover", handleWindowDragOver);
+      window.removeEventListener("dragleave", handleWindowDragLeave);
+      window.removeEventListener("drop", handleWindowDrop);
+    };
+  }, [props]);
 
   function openNewItem() {
     props.manager.createNewItem();
@@ -1750,17 +1815,20 @@ export function PromptLibraryView(props: {
     }
   }
 
-  async function handleImageFiles(event: ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(event.target.files ?? []);
-    event.target.value = "";
+  async function attachImageFiles(files: File[], mode: "append" | "new") {
     if (!files.length) {
       return;
     }
 
-    const remainingSlots = promptLibraryMaxImages - props.manager.draft.images.length;
+    const baseDraft = mode === "new" ? props.manager.createNewItem() : props.manager.draft;
+    const remainingSlots = promptLibraryMaxImages - baseDraft.images.length;
     if (remainingSlots <= 0) {
       props.onToast(`Maximum ${promptLibraryMaxImages} images allowed`, "warning");
       return;
+    }
+
+    if (mode === "new") {
+      setIsDetailOpen(true);
     }
 
     setIsCompressing(true);
@@ -1769,10 +1837,11 @@ export function PromptLibraryView(props: {
       for (const file of files.slice(0, remainingSlots)) {
         compressedImages.push(await compressPromptLibraryImage(file));
       }
-      props.manager.setDraft((current) => ({
-        ...current,
-        images: [...current.images, ...compressedImages].slice(0, promptLibraryMaxImages),
-      }));
+      const nextDraft = {
+        ...baseDraft,
+        images: [...baseDraft.images, ...compressedImages].slice(0, promptLibraryMaxImages),
+      };
+      props.manager.setDraft(nextDraft);
       props.onToast(
         `${compressedImages.length} image${compressedImages.length === 1 ? "" : "s"} compressed`,
         "success",
@@ -1782,6 +1851,56 @@ export function PromptLibraryView(props: {
     } finally {
       setIsCompressing(false);
     }
+  }
+
+  async function handleImageFiles(event: ChangeEvent<HTMLInputElement>) {
+    const files = getImageFiles(event.target.files);
+    event.target.value = "";
+    await attachImageFiles(files, "append");
+  }
+
+  function hasImageDrag(event: DragEvent<HTMLElement>) {
+    return Array.from(event.dataTransfer.types).includes("Files");
+  }
+
+  function handleDragEnter(event: DragEvent<HTMLElement>) {
+    if (!hasImageDrag(event)) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragActive(true);
+  }
+
+  function handleDragOver(event: DragEvent<HTMLElement>) {
+    if (!hasImageDrag(event)) {
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    event.dataTransfer.dropEffect = "copy";
+    setIsDragActive(true);
+  }
+
+  function handleDragLeave(event: DragEvent<HTMLElement>) {
+    if (
+      event.currentTarget.contains(event.relatedTarget as Node | null)
+    ) {
+      return;
+    }
+    setIsDragActive(false);
+  }
+
+  function handleDrop(event: DragEvent<HTMLElement>) {
+    event.preventDefault();
+    event.stopPropagation();
+    setIsDragActive(false);
+    const files = getImageFiles(event.dataTransfer.files);
+    if (!files.length) {
+      props.onToast("Drop image files to create a prompt output", "warning");
+      return;
+    }
+    void attachImageFiles(files, "new");
   }
 
   function removeImage(imageId: string) {
@@ -1802,7 +1921,17 @@ export function PromptLibraryView(props: {
   }
 
   return (
-    <section className="view-panel prompt-library-view">
+    <section
+      className={`view-panel prompt-library-view${isDragActive ? " is-drag-active" : ""}`}
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      <div className="prompt-library-drop-overlay" aria-hidden="true">
+        <ImagePlus aria-hidden="true" />
+        <span>Drop images to create a prompt output</span>
+      </div>
       <section className="panel-card prompt-library-toolbar">
         <div className="section-heading">
           <h3>Library</h3>
@@ -2073,6 +2202,14 @@ export function PromptLibraryView(props: {
   );
 }
 
+function getImageFiles(files: FileList | null) {
+  return Array.from(files ?? []).filter((file) => file.type.startsWith("image/"));
+}
+
+function hasFileTransfer(dataTransfer: DataTransfer | null) {
+  return Boolean(dataTransfer && Array.from(dataTransfer.types).includes("Files"));
+}
+
 export function PromptBuilderView(props: {
   manager: PromptBuilderManagerShape;
   onToast: (message: string, tone?: ToastTone) => void;
@@ -2080,6 +2217,11 @@ export function PromptBuilderView(props: {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [importMode, setImportMode] = useState<"merge" | "replace">("merge");
   const [isEditorOpen, setIsEditorOpen] = useState(false);
+  const [categoryDraft, setCategoryDraft] = useState<{
+    id?: string;
+    label: string;
+    shortLabel: string;
+  } | null>(null);
   const [isComposerOpen, setIsComposerOpen] = useState(false);
 
   const activeCategory = props.manager.categories.find(
@@ -2132,13 +2274,55 @@ export function PromptBuilderView(props: {
     setIsEditorOpen(true);
   }
 
+  function handleNewCategory() {
+    setCategoryDraft({ label: "Untitled Category", shortLabel: "Cat" });
+  }
+
+  function handleEditCategory(category: PromptBuilderCategoryMeta) {
+    setCategoryDraft(category);
+  }
+
+  async function handleSaveCategory() {
+    if (!categoryDraft) {
+      return;
+    }
+    try {
+      await props.manager.saveCategory(categoryDraft);
+      props.onToast(`${categoryDraft.label || "Category"} saved`, "success");
+      setCategoryDraft(null);
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Category save failed", "warning");
+    }
+  }
+
+  async function handleDeleteCategory(category: PromptBuilderCategoryMeta) {
+    const count = props.manager.library[category.id]?.length ?? 0;
+    const confirmed = window.confirm(
+      `Delete "${category.label}" and ${count} item${count === 1 ? "" : "s"} inside it? This cannot be undone.`,
+    );
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await props.manager.deleteCategory(category.id);
+      props.onToast(`${category.label} deleted`, "warning");
+      setCategoryDraft(null);
+    } catch (error) {
+      props.onToast(error instanceof Error ? error.message : "Category delete failed", "warning");
+    }
+  }
+
   function handleImportClick(mode: "merge" | "replace") {
     setImportMode(mode);
     fileInputRef.current?.click();
   }
 
   function handleExport() {
-    downloadJson("prompt-builder-library.json", props.manager.library);
+    downloadJson("prompt-builder-library.json", {
+      categories: props.manager.categories,
+      library: props.manager.library,
+    });
   }
 
   function handleImportFile(event: ChangeEvent<HTMLInputElement>) {
@@ -2192,24 +2376,37 @@ export function PromptBuilderView(props: {
       <section className="panel-card builder-categories-panel">
         <div className="section-heading">
           <h3>Kit</h3>
-          <button className="ghost-button" type="button" onClick={handleNew}>
+          <button className="ghost-button" type="button" onClick={handleNewCategory}>
             <Plus aria-hidden="true" />
-            <span>New</span>
+            <span>Category</span>
           </button>
         </div>
         <div className="builder-category-grid">
           {props.manager.categories.map((category) => (
-            <button
+            <div
               key={category.id}
-              className={`category-chip${
+              className={`category-chip-group${
                 category.id === props.manager.selectedCategory ? " is-active" : ""
               }`}
-              type="button"
-              onClick={() => props.manager.selectCategory(category.id)}
             >
-              <span>{category.label}</span>
-              <strong>{props.manager.library[category.id].length}</strong>
-            </button>
+              <button
+                className="category-chip"
+                type="button"
+                onClick={() => props.manager.selectCategory(category.id)}
+              >
+                <span>{category.label}</span>
+                <strong>{props.manager.library[category.id]?.length ?? 0}</strong>
+              </button>
+              <button
+                className="category-chip-action"
+                type="button"
+                title="Edit category"
+                aria-label={`Edit ${category.label}`}
+                onClick={() => handleEditCategory(category)}
+              >
+                <Pencil aria-hidden="true" />
+              </button>
+            </div>
           ))}
         </div>
       </section>
@@ -2218,6 +2415,10 @@ export function PromptBuilderView(props: {
         <div className="section-heading">
           <h3>{activeCategory?.label ?? "Items"}</h3>
           <div className="template-toolbar is-tight">
+            <button className="ghost-button" type="button" onClick={handleNew}>
+              <Plus aria-hidden="true" />
+              <span>Item</span>
+            </button>
             <button
               className={`ghost-button icon-only-button${props.manager.showFavoritesOnly ? " is-active" : ""}`}
               type="button"
@@ -2503,6 +2704,82 @@ export function PromptBuilderView(props: {
                 }
               />
             </label>
+          </section>
+        </div>
+      ) : null}
+
+      {categoryDraft ? (
+        <div className="dialog-backdrop" role="presentation">
+          <section
+            className="panel-card builder-editor-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="builder-category-editor-title"
+          >
+            <div className="section-heading">
+              <h3 id="builder-category-editor-title">
+                {categoryDraft.id ? "Edit Category" : "New Category"}
+              </h3>
+              <div className="button-row">
+                <button className="ghost-button" type="button" onClick={() => setCategoryDraft(null)}>
+                  <span>Cancel</span>
+                </button>
+                {categoryDraft.id ? (
+                  <button
+                    className="ghost-button"
+                    type="button"
+                    onClick={() => {
+                      const category = props.manager.categories.find(
+                        (item) => item.id === categoryDraft.id,
+                      );
+                      if (category) {
+                        void handleDeleteCategory(category);
+                      }
+                    }}
+                  >
+                    <Trash2 aria-hidden="true" />
+                    <span>Delete</span>
+                  </button>
+                ) : null}
+                <button className="copy-button" type="button" onClick={() => void handleSaveCategory()}>
+                  <Save aria-hidden="true" />
+                  <span>Save</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="builder-editor-grid">
+              <label className="field">
+                <span className="field-header">
+                  <span>Name</span>
+                </span>
+                <input
+                  className="compact-input"
+                  type="text"
+                  value={categoryDraft.label}
+                  onChange={(event) =>
+                    setCategoryDraft((current) =>
+                      current ? { ...current, label: event.target.value } : current,
+                    )
+                  }
+                />
+              </label>
+              <label className="field">
+                <span className="field-header">
+                  <span>Short</span>
+                </span>
+                <input
+                  className="compact-input"
+                  type="text"
+                  value={categoryDraft.shortLabel}
+                  onChange={(event) =>
+                    setCategoryDraft((current) =>
+                      current ? { ...current, shortLabel: event.target.value } : current,
+                    )
+                  }
+                />
+              </label>
+            </div>
           </section>
         </div>
       ) : null}

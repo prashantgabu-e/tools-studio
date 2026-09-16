@@ -1,6 +1,7 @@
 import type {
   BasicTemplate,
   PromptBuilderCategory,
+  PromptBuilderCategoryMeta,
   PromptBuilderLibrary,
   PromptBuilderUseFor,
   PromptIngredient,
@@ -11,8 +12,8 @@ import type {
 
 export const placeholderText = "Your transformed text will appear here.";
 export const promptLibraryMaxImages = 3;
-export const promptLibraryMaxImageBytes = 220 * 1024;
-export const promptLibraryMaxImageEdge = 900;
+export const promptLibraryMaxImageBytes = 120 * 1024;
+export const promptLibraryMaxImageEdge = 720;
 
 export const transforms = [
   {
@@ -178,11 +179,7 @@ export function createPromptTemplate(blankTitle: string): PromptTemplate {
   };
 }
 
-export const promptBuilderCategories: Array<{
-  id: PromptBuilderCategory;
-  label: string;
-  shortLabel: string;
-}> = [
+export const promptBuilderCategories: PromptBuilderCategoryMeta[] = [
   { id: "lighting", label: "Lighting", shortLabel: "Light" },
   { id: "poses", label: "Poses", shortLabel: "Pose" },
   { id: "shots", label: "Shots", shortLabel: "Shot" },
@@ -203,8 +200,31 @@ export const promptBuilderCategories: Array<{
   { id: "formulas", label: "Formulas", shortLabel: "Formula" },
 ];
 
-export function createEmptyPromptBuilderLibrary(): PromptBuilderLibrary {
-  return promptBuilderCategories.reduce((library, category) => {
+export function createPromptBuilderCategory(
+  label = "Untitled Category",
+  existingCategories: PromptBuilderCategoryMeta[] = promptBuilderCategories,
+): PromptBuilderCategoryMeta {
+  const trimmedLabel = label.trim() || "Untitled Category";
+  const baseId = slugifyCategoryId(trimmedLabel);
+  const existingIds = new Set(existingCategories.map((category) => category.id));
+  let id = baseId;
+  let suffix = 2;
+  while (existingIds.has(id)) {
+    id = `${baseId}-${suffix}`;
+    suffix += 1;
+  }
+
+  return {
+    id,
+    label: trimmedLabel,
+    shortLabel: createShortCategoryLabel(trimmedLabel),
+  };
+}
+
+export function createEmptyPromptBuilderLibrary(
+  categories: PromptBuilderCategoryMeta[] = promptBuilderCategories,
+): PromptBuilderLibrary {
+  return categories.reduce((library, category) => {
     library[category.id] = [];
     return library;
   }, {} as PromptBuilderLibrary);
@@ -221,12 +241,39 @@ export function createPromptIngredient(title = "Untitled Ingredient"): PromptIng
   };
 }
 
-export function normalizePromptBuilderLibrary(value: unknown): PromptBuilderLibrary {
-  const source = (value ?? {}) as Partial<Record<PromptBuilderCategory, unknown>>;
-  const library = createEmptyPromptBuilderLibrary();
+export function normalizePromptBuilderCategories(value: unknown): PromptBuilderCategoryMeta[] {
+  const source = (value ?? {}) as { categories?: unknown };
+  if (!Array.isArray(source.categories)) {
+    return promptBuilderCategories;
+  }
 
-  promptBuilderCategories.forEach((category) => {
-    const items = source[category.id];
+  const seen = new Set<string>();
+  const categories = source.categories
+    .map((item, index) => normalizePromptBuilderCategory(item, index))
+    .filter((category) => {
+      if (!category.id || seen.has(category.id)) {
+        return false;
+      }
+      seen.add(category.id);
+      return true;
+    });
+
+  return categories.length ? categories : promptBuilderCategories;
+}
+
+export function normalizePromptBuilderLibrary(
+  value: unknown,
+  categories = normalizePromptBuilderCategories(value),
+): PromptBuilderLibrary {
+  const source = (value ?? {}) as Partial<Record<string, unknown>> & { library?: unknown };
+  const itemSource =
+    source.library && typeof source.library === "object"
+      ? (source.library as Partial<Record<string, unknown>>)
+      : source;
+  const library = createEmptyPromptBuilderLibrary(categories);
+
+  categories.forEach((category) => {
+    const items = itemSource[category.id];
     library[category.id] = Array.isArray(items)
       ? items.map((item, index) => normalizePromptIngredient(item, category.id, index))
       : [];
@@ -238,17 +285,49 @@ export function normalizePromptBuilderLibrary(value: unknown): PromptBuilderLibr
 export function mergePromptBuilderLibraries(
   current: PromptBuilderLibrary,
   incoming: PromptBuilderLibrary,
+  categories: PromptBuilderCategoryMeta[] = promptBuilderCategories,
 ): PromptBuilderLibrary {
-  const next = createEmptyPromptBuilderLibrary();
+  const next = createEmptyPromptBuilderLibrary(categories);
 
-  promptBuilderCategories.forEach((category) => {
+  categories.forEach((category) => {
     const byId = new Map<string, PromptIngredient>();
-    current[category.id].forEach((item) => byId.set(item.id, item));
-    incoming[category.id].forEach((item) => byId.set(item.id, item));
+    (current[category.id] ?? []).forEach((item) => byId.set(item.id, item));
+    (incoming[category.id] ?? []).forEach((item) => byId.set(item.id, item));
     next[category.id] = [...byId.values()];
   });
 
   return next;
+}
+
+function normalizePromptBuilderCategory(item: unknown, index: number): PromptBuilderCategoryMeta {
+  const value = (item ?? {}) as Partial<PromptBuilderCategoryMeta>;
+  const fallback = promptBuilderCategories[index];
+  const label = value.label || fallback?.label || "Untitled Category";
+  return {
+    id: value.id || slugifyCategoryId(label),
+    label,
+    shortLabel: value.shortLabel || createShortCategoryLabel(label),
+  };
+}
+
+function slugifyCategoryId(value: string) {
+  const slug = value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || `category-${Date.now()}`;
+}
+
+function createShortCategoryLabel(value: string) {
+  const words = value.trim().split(/\s+/).filter(Boolean);
+  if (!words.length) {
+    return "Cat";
+  }
+  if (words.length === 1) {
+    return words[0].slice(0, 8);
+  }
+  return words.map((word) => word[0]).join("").slice(0, 8).toUpperCase();
 }
 
 function normalizePromptIngredient(
@@ -313,11 +392,11 @@ export async function compressPromptLibraryImage(file: File): Promise<PromptLibr
     throw new Error("Image compression is not available in this browser.");
   }
 
-  let quality = 0.62;
+  let quality = 0.56;
   let dataUrl = "";
   let sizeBytes = Number.POSITIVE_INFINITY;
 
-  for (let attempt = 0; attempt < 10; attempt += 1) {
+  for (let attempt = 0; attempt < 12; attempt += 1) {
     canvas.width = width;
     canvas.height = height;
     context.clearRect(0, 0, width, height);
@@ -327,11 +406,11 @@ export async function compressPromptLibraryImage(file: File): Promise<PromptLibr
     if (sizeBytes <= promptLibraryMaxImageBytes) {
       break;
     }
-    if (quality > 0.34) {
-      quality -= 0.08;
+    if (quality > 0.28) {
+      quality -= 0.07;
     } else {
-      width = Math.max(120, Math.round(width * 0.82));
-      height = Math.max(120, Math.round(height * 0.82));
+      width = Math.max(96, Math.round(width * 0.78));
+      height = Math.max(96, Math.round(height * 0.78));
     }
   }
 

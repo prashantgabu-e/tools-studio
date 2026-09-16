@@ -1,0 +1,413 @@
+{
+  "categories": [
+    {
+      "id": "design-system-theme",
+      "label": "Design System/Theme",
+      "shortLabel": "DST"
+    }
+  ],
+  "library": {
+    "design-system-theme": [
+      {
+        "id": "gen-z-aesthetic",
+        "title": "Gen Z Aesthetic",
+        "text": "use a bold Gen Z visual system with oversized typography, unusual image crops, stickers, arrows, layered cutouts, playful graphics and intentionally energetic compositions that feel native to contemporary social media",
+        "tags": ["gen z", "bold", "playful", "social media", "experimental"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "luxury-minimal",
+        "title": "Luxury Minimal",
+        "text": "use a refined luxury minimal design system with generous negative space, restrained compositions, sophisticated serif and sans-serif typography, subtle premium details and an elegant high-end fashion mood",
+        "tags": ["luxury", "minimal", "premium", "elegant", "negative space"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "editorial-magazine",
+        "title": "Editorial Magazine",
+        "text": "create a fashion magazine-inspired layout using editorial columns, strong headlines, refined typography, structured image placement, captions and issue-style compositions",
+        "tags": ["editorial", "magazine", "fashion", "typography", "layout"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "y2k-fashion",
+        "title": "Y2K Fashion",
+        "text": "use a Y2K-inspired fashion aesthetic with chrome surfaces, metallic gradients, distorted typography, direct-flash photography, glossy details and futuristic early-2000s nostalgia",
+        "tags": ["y2k", "chrome", "retro futuristic", "metallic", "fashion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "brutalist-design",
+        "title": "Brutalist Design",
+        "text": "use a raw brutalist graphic system with rigid grids, oversized typography, stark black and white contrast, exposed layout structures and intentionally unconventional or harsh compositions",
+        "tags": ["brutalist", "bold typography", "raw", "high contrast", "experimental"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "swiss-grid",
+        "title": "Swiss Grid",
+        "text": "use a disciplined Swiss modernist design system with strict grids, precise alignment, functional typography, controlled spacing and clean highly organized compositions",
+        "tags": ["swiss", "grid", "modernist", "clean", "typography"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "retro-70s",
+        "title": "Retro 70s",
+        "text": "create a 1970s-inspired visual language using warm earthy tones, expressive vintage typography, curved graphic forms, analog film texture and nostalgic fashion editorial styling",
+        "tags": ["70s", "retro", "vintage", "warm", "editorial"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "90s-fashion-editorial",
+        "title": "90s Fashion Editorial",
+        "text": "use a 1990s fashion editorial aesthetic with direct-flash photography, bold magazine typography, raw studio compositions, candid posing and confident campaign energy",
+        "tags": ["90s", "fashion", "editorial", "flash photography", "retro"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "neo-futuristic",
+        "title": "Neo-Futuristic",
+        "text": "create a neo-futuristic design system using chrome objects, translucent materials, holographic accents, reflective surfaces, futuristic typography and sleek experimental compositions",
+        "tags": ["futuristic", "chrome", "holographic", "technology", "experimental"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quiet-luxury",
+        "title": "Quiet Luxury",
+        "text": "use an understated quiet luxury aesthetic with muted sophisticated colors, elegant typography, premium material emphasis, subtle branding and restrained high-end composition",
+        "tags": ["quiet luxury", "premium", "minimal", "elegant", "understated"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "streetwear-editorial",
+        "title": "Streetwear Editorial",
+        "text": "create a streetwear editorial design with oversized typography, urban textures, dynamic camera angles, layered graphics and a balance of gritty street culture with premium fashion styling",
+        "tags": ["streetwear", "urban", "editorial", "bold", "fashion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "scrapbook-collage",
+        "title": "Scrapbook / Collage",
+        "text": "use a layered scrapbook collage aesthetic with torn-paper edges, taped photographs, handwritten notes, overlapping imagery, rough textures and intentionally handmade compositions",
+        "tags": ["scrapbook", "collage", "layered", "handmade", "creative"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "product-blueprint",
+        "title": "Product Blueprint",
+        "text": "present the product through a technical blueprint-inspired system using diagrams, measurements, arrows, fabric callouts, construction details, labels and structured product annotations",
+        "tags": ["product", "blueprint", "technical", "details", "educational"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "infographic-fashion",
+        "title": "Infographic Fashion",
+        "text": "use a clean fashion infographic system combining product imagery with benefit callouts, icons, diagrams, structured information hierarchy and easy-to-understand product education",
+        "tags": ["infographic", "product education", "benefits", "icons", "ecommerce"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "monochrome-campaign",
+        "title": "Monochrome Campaign",
+        "text": "build the entire creative around a single dominant color inspired by the garment, using tonal backgrounds, typography, props and styling to create a cohesive monochromatic campaign world",
+        "tags": ["monochrome", "color", "campaign", "fashion", "cohesive"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "color-blocking",
+        "title": "Color Blocking",
+        "text": "use bold geometric color blocks, strong contrasting backgrounds and graphic shapes to create energetic compositions while keeping the product visually dominant",
+        "tags": ["color blocking", "bold", "geometric", "graphic", "contrast"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "gradient-modern",
+        "title": "Gradient Modern",
+        "text": "use a contemporary design system with soft or vibrant gradients, floating typography, subtle depth, smooth graphic transitions and a polished modern ecommerce aesthetic",
+        "tags": ["gradient", "modern", "ecommerce", "clean", "digital"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "typography-first",
+        "title": "Typography-First",
+        "text": "make typography the primary visual element using oversized campaign headlines, expressive type hierarchy and bold text composition while the model or product acts as supporting imagery",
+        "tags": ["typography", "headline", "bold", "graphic design", "campaign"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "photography-first",
+        "title": "Photography-First",
+        "text": "prioritize powerful art-directed fashion photography with minimal text, strong framing, cinematic lighting, expressive posing and visual storytelling driven primarily through imagery",
+        "tags": ["photography", "cinematic", "fashion", "minimal text", "editorial"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "split-screen-storytelling",
+        "title": "Split-Screen Storytelling",
+        "text": "use divided layouts to present two complementary perspectives such as different moods, styling directions, occasions or male and female interpretations within the same visual system",
+        "tags": ["split screen", "comparison", "storytelling", "styling", "layout"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "before-after-styling",
+        "title": "Before / After Styling",
+        "text": "structure the creative around a visual transformation from a basic or unstyled outfit into a finished styled look, making the contrast immediately understandable through clear before-and-after composition",
+        "tags": ["before after", "styling", "transformation", "fashion", "comparison"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "day-in-the-life",
+        "title": "Day-in-the-Life",
+        "text": "tell a sequential lifestyle story showing the same product across different moments such as morning, work, evening and night to communicate versatility and everyday relevance",
+        "tags": ["lifestyle", "storytelling", "sequence", "versatility", "fashion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pov-carousel",
+        "title": "POV Carousel",
+        "text": "use first-person social-native storytelling built around a relatable POV statement, conversational typography and lifestyle imagery that makes the audience feel personally involved in the scenario",
+        "tags": ["pov", "social native", "relatable", "storytelling", "gen z"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "meme-internet-culture",
+        "title": "Meme / Internet Culture",
+        "text": "use relatable internet culture, fashion humor, screenshot-inspired layouts, chat graphics, reaction-style text and social-native visual language while keeping the product naturally integrated",
+        "tags": ["meme", "internet culture", "humor", "social media", "relatable"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pinterest-aesthetic",
+        "title": "Pinterest Aesthetic",
+        "text": "use a curated Pinterest-inspired visual language with muted tones, aspirational lifestyle photography, elegant spacing, moodboard-style imagery and softly coordinated compositions",
+        "tags": ["pinterest", "aesthetic", "lifestyle", "moodboard", "aspirational"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "high-fashion-avant-garde",
+        "title": "High-Fashion Avant-Garde",
+        "text": "create a conceptual high-fashion system using unconventional poses, surreal or sculptural props, asymmetric layouts, experimental styling and artistic editorial direction",
+        "tags": ["avant garde", "high fashion", "conceptual", "editorial", "experimental"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "soft-minimal-korean-editorial",
+        "title": "Soft Minimal / Korean Editorial",
+        "text": "use an airy Korean editorial aesthetic with pastel neutrals, soft natural lighting, generous breathing room, delicate typography and understated contemporary fashion styling",
+        "tags": ["korean", "soft minimal", "pastel", "editorial", "airy"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "japanese-graphic-design",
+        "title": "Japanese Graphic Design",
+        "text": "use a Japanese editorial graphic system with compact grids, vertical typography, bold geometry, dense information placement, asymmetric balance and disciplined visual rhythm",
+        "tags": ["japanese", "graphic design", "grid", "typography", "editorial"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "techwear-ui",
+        "title": "Techwear UI",
+        "text": "use a futuristic interface-inspired visual system with HUD elements, coordinates, technical labels, specification tags, grids and digital overlays surrounding the fashion product",
+        "tags": ["techwear", "ui", "hud", "futuristic", "technical"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "ecommerce-performance-ad",
+        "title": "Ecommerce Performance Ad",
+        "text": "use a conversion-first ecommerce advertising structure with immediate product clarity, strong benefit hierarchy, offer visibility, supporting proof, clear branding and prominent call-to-action messaging",
+        "tags": ["ecommerce", "performance ad", "conversion", "benefits", "cta"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "social-proof-theme",
+        "title": "Social Proof Theme",
+        "text": "build the creative around customer validation using ratings, reviews, customer quotes, testimonial cards, UGC-style frames and authentic proof elements supporting the product",
+        "tags": ["social proof", "reviews", "ugc", "testimonials", "conversion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "lookbook-theme",
+        "title": "Lookbook Theme",
+        "text": "use a fashion lookbook system presenting multiple outfits, poses or styling combinations through cohesive editorial sequencing, consistent art direction and minimal supporting copy",
+        "tags": ["lookbook", "fashion", "styling", "editorial", "outfits"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "wardrobe-guide",
+        "title": "Wardrobe Guide",
+        "text": "create an educational styling guide showing multiple ways to wear the product, recommended pairings, suitable occasions and practical wardrobe combinations",
+        "tags": ["wardrobe", "styling", "fashion guide", "outfits", "educational"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "material-story",
+        "title": "Material Story",
+        "text": "focus the visual narrative on fabric and material quality using macro photography, weave details, texture close-ups, folds, tactile lighting and concise material benefit callouts",
+        "tags": ["material", "fabric", "texture", "macro", "product details"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "craft-construction-story",
+        "title": "Craft / Construction Story",
+        "text": "show how the garment is engineered or made through construction details, seams or stitchless techniques, finishing, craftsmanship close-ups and quality-focused annotations",
+        "tags": ["craft", "construction", "quality", "product details", "manufacturing"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "architecture-inspired",
+        "title": "Architecture-Inspired",
+        "text": "use an architectural visual language with structured layouts, concrete or stone textures, geometric spaces, strong lines, symmetry or intentional asymmetry and fashion integrated into the environment",
+        "tags": ["architecture", "geometry", "structured", "minimal", "fashion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "museum-gallery-theme",
+        "title": "Museum / Gallery Theme",
+        "text": "present the fashion product like an exhibited artwork using clean gallery spaces, exhibition placards, catalog labels, museum-style typography and carefully controlled visual hierarchy",
+        "tags": ["museum", "gallery", "art", "exhibition", "premium"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "newspaper-theme",
+        "title": "Newspaper Theme",
+        "text": "use a newspaper-inspired editorial system with fashion headlines, multi-column layouts, monochrome print textures, clippings, captions and structured journalistic typography",
+        "tags": ["newspaper", "editorial", "print", "typography", "vintage"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "polaroid-story",
+        "title": "Polaroid Story",
+        "text": "tell the campaign through candid Polaroid-style frames, handwritten captions, casual lifestyle moments, layered photographs and nostalgic personal storytelling",
+        "tags": ["polaroid", "candid", "lifestyle", "nostalgia", "storytelling"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "film-contact-sheet",
+        "title": "Film Contact Sheet",
+        "text": "use a photographer contact-sheet aesthetic with multiple sequential campaign frames, film borders, frame numbers, raw shoot moments and a behind-the-scenes editorial feeling",
+        "tags": ["film", "contact sheet", "photography", "editorial", "sequence"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "motion-illusion",
+        "title": "Motion Illusion",
+        "text": "create a sense of movement using repeated model cutouts, sequential poses, motion blur, overlapping frames and dynamic directional composition",
+        "tags": ["motion", "dynamic", "movement", "experimental", "fashion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "surreal-fashion",
+        "title": "Surreal Fashion",
+        "text": "create an imaginative surreal fashion world with oversized objects, floating elements, impossible environments, unexpected scale relationships and dreamlike editorial art direction",
+        "tags": ["surreal", "fashion", "conceptual", "dreamlike", "experimental"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "minimal-product-poster",
+        "title": "Minimal Product Poster",
+        "text": "use a poster-style composition centered around one strong product or model image, a bold campaign slogan, minimal supporting information and a clear memorable visual hierarchy",
+        "tags": ["poster", "minimal", "campaign", "headline", "product"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "luxury-catalog",
+        "title": "Luxury Catalog",
+        "text": "use a sophisticated catalog system with refined product photography, clean SKU-style labeling, premium typography, carefully organized product details and elevated ecommerce presentation",
+        "tags": ["catalog", "luxury", "ecommerce", "premium", "product"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "editorial-qa",
+        "title": "Editorial Q&A",
+        "text": "structure the creative like a fashion interview using questions and concise answers from the perspective of the product, model or wearer, combined with magazine-inspired editorial photography",
+        "tags": ["q&a", "editorial", "interview", "storytelling", "fashion"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "problem-solution",
+        "title": "Problem → Solution",
+        "text": "use a clear problem-to-solution narrative that introduces a relevant clothing discomfort, styling challenge or customer pain point and then demonstrates how the product addresses it",
+        "tags": ["problem solution", "benefits", "conversion", "product", "education"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "myth-vs-reality",
+        "title": "Myth vs Reality",
+        "text": "use a myth-versus-reality comparison format to challenge assumptions about fabric, fit, comfort, quality or styling while communicating factual product benefits clearly",
+        "tags": ["myth vs reality", "education", "comparison", "benefits", "product"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "choose-your-look",
+        "title": "Choose Your Look",
+        "text": "present two or more distinct styling directions for the same product and invite the audience to compare or choose their preferred outfit, mood or fashion personality",
+        "tags": ["interactive", "styling", "choice", "fashion", "engagement"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "interactive-swipe-game",
+        "title": "Interactive Swipe Game",
+        "text": "turn the creative into a social-native interactive experience using prompts such as swipe to style, pick your fit or choose your favorite, supported by progressive reveals and playful visual cues",
+        "tags": ["interactive", "swipe", "game", "engagement", "social media"],
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "cinematic-storyboard",
+        "title": "Cinematic Storyboard",
+        "text": "design each frame like a scene from a short fashion film using cinematic composition, sequential visual storytelling, varied shot sizes, expressive poses and consistent mood across the full sequence",
+        "tags": ["cinematic", "storyboard", "fashion film", "storytelling", "editorial"],
+        "useFor": "both",
+        "favorite": false
+      }
+    ]
+  }
+}

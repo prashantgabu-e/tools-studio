@@ -39,25 +39,13 @@ export type PromptLibraryItem = {
   updatedAt: string;
 };
 
-export type PromptBuilderCategory =
-  | "lighting"
-  | "poses"
-  | "shots"
-  | "compositions"
-  | "cameras"
-  | "lenses"
-  | "styles"
-  | "moods"
-  | "colors"
-  | "environments"
-  | "subjects"
-  | "wardrobeProps"
-  | "motion"
-  | "videoMoves"
-  | "rendering"
-  | "negativePrompts"
-  | "platformPresets"
-  | "formulas";
+export type PromptBuilderCategory = string;
+
+export type PromptBuilderCategoryMeta = {
+  id: PromptBuilderCategory;
+  label: string;
+  shortLabel: string;
+};
 
 export type PromptBuilderUseFor = "image" | "video" | "both";
 
@@ -70,7 +58,7 @@ export type PromptIngredient = {
   useFor: PromptBuilderUseFor;
 };
 
-export type PromptBuilderLibrary = Record<PromptBuilderCategory, PromptIngredient[]>;
+export type PromptBuilderLibrary = Record<string, PromptIngredient[]>;
 
 export type ToastTone = "success" | "warning";
 

@@ -856,7 +856,34 @@ a {
 }
 
 .prompt-library-view {
+  position: relative;
   gap: 10px;
+}
+
+.prompt-library-drop-overlay {
+  position: fixed;
+  z-index: 43;
+  inset: 10px;
+  display: none;
+  place-items: center;
+  gap: 12px;
+  border: 2px dashed rgba(15, 118, 110, 0.58);
+  border-radius: var(--radius-lg);
+  color: var(--accent-strong);
+  background: rgba(252, 252, 248, 0.9);
+  box-shadow: 0 24px 70px rgba(31, 36, 31, 0.18);
+  font-size: 1rem;
+  font-weight: 800;
+  pointer-events: none;
+}
+
+.prompt-library-drop-overlay svg {
+  width: 42px;
+  height: 42px;
+}
+
+.prompt-library-view.is-drag-active .prompt-library-drop-overlay {
+  display: grid;
 }
 
 .prompt-library-toolbar .section-heading {
@@ -880,13 +907,16 @@ a {
 .prompt-library-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 240px));
+  grid-auto-rows: 1fr;
   gap: 10px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .prompt-library-card {
   min-width: 0;
   display: grid;
+  grid-template-rows: 1fr auto;
+  height: 100%;
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
@@ -896,6 +926,7 @@ a {
 
 .prompt-library-card-button {
   display: grid;
+  grid-template-rows: auto 1fr;
   width: 100%;
   min-width: 0;
   padding: 0;
@@ -954,6 +985,7 @@ a {
 
 .prompt-library-card-body {
   display: grid;
+  grid-template-rows: auto auto 1fr;
   gap: 5px;
   padding: 9px 10px 4px;
 }
@@ -1142,6 +1174,12 @@ a {
   gap: 6px;
 }
 
+.category-chip-group {
+  display: inline-flex;
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
 .category-chip {
   display: inline-flex;
   align-items: center;
@@ -1159,6 +1197,29 @@ a {
   font-weight: 700;
 }
 
+.category-chip-group .category-chip {
+  border-radius: 999px 0 0 999px;
+}
+
+.category-chip-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-left: 0;
+  border-radius: 0 999px 999px 0;
+  color: var(--muted-strong);
+  background: var(--surface-strong);
+  cursor: pointer;
+}
+
+.category-chip-action svg {
+  width: 13px;
+  height: 13px;
+}
+
 .category-chip span {
   min-width: 0;
   overflow: hidden;
@@ -1171,7 +1232,9 @@ a {
   font-size: 0.68rem;
 }
 
-.category-chip.is-active {
+.category-chip.is-active,
+.category-chip-group.is-active .category-chip,
+.category-chip-group.is-active .category-chip-action {
   border-color: rgba(15, 118, 110, 0.44);
   color: var(--accent-strong);
   background: var(--accent-soft);
