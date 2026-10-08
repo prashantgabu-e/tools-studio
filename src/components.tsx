@@ -182,6 +182,7 @@ const promptBuilderCategoryIcons: Record<string, IconType> = {
   platformPresets: MdTune,
   aspectOutput: MdAspectRatio,
   dareRiseContentIdeas: MdLightbulb,
+  contentIdeas: MdLightbulb,
   textGraphicOverlay: MdTextFields,
   marketingObjectiveCta: MdAdsClick,
   campaignConcept: MdCampaign,

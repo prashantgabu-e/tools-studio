@@ -1,0 +1,1135 @@
+{
+  "categories": [
+    {
+      "id": "dareRiseContentIdeas",
+      "label": "Content Ideas",
+      "shortLabel": "Ideas"
+    }
+  ],
+  "library": {
+    "dareRiseContentIdeas": [
+      {
+        "id": "pillar-product-desire",
+        "title": "Pillar: Audience Interest",
+        "tags": [
+          "pillar:awareness",
+          "strategy",
+          "desire"
+        ],
+        "text": "Develop a reusable audience interest content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-product-education",
+        "title": "Pillar: Education & Clarity",
+        "tags": [
+          "pillar:education",
+          "strategy",
+          "education"
+        ],
+        "text": "Develop a reusable education & clarity content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-styling",
+        "title": "Pillar: Practical Inspiration",
+        "tags": [
+          "pillar:practical-value",
+          "strategy",
+          "inspiration"
+        ],
+        "text": "Develop a reusable practical inspiration content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-social-proof",
+        "title": "Pillar: Social Proof",
+        "tags": [
+          "pillar:social-proof",
+          "strategy",
+          "reviews"
+        ],
+        "text": "Develop a reusable social proof content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-brand-world",
+        "title": "Pillar: Brand World",
+        "tags": [
+          "pillar:brand-world",
+          "strategy",
+          "brand-story"
+        ],
+        "text": "Develop a reusable brand world content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-entertainment-trend",
+        "title": "Pillar: Entertainment / Trend",
+        "tags": [
+          "pillar:entertainment-trend",
+          "strategy",
+          "trend"
+        ],
+        "text": "Develop a reusable entertainment / trend content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-community",
+        "title": "Pillar: Community",
+        "tags": [
+          "pillar:community",
+          "strategy",
+          "community"
+        ],
+        "text": "Develop a reusable community content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "pillar-conversion",
+        "title": "Pillar: Conversion",
+        "tags": [
+          "pillar:conversion",
+          "strategy",
+          "offer"
+        ],
+        "text": "Develop a reusable conversion content direction for [topic, brand, offering, service, event, or campaign]. Define the audience value, message angle, and adaptable visual approach without assuming a specific industry.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "post-hero-product-shot",
+        "title": "Post: Hero Visual",
+        "tags": [
+          "format:post",
+          "pillar:awareness",
+          "editorial",
+          "general"
+        ],
+        "text": "Create a hero visual post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-editorial-campaign",
+        "title": "Post: Campaign Hero Image",
+        "tags": [
+          "format:post",
+          "pillar:awareness",
+          "editorial",
+          "campaign"
+        ],
+        "text": "Create a campaign hero image post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-fabric-closeup",
+        "title": "Post: Detail Close-up",
+        "tags": [
+          "format:post",
+          "pillar:education",
+          "details",
+          "macro"
+        ],
+        "text": "Create a detail close-up post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-feature-graphic",
+        "title": "Post: Feature Overview Graphic",
+        "tags": [
+          "format:post",
+          "pillar:education",
+          "features",
+          "graphic"
+        ],
+        "text": "Create a feature overview graphic post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-new-arrival",
+        "title": "Post: New Announcement",
+        "tags": [
+          "format:post",
+          "pillar:conversion",
+          "new-arrival",
+          "launch"
+        ],
+        "text": "Create a new announcement post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-color-drop",
+        "title": "Post: Option / Variant Reveal",
+        "tags": [
+          "format:post",
+          "pillar:awareness",
+          "variant-reveal",
+          "offering"
+        ],
+        "text": "Create a option / variant reveal post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-styling-inspiration",
+        "title": "Post: Inspiration",
+        "tags": [
+          "format:post",
+          "pillar:practical-value",
+          "use-case",
+          "inspiration"
+        ],
+        "text": "Create a inspiration post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-outfit-of-day",
+        "title": "Post: Everyday Use",
+        "tags": [
+          "format:post",
+          "pillar:practical-value",
+          "daily-idea",
+          "lifestyle"
+        ],
+        "text": "Create a everyday use post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-founder-story",
+        "title": "Post: Founder / Brand Story",
+        "tags": [
+          "format:post",
+          "pillar:brand-world",
+          "founder",
+          "story"
+        ],
+        "text": "Create a founder / brand story post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-brand-philosophy",
+        "title": "Post: Brand Philosophy Quote",
+        "tags": [
+          "format:post",
+          "pillar:brand-world",
+          "quote",
+          "identity"
+        ],
+        "text": "Create a brand philosophy quote post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-customer-photo",
+        "title": "Post: Customer Spotlight",
+        "tags": [
+          "format:post",
+          "pillar:social-proof",
+          "ugc",
+          "customer"
+        ],
+        "text": "Create a customer spotlight post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-influencer-feature",
+        "title": "Post: Creator Feature",
+        "tags": [
+          "format:post",
+          "pillar:social-proof",
+          "creator",
+          "influencer"
+        ],
+        "text": "Create a creator feature post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-comparison-graphic",
+        "title": "Post: Comparison Graphic",
+        "tags": [
+          "format:post",
+          "pillar:education",
+          "comparison",
+          "general"
+        ],
+        "text": "Create a comparison graphic post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "post-offer-price",
+        "title": "Post: Offer / Pricing Creative",
+        "tags": [
+          "format:post",
+          "pillar:conversion",
+          "offer",
+          "price"
+        ],
+        "text": "Create a offer / pricing creative post for [topic, brand, offering, service, event, or campaign]. Use a clear focal point, concise supporting copy, and an audience-appropriate call to action.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-hook-benefits-cta",
+        "title": "Carousel: Hook → Benefits → CTA",
+        "tags": [
+          "format:carousel",
+          "pillar:conversion",
+          "benefits",
+          "cta"
+        ],
+        "text": "Create a hook → benefits → cta carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-why-stitchless",
+        "title": "Carousel: Why It Matters",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "general",
+          "education"
+        ],
+        "text": "Create a why it matters carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-three-ways-style",
+        "title": "Carousel: 3 Ways to Use It",
+        "tags": [
+          "format:carousel",
+          "pillar:practical-value",
+          "3-ways",
+          "use-cases"
+        ],
+        "text": "Create a 3 ways to use it carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-day-to-night",
+        "title": "Carousel: Context-to-Context Transformation",
+        "tags": [
+          "format:carousel",
+          "pillar:practical-value",
+          "day-to-night",
+          "use-cases"
+        ],
+        "text": "Create a context-to-context transformation carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-detail-breakdown",
+        "title": "Carousel: Key Detail Breakdown",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "details",
+          "offering"
+        ],
+        "text": "Create a key detail breakdown carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-regular-vs-stitchless",
+        "title": "Carousel: Option Comparison",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "comparison",
+          "general"
+        ],
+        "text": "Create a option comparison carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-five-reasons",
+        "title": "Carousel: 5 Reasons You’ll Love It",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "benefits",
+          "saveable"
+        ],
+        "text": "Create a 5 reasons you’ll love it carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-fit-guide",
+        "title": "Carousel: Selection Guide",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "selection",
+          "selection-guide"
+        ],
+        "text": "Create a selection guide carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-fabric-education",
+        "title": "Carousel: Materials / Process Education",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "details",
+          "education"
+        ],
+        "text": "Create a materials / process education carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-color-comparison",
+        "title": "Carousel: Variant Comparison",
+        "tags": [
+          "format:carousel",
+          "pillar:awareness",
+          "options",
+          "comparison"
+        ],
+        "text": "Create a variant comparison carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-before-after",
+        "title": "Carousel: Before / After Transformation",
+        "tags": [
+          "format:carousel",
+          "pillar:practical-value",
+          "before-after",
+          "transformation"
+        ],
+        "text": "Create a before / after transformation carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-wardrobe-essentials",
+        "title": "Carousel: Essentials Guide",
+        "tags": [
+          "format:carousel",
+          "pillar:practical-value",
+          "essentials",
+          "saveable"
+        ],
+        "text": "Create a essentials guide carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-which-look",
+        "title": "Carousel: Which Option Fits You?",
+        "tags": [
+          "format:carousel",
+          "pillar:community",
+          "interactive",
+          "inspiration"
+        ],
+        "text": "Create a which option fits you carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-mistake-solution",
+        "title": "Carousel: Mistake / Solution",
+        "tags": [
+          "format:carousel",
+          "pillar:education",
+          "problem-solution",
+          "inspiration"
+        ],
+        "text": "Create a mistake / solution carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-occasion-guide",
+        "title": "Carousel: Use-Case Guide",
+        "tags": [
+          "format:carousel",
+          "pillar:practical-value",
+          "occasion",
+          "guide"
+        ],
+        "text": "Create a use-case guide carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-review-story",
+        "title": "Carousel: Customer Review Story",
+        "tags": [
+          "format:carousel",
+          "pillar:social-proof",
+          "review",
+          "customer"
+        ],
+        "text": "Create a customer review story carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-collection-reveal",
+        "title": "Carousel: New Release Reveal",
+        "tags": [
+          "format:carousel",
+          "pillar:awareness",
+          "release",
+          "launch"
+        ],
+        "text": "Create a new release reveal carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "carousel-offer-explainer",
+        "title": "Carousel: Offer Explainer",
+        "tags": [
+          "format:carousel",
+          "pillar:conversion",
+          "offer",
+          "cta"
+        ],
+        "text": "Create a offer explainer carousel for [topic, brand, offering, service, event, or campaign]. Structure each slide around one clear idea, maintain visual continuity, and end with a relevant next step.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "reel-model-walk",
+        "title": "Reel: Hero Motion",
+        "tags": [
+          "format:reel",
+          "pillar:awareness",
+          "presenter",
+          "movement"
+        ],
+        "text": "Create a hero motion short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-outfit-transition",
+        "title": "Reel: Quick Transformation",
+        "tags": [
+          "format:reel",
+          "pillar:practical-value",
+          "transition",
+          "use-case"
+        ],
+        "text": "Create a quick transformation short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-three-looks",
+        "title": "Reel: 3 Ideas in 10 Seconds",
+        "tags": [
+          "format:reel",
+          "pillar:practical-value",
+          "3-ways",
+          "fast"
+        ],
+        "text": "Create a 3 ideas in 10 seconds short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-grwm",
+        "title": "Reel: Process Walkthrough",
+        "tags": [
+          "format:reel",
+          "pillar:entertainment-trend",
+          "grwm",
+          "lifestyle"
+        ],
+        "text": "Create a process walkthrough short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-day-to-night",
+        "title": "Reel: Context Transformation",
+        "tags": [
+          "format:reel",
+          "pillar:practical-value",
+          "day-to-night",
+          "transition"
+        ],
+        "text": "Create a context transformation short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-fabric-closeup",
+        "title": "Reel: Detail Close-up",
+        "tags": [
+          "format:reel",
+          "pillar:education",
+          "details",
+          "macro"
+        ],
+        "text": "Create a detail close-up short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-slow-motion-movement",
+        "title": "Reel: Slow-motion Movement",
+        "tags": [
+          "format:reel",
+          "pillar:awareness",
+          "slow-motion",
+          "movement"
+        ],
+        "text": "Create a slow-motion movement short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-styling-tutorial",
+        "title": "Reel: Quick Tutorial",
+        "tags": [
+          "format:reel",
+          "pillar:practical-value",
+          "tutorial",
+          "how-to"
+        ],
+        "text": "Create a quick tutorial short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-behind-scenes",
+        "title": "Reel: Behind-the-Scenes Shoot",
+        "tags": [
+          "format:reel",
+          "pillar:brand-world",
+          "bts",
+          "shoot"
+        ],
+        "text": "Create a behind-the-scenes shoot short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-campaign-film",
+        "title": "Reel: Campaign Film",
+        "tags": [
+          "format:reel",
+          "pillar:brand-world",
+          "campaign",
+          "cinematic"
+        ],
+        "text": "Create a campaign film short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-product-unboxing",
+        "title": "Reel: First Look / Reveal",
+        "tags": [
+          "format:reel",
+          "pillar:awareness",
+          "unboxing",
+          "offering"
+        ],
+        "text": "Create a first look / reveal short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-packing-orders",
+        "title": "Reel: Behind the Delivery Process",
+        "tags": [
+          "format:reel",
+          "pillar:community",
+          "packing",
+          "orders"
+        ],
+        "text": "Create a behind the delivery process short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-influencer-tryon",
+        "title": "Reel: Creator Demonstration",
+        "tags": [
+          "format:reel",
+          "pillar:social-proof",
+          "creator",
+          "demonstration"
+        ],
+        "text": "Create a creator demonstration short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-customer-reaction",
+        "title": "Reel: Customer Reaction",
+        "tags": [
+          "format:reel",
+          "pillar:social-proof",
+          "customer",
+          "reaction"
+        ],
+        "text": "Create a customer reaction short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-pov-fashion",
+        "title": "Reel: Relatable POV",
+        "tags": [
+          "format:reel",
+          "pillar:entertainment-trend",
+          "pov",
+          "social-native"
+        ],
+        "text": "Create a relatable pov short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-trending-audio",
+        "title": "Reel: Trending-Audio Edit",
+        "tags": [
+          "format:reel",
+          "pillar:entertainment-trend",
+          "trending-audio",
+          "trend"
+        ],
+        "text": "Create a trending-audio edit short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-expectation-reality",
+        "title": "Reel: Expectation vs Reality",
+        "tags": [
+          "format:reel",
+          "pillar:education",
+          "expectation-reality",
+          "proof"
+        ],
+        "text": "Create a expectation vs reality short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-product-feature",
+        "title": "Reel: Feature Highlight",
+        "tags": [
+          "format:reel",
+          "pillar:education",
+          "features",
+          "offering"
+        ],
+        "text": "Create a feature highlight short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-outfit-upgrade",
+        "title": "Reel: Before / After Upgrade",
+        "tags": [
+          "format:reel",
+          "pillar:practical-value",
+          "before-after",
+          "transformation"
+        ],
+        "text": "Create a before / after upgrade short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-founder-talks",
+        "title": "Reel: Founder / Expert Explainer",
+        "tags": [
+          "format:reel",
+          "pillar:brand-world",
+          "founder",
+          "education"
+        ],
+        "text": "Create a founder / expert explainer short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-street-style",
+        "title": "Reel: Real-World Showcase",
+        "tags": [
+          "format:reel",
+          "pillar:awareness",
+          "real-world",
+          "trend"
+        ],
+        "text": "Create a real-world showcase short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "reel-product-only",
+        "title": "Reel: Cinematic Subject Showcase",
+        "tags": [
+          "format:reel",
+          "pillar:awareness",
+          "subject-only",
+          "cinematic"
+        ],
+        "text": "Create a cinematic subject showcase short-form video for [topic, brand, offering, service, event, or campaign]. Open with a strong hook, use purposeful pacing and clear visuals, and finish with a relevant next step.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "story-product-poll",
+        "title": "Story: Audience Poll",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "poll",
+          "offering"
+        ],
+        "text": "Create a audience poll story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-black-or-wine",
+        "title": "Story: Option A or B?",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "poll",
+          "options"
+        ],
+        "text": "Create a option a or b story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-size-poll",
+        "title": "Story: Preference Poll",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "poll",
+          "selection"
+        ],
+        "text": "Create a preference poll story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-this-or-that",
+        "title": "Story: This or That",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "interactive",
+          "inspiration"
+        ],
+        "text": "Create a this or that story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-quiz",
+        "title": "Story: Knowledge Quiz",
+        "tags": [
+          "format:story",
+          "pillar:education",
+          "quiz",
+          "education"
+        ],
+        "text": "Create a knowledge quiz story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-countdown",
+        "title": "Story: Launch Countdown",
+        "tags": [
+          "format:story",
+          "pillar:conversion",
+          "countdown",
+          "launch"
+        ],
+        "text": "Create a launch countdown story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-new-drop-teaser",
+        "title": "Story: Announcement Teaser",
+        "tags": [
+          "format:story",
+          "pillar:awareness",
+          "teaser",
+          "launch"
+        ],
+        "text": "Create a announcement teaser story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-behind-scenes",
+        "title": "Story: Behind-the-Scenes",
+        "tags": [
+          "format:story",
+          "pillar:brand-world",
+          "bts",
+          "shoot"
+        ],
+        "text": "Create a behind-the-scenes story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-restock-alert",
+        "title": "Story: Availability Update",
+        "tags": [
+          "format:story",
+          "pillar:conversion",
+          "restock",
+          "urgency"
+        ],
+        "text": "Create a availability update story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-low-stock",
+        "title": "Story: Limited Availability",
+        "tags": [
+          "format:story",
+          "pillar:conversion",
+          "low-stock",
+          "urgency"
+        ],
+        "text": "Create a limited availability story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-review-screenshot",
+        "title": "Story: Customer Review Screenshot",
+        "tags": [
+          "format:story",
+          "pillar:social-proof",
+          "review",
+          "customer"
+        ],
+        "text": "Create a customer review screenshot story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-influencer-repost",
+        "title": "Story: Creator Repost",
+        "tags": [
+          "format:story",
+          "pillar:social-proof",
+          "creator",
+          "repost"
+        ],
+        "text": "Create a creator repost story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-product-link",
+        "title": "Story: Link / Next Step",
+        "tags": [
+          "format:story",
+          "pillar:conversion",
+          "link",
+          "cta"
+        ],
+        "text": "Create a link / next step story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-price-reveal",
+        "title": "Story: Pricing / Offer Reveal",
+        "tags": [
+          "format:story",
+          "pillar:conversion",
+          "price",
+          "offering"
+        ],
+        "text": "Create a pricing / offer reveal story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-offer-countdown",
+        "title": "Story: Offer Countdown",
+        "tags": [
+          "format:story",
+          "pillar:conversion",
+          "offer",
+          "countdown"
+        ],
+        "text": "Create a offer countdown story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-ama",
+        "title": "Story: Ask Me Anything",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "ama",
+          "questions"
+        ],
+        "text": "Create a ask me anything story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-styling-question",
+        "title": "Story: Question Box",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "question-box",
+          "inspiration"
+        ],
+        "text": "Create a question box story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-vote-next-color",
+        "title": "Story: Vote for the Next Option",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "vote",
+          "options"
+        ],
+        "text": "Create a vote for the next option story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-tap-reveal",
+        "title": "Story: Tap to Reveal",
+        "tags": [
+          "format:story",
+          "pillar:awareness",
+          "tap-to-reveal",
+          "interactive"
+        ],
+        "text": "Create a tap to reveal story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-before-after",
+        "title": "Story: Before / After",
+        "tags": [
+          "format:story",
+          "pillar:practical-value",
+          "before-after",
+          "use-case"
+        ],
+        "text": "Create a before / after story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-order-packing",
+        "title": "Story: Behind the Delivery Process",
+        "tags": [
+          "format:story",
+          "pillar:community",
+          "packing",
+          "orders"
+        ],
+        "text": "Create a behind the delivery process story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-daily-outfit",
+        "title": "Story: Daily Tip / Idea",
+        "tags": [
+          "format:story",
+          "pillar:practical-value",
+          "daily-idea"
+        ],
+        "text": "Create a daily tip / idea story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-customer-ugc",
+        "title": "Story: Customer UGC",
+        "tags": [
+          "format:story",
+          "pillar:social-proof",
+          "ugc",
+          "customer"
+        ],
+        "text": "Create a customer ugc story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-faq",
+        "title": "Story: FAQ",
+        "tags": [
+          "format:story",
+          "pillar:education",
+          "faq",
+          "offering"
+        ],
+        "text": "Create a faq story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "story-size-fit-help",
+        "title": "Story: Selection Help",
+        "tags": [
+          "format:story",
+          "pillar:education",
+          "selection-guide",
+          "selection"
+        ],
+        "text": "Create a selection help story sequence for [topic, brand, offering, service, event, or campaign]. Keep each frame concise, interactive where appropriate, and aligned with the intended audience and goal.",
+        "useFor": "image",
+        "favorite": false
+      }
+    ]
+  }
+}

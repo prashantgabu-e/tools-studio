@@ -331,21 +331,21 @@
     "campaignConcept": [
       {
         "id": "campaign-1",
-        "title": "Product Launch",
+        "title": "Offering Launch",
         "tags": [
           "campaign"
         ],
-        "text": "product launch campaign concept",
+        "text": "industry-neutral offering launch campaign concept",
         "useFor": "both",
         "favorite": false
       },
       {
         "id": "campaign-2",
-        "title": "Collection Reveal",
+        "title": "New Release Reveal",
         "tags": [
           "campaign"
         ],
-        "text": "collection reveal campaign concept",
+        "text": "industry-neutral new release reveal campaign concept",
         "useFor": "both",
         "favorite": false
       },

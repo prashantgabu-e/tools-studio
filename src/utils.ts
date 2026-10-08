@@ -247,6 +247,7 @@ const promptBuilderCategoryMasterGroup: Readonly<Record<string, PromptBuilderMas
   platformPresets: "video-delivery",
   aspectOutput: "video-delivery",
   dareRiseContentIdeas: "marketing-content",
+  contentIdeas: "marketing-content",
   textGraphicOverlay: "marketing-content",
   marketingObjectiveCta: "marketing-content",
   campaignConcept: "marketing-content",
