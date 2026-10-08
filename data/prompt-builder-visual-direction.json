@@ -1,0 +1,834 @@
+{
+  "categories": [
+    {
+      "id": "compositions",
+      "label": "Compositions",
+      "shortLabel": "Comp"
+    },
+    {
+      "id": "styles",
+      "label": "Styles",
+      "shortLabel": "Style"
+    },
+    {
+      "id": "moods",
+      "label": "Moods",
+      "shortLabel": "Mood"
+    },
+    {
+      "id": "colors",
+      "label": "Colors",
+      "shortLabel": "Color"
+    }
+  ],
+  "library": {
+    "compositions": [
+      {
+        "id": "composition-1",
+        "title": "Centered Hero",
+        "tags": [
+          "composition"
+        ],
+        "text": "centered hero composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-2",
+        "title": "Symmetrical Balance",
+        "tags": [
+          "composition"
+        ],
+        "text": "symmetrical balance composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-3",
+        "title": "Negative Space",
+        "tags": [
+          "composition"
+        ],
+        "text": "negative space composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-4",
+        "title": "Leading Lines",
+        "tags": [
+          "composition"
+        ],
+        "text": "leading lines composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-5",
+        "title": "Diagonal Energy",
+        "tags": [
+          "composition"
+        ],
+        "text": "diagonal energy composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-6",
+        "title": "Layered Depth",
+        "tags": [
+          "composition"
+        ],
+        "text": "layered depth composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-7",
+        "title": "Natural Frame",
+        "tags": [
+          "composition"
+        ],
+        "text": "natural frame composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-8",
+        "title": "Rule of Thirds",
+        "tags": [
+          "composition"
+        ],
+        "text": "rule of thirds composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-9",
+        "title": "Split Screen",
+        "tags": [
+          "composition"
+        ],
+        "text": "split screen composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-10",
+        "title": "Editorial Grid",
+        "tags": [
+          "composition"
+        ],
+        "text": "editorial grid composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-11",
+        "title": "Overhead Layout",
+        "tags": [
+          "composition"
+        ],
+        "text": "overhead layout composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-12",
+        "title": "Close Crop",
+        "tags": [
+          "composition"
+        ],
+        "text": "close crop composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-13",
+        "title": "Wide Environmental",
+        "tags": [
+          "composition"
+        ],
+        "text": "wide environmental composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-14",
+        "title": "Silhouette Focus",
+        "tags": [
+          "composition"
+        ],
+        "text": "silhouette focus composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-15",
+        "title": "Visual Repetition",
+        "tags": [
+          "composition"
+        ],
+        "text": "visual repetition composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-16",
+        "title": "Intentional Asymmetry",
+        "tags": [
+          "composition"
+        ],
+        "text": "intentional asymmetry composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-17",
+        "title": "Foreground Layer",
+        "tags": [
+          "composition"
+        ],
+        "text": "foreground layer composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-18",
+        "title": "Minimal Product",
+        "tags": [
+          "composition"
+        ],
+        "text": "minimal product composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-19",
+        "title": "Portrait Focus",
+        "tags": [
+          "composition"
+        ],
+        "text": "portrait focus composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "composition-20",
+        "title": "Sequential Story",
+        "tags": [
+          "composition"
+        ],
+        "text": "sequential story composition with a clear focal point",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "styles": [
+      {
+        "id": "style-1",
+        "title": "Photoreal Commercial",
+        "tags": [
+          "style"
+        ],
+        "text": "photoreal commercial visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-2",
+        "title": "Cinematic",
+        "tags": [
+          "style"
+        ],
+        "text": "cinematic visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-3",
+        "title": "Fashion Editorial",
+        "tags": [
+          "style"
+        ],
+        "text": "fashion editorial visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-4",
+        "title": "Clean Ecommerce",
+        "tags": [
+          "style"
+        ],
+        "text": "clean ecommerce visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-5",
+        "title": "Authentic UGC",
+        "tags": [
+          "style"
+        ],
+        "text": "authentic ugc visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-6",
+        "title": "Quiet Luxury",
+        "tags": [
+          "style"
+        ],
+        "text": "quiet luxury visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-7",
+        "title": "Soft Minimal",
+        "tags": [
+          "style"
+        ],
+        "text": "soft minimal visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-8",
+        "title": "Street Style",
+        "tags": [
+          "style"
+        ],
+        "text": "street style visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-9",
+        "title": "Analog Retro",
+        "tags": [
+          "style"
+        ],
+        "text": "analog retro visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-10",
+        "title": "Y2K Gloss",
+        "tags": [
+          "style"
+        ],
+        "text": "y2k gloss visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-11",
+        "title": "Documentary",
+        "tags": [
+          "style"
+        ],
+        "text": "documentary visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-12",
+        "title": "Beauty Campaign",
+        "tags": [
+          "style"
+        ],
+        "text": "beauty campaign visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-13",
+        "title": "Architectural",
+        "tags": [
+          "style"
+        ],
+        "text": "architectural visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-14",
+        "title": "Playful Graphic",
+        "tags": [
+          "style"
+        ],
+        "text": "playful graphic visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-15",
+        "title": "Techwear UI",
+        "tags": [
+          "style"
+        ],
+        "text": "techwear ui visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-16",
+        "title": "Handmade Collage",
+        "tags": [
+          "style"
+        ],
+        "text": "handmade collage visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-17",
+        "title": "Sport Performance",
+        "tags": [
+          "style"
+        ],
+        "text": "sport performance visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-18",
+        "title": "Travel Lifestyle",
+        "tags": [
+          "style"
+        ],
+        "text": "travel lifestyle visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-19",
+        "title": "Gallery Presentation",
+        "tags": [
+          "style"
+        ],
+        "text": "gallery presentation visual direction",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "style-20",
+        "title": "Social Native",
+        "tags": [
+          "style"
+        ],
+        "text": "social native visual direction",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "moods": [
+      {
+        "id": "mood-1",
+        "title": "Confident",
+        "tags": [
+          "mood"
+        ],
+        "text": "confident emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-2",
+        "title": "Warm",
+        "tags": [
+          "mood"
+        ],
+        "text": "warm emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-3",
+        "title": "Calm",
+        "tags": [
+          "mood"
+        ],
+        "text": "calm emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-4",
+        "title": "Playful",
+        "tags": [
+          "mood"
+        ],
+        "text": "playful emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-5",
+        "title": "Bold",
+        "tags": [
+          "mood"
+        ],
+        "text": "bold emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-6",
+        "title": "Aspirational",
+        "tags": [
+          "mood"
+        ],
+        "text": "aspirational emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-7",
+        "title": "Intimate",
+        "tags": [
+          "mood"
+        ],
+        "text": "intimate emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-8",
+        "title": "Joyful",
+        "tags": [
+          "mood"
+        ],
+        "text": "joyful emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-9",
+        "title": "Refined",
+        "tags": [
+          "mood"
+        ],
+        "text": "refined emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-10",
+        "title": "Rebellious",
+        "tags": [
+          "mood"
+        ],
+        "text": "rebellious emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-11",
+        "title": "Fresh",
+        "tags": [
+          "mood"
+        ],
+        "text": "fresh emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-12",
+        "title": "Dreamy",
+        "tags": [
+          "mood"
+        ],
+        "text": "dreamy emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-13",
+        "title": "Powerful",
+        "tags": [
+          "mood"
+        ],
+        "text": "powerful emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-14",
+        "title": "Nostalgic",
+        "tags": [
+          "mood"
+        ],
+        "text": "nostalgic emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-15",
+        "title": "Mysterious",
+        "tags": [
+          "mood"
+        ],
+        "text": "mysterious emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-16",
+        "title": "Friendly",
+        "tags": [
+          "mood"
+        ],
+        "text": "friendly emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-17",
+        "title": "Focused",
+        "tags": [
+          "mood"
+        ],
+        "text": "focused emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-18",
+        "title": "Romantic",
+        "tags": [
+          "mood"
+        ],
+        "text": "romantic emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-19",
+        "title": "Urgent",
+        "tags": [
+          "mood"
+        ],
+        "text": "urgent emotional tone",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "mood-20",
+        "title": "Authentic",
+        "tags": [
+          "mood"
+        ],
+        "text": "authentic emotional tone",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "colors": [
+      {
+        "id": "palette-1",
+        "title": "Warm Neutrals",
+        "tags": [
+          "color"
+        ],
+        "text": "warm neutrals color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-2",
+        "title": "Monochrome",
+        "tags": [
+          "color"
+        ],
+        "text": "monochrome color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-3",
+        "title": "Black and White",
+        "tags": [
+          "color"
+        ],
+        "text": "black and white color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-4",
+        "title": "Earth Tones",
+        "tags": [
+          "color"
+        ],
+        "text": "earth tones color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-5",
+        "title": "Soft Pastels",
+        "tags": [
+          "color"
+        ],
+        "text": "soft pastels color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-6",
+        "title": "Primary Pop",
+        "tags": [
+          "color"
+        ],
+        "text": "primary pop color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-7",
+        "title": "Navy and Cream",
+        "tags": [
+          "color"
+        ],
+        "text": "navy and cream color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-8",
+        "title": "Burgundy and Blush",
+        "tags": [
+          "color"
+        ],
+        "text": "burgundy and blush color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-9",
+        "title": "Forest and Stone",
+        "tags": [
+          "color"
+        ],
+        "text": "forest and stone color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-10",
+        "title": "Cobalt and White",
+        "tags": [
+          "color"
+        ],
+        "text": "cobalt and white color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-11",
+        "title": "Sunset",
+        "tags": [
+          "color"
+        ],
+        "text": "sunset color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-12",
+        "title": "Cool Silver",
+        "tags": [
+          "color"
+        ],
+        "text": "cool silver color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-13",
+        "title": "Neon Accent",
+        "tags": [
+          "color"
+        ],
+        "text": "neon accent color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-14",
+        "title": "Chocolate and Camel",
+        "tags": [
+          "color"
+        ],
+        "text": "chocolate and camel color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-15",
+        "title": "Lilac and Gray",
+        "tags": [
+          "color"
+        ],
+        "text": "lilac and gray color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-16",
+        "title": "Red Statement",
+        "tags": [
+          "color"
+        ],
+        "text": "red statement color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-17",
+        "title": "Denim Blue",
+        "tags": [
+          "color"
+        ],
+        "text": "denim blue color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-18",
+        "title": "Tropical",
+        "tags": [
+          "color"
+        ],
+        "text": "tropical color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-19",
+        "title": "Mineral",
+        "tags": [
+          "color"
+        ],
+        "text": "mineral color palette",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "palette-20",
+        "title": "Gold and Charcoal",
+        "tags": [
+          "color"
+        ],
+        "text": "gold and charcoal color palette",
+        "useFor": "both",
+        "favorite": false
+      }
+    ]
+  }
+}

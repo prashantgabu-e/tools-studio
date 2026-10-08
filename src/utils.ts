@@ -200,6 +200,76 @@ export const promptBuilderCategories: PromptBuilderCategoryMeta[] = [
   { id: "formulas", label: "Formulas", shortLabel: "Formula" },
 ];
 
+export const promptBuilderMasterGroups = [
+  { id: "capture-scene", label: "Capture & Scene" },
+  { id: "creative-direction", label: "Creative Direction" },
+  { id: "human-model", label: "Human Model" },
+  { id: "product-wardrobe", label: "Product & Wardrobe" },
+  { id: "video-delivery", label: "Video & Delivery" },
+  { id: "marketing-content", label: "Marketing & Content" },
+  { id: "quality-tools", label: "Quality & Tools" },
+  { id: "custom", label: "Custom" },
+] as const;
+
+export type PromptBuilderMasterGroupId = (typeof promptBuilderMasterGroups)[number]["id"];
+
+const promptBuilderCategoryMasterGroup: Readonly<Record<string, PromptBuilderMasterGroupId>> = {
+  lighting: "capture-scene",
+  poses: "capture-scene",
+  shots: "capture-scene",
+  compositions: "capture-scene",
+  cameras: "capture-scene",
+  lenses: "capture-scene",
+  environments: "capture-scene",
+  styles: "creative-direction",
+  moods: "creative-direction",
+  colors: "creative-direction",
+  "design-system-theme": "creative-direction",
+  presentation: "human-model",
+  adultAge: "human-model",
+  buildStature: "human-model",
+  heritageRegional: "human-model",
+  skinTone: "human-model",
+  complexionDetails: "human-model",
+  hairTextureColor: "human-model",
+  hairstyles: "human-model",
+  facialFeatures: "human-model",
+  eyeDetails: "human-model",
+  facialHair: "human-model",
+  makeupGrooming: "human-model",
+  expressions: "human-model",
+  distinctiveDetails: "human-model",
+  subjects: "product-wardrobe",
+  wardrobeProps: "product-wardrobe",
+  motion: "video-delivery",
+  videoMoves: "video-delivery",
+  editingTransitions: "video-delivery",
+  platformPresets: "video-delivery",
+  aspectOutput: "video-delivery",
+  dareRiseContentIdeas: "marketing-content",
+  textGraphicOverlay: "marketing-content",
+  marketingObjectiveCta: "marketing-content",
+  campaignConcept: "marketing-content",
+  rendering: "quality-tools",
+  negativePrompts: "quality-tools",
+  formulas: "quality-tools",
+};
+
+export function getPromptBuilderMasterGroupId(
+  categoryId: PromptBuilderCategory,
+): PromptBuilderMasterGroupId {
+  return promptBuilderCategoryMasterGroup[categoryId] ?? "custom";
+}
+
+export function groupPromptBuilderCategories(categories: PromptBuilderCategoryMeta[]) {
+  return promptBuilderMasterGroups.map((group) => ({
+    ...group,
+    categories: categories.filter(
+      (category) => getPromptBuilderMasterGroupId(category.id) === group.id,
+    ),
+  }));
+}
+
 export function createPromptBuilderCategory(
   label = "Untitled Category",
   existingCategories: PromptBuilderCategoryMeta[] = promptBuilderCategories,

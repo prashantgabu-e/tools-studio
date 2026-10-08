@@ -1,0 +1,434 @@
+{
+  "categories": [
+    {
+      "id": "aspectOutput",
+      "label": "Aspect & Output",
+      "shortLabel": "Output"
+    },
+    {
+      "id": "textGraphicOverlay",
+      "label": "Text & Graphic Overlay",
+      "shortLabel": "Overlay"
+    },
+    {
+      "id": "marketingObjectiveCta",
+      "label": "Marketing Objective & CTA",
+      "shortLabel": "CTA"
+    },
+    {
+      "id": "campaignConcept",
+      "label": "Campaign Concept",
+      "shortLabel": "Campaign"
+    }
+  ],
+  "library": {
+    "aspectOutput": [
+      {
+        "id": "output-1",
+        "title": "Square Feed",
+        "tags": [
+          "aspect"
+        ],
+        "text": "square feed output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-2",
+        "title": "Portrait Feed",
+        "tags": [
+          "aspect"
+        ],
+        "text": "portrait feed output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-3",
+        "title": "Story Vertical",
+        "tags": [
+          "aspect"
+        ],
+        "text": "story vertical output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-4",
+        "title": "Reel Vertical",
+        "tags": [
+          "aspect"
+        ],
+        "text": "reel vertical output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-5",
+        "title": "Carousel Sequence",
+        "tags": [
+          "aspect"
+        ],
+        "text": "carousel sequence output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-6",
+        "title": "Landscape Video",
+        "tags": [
+          "aspect"
+        ],
+        "text": "landscape video output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-7",
+        "title": "YouTube Thumbnail",
+        "tags": [
+          "aspect"
+        ],
+        "text": "youtube thumbnail output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-8",
+        "title": "Performance Ad",
+        "tags": [
+          "aspect"
+        ],
+        "text": "performance ad output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-9",
+        "title": "Poster",
+        "tags": [
+          "aspect"
+        ],
+        "text": "poster output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "output-10",
+        "title": "Web Banner",
+        "tags": [
+          "aspect"
+        ],
+        "text": "web banner output with platform-safe framing",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "textGraphicOverlay": [
+      {
+        "id": "overlay-1",
+        "title": "Headline-led",
+        "tags": [
+          "overlay"
+        ],
+        "text": "headline-led text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-2",
+        "title": "Benefit Callouts",
+        "tags": [
+          "overlay"
+        ],
+        "text": "benefit callouts text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-3",
+        "title": "Comparison Labels",
+        "tags": [
+          "overlay"
+        ],
+        "text": "comparison labels text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-4",
+        "title": "Review Quote",
+        "tags": [
+          "overlay"
+        ],
+        "text": "review quote text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-5",
+        "title": "Infographic",
+        "tags": [
+          "overlay"
+        ],
+        "text": "infographic text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-6",
+        "title": "Price Focus",
+        "tags": [
+          "overlay"
+        ],
+        "text": "price focus text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-7",
+        "title": "CTA Button",
+        "tags": [
+          "overlay"
+        ],
+        "text": "cta button text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-8",
+        "title": "Minimal Copy",
+        "tags": [
+          "overlay"
+        ],
+        "text": "minimal copy text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-9",
+        "title": "Numbered List",
+        "tags": [
+          "overlay"
+        ],
+        "text": "numbered list text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "overlay-10",
+        "title": "Social Stickers",
+        "tags": [
+          "overlay"
+        ],
+        "text": "social stickers text and graphic overlay treatment",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "marketingObjectiveCta": [
+      {
+        "id": "objective-1",
+        "title": "Build Awareness",
+        "tags": [
+          "objective"
+        ],
+        "text": "build awareness marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-2",
+        "title": "Educate",
+        "tags": [
+          "objective"
+        ],
+        "text": "educate marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-3",
+        "title": "Earn Saves",
+        "tags": [
+          "objective"
+        ],
+        "text": "earn saves marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-4",
+        "title": "Earn Shares",
+        "tags": [
+          "objective"
+        ],
+        "text": "earn shares marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-5",
+        "title": "Drive Comments",
+        "tags": [
+          "objective"
+        ],
+        "text": "drive comments marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-6",
+        "title": "Build Trust",
+        "tags": [
+          "objective"
+        ],
+        "text": "build trust marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-7",
+        "title": "Launch",
+        "tags": [
+          "objective"
+        ],
+        "text": "launch marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-8",
+        "title": "Drive Conversion",
+        "tags": [
+          "objective"
+        ],
+        "text": "drive conversion marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-9",
+        "title": "Retarget",
+        "tags": [
+          "objective"
+        ],
+        "text": "retarget marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "objective-10",
+        "title": "Shop Now",
+        "tags": [
+          "objective"
+        ],
+        "text": "shop now marketing objective with a clear next step",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "campaignConcept": [
+      {
+        "id": "campaign-1",
+        "title": "Product Launch",
+        "tags": [
+          "campaign"
+        ],
+        "text": "product launch campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-2",
+        "title": "Collection Reveal",
+        "tags": [
+          "campaign"
+        ],
+        "text": "collection reveal campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-3",
+        "title": "UGC Spotlight",
+        "tags": [
+          "campaign"
+        ],
+        "text": "ugc spotlight campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-4",
+        "title": "Creator Collaboration",
+        "tags": [
+          "campaign"
+        ],
+        "text": "creator collaboration campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-5",
+        "title": "Seasonal Edit",
+        "tags": [
+          "campaign"
+        ],
+        "text": "seasonal edit campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-6",
+        "title": "Problem to Solution",
+        "tags": [
+          "campaign"
+        ],
+        "text": "problem to solution campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-7",
+        "title": "Comparison",
+        "tags": [
+          "campaign"
+        ],
+        "text": "comparison campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-8",
+        "title": "Lookbook",
+        "tags": [
+          "campaign"
+        ],
+        "text": "lookbook campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-9",
+        "title": "Brand Story",
+        "tags": [
+          "campaign"
+        ],
+        "text": "brand story campaign concept",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "campaign-10",
+        "title": "Community Challenge",
+        "tags": [
+          "campaign"
+        ],
+        "text": "community challenge campaign concept",
+        "useFor": "both",
+        "favorite": false
+      }
+    ]
+  }
+}

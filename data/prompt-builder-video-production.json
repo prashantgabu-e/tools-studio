@@ -1,0 +1,541 @@
+{
+  "categories": [
+    {
+      "id": "editingTransitions",
+      "label": "Editing & Transitions",
+      "shortLabel": "Edit"
+    },
+    {
+      "id": "motion",
+      "label": "Motion",
+      "shortLabel": "Motion"
+    },
+    {
+      "id": "videoMoves",
+      "label": "Video Moves",
+      "shortLabel": "Moves"
+    },
+    {
+      "id": "platformPresets",
+      "label": "Presets",
+      "shortLabel": "Preset"
+    },
+    {
+      "id": "formulas",
+      "label": "Formulas",
+      "shortLabel": "Formula"
+    }
+  ],
+  "library": {
+    "editingTransitions": [
+      {
+        "id": "editing-1",
+        "title": "Match Cut",
+        "tags": [
+          "editing"
+        ],
+        "text": "match cut editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-2",
+        "title": "Whip Pan",
+        "tags": [
+          "editing"
+        ],
+        "text": "whip pan editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-3",
+        "title": "Speed Ramp",
+        "tags": [
+          "editing"
+        ],
+        "text": "speed ramp editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-4",
+        "title": "Jump Cut",
+        "tags": [
+          "editing"
+        ],
+        "text": "jump cut editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-5",
+        "title": "Object Reveal",
+        "tags": [
+          "editing"
+        ],
+        "text": "object reveal editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-6",
+        "title": "Split Screen",
+        "tags": [
+          "editing"
+        ],
+        "text": "split screen editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-7",
+        "title": "Kinetic Captions",
+        "tags": [
+          "editing"
+        ],
+        "text": "kinetic captions editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-8",
+        "title": "Beat Cut",
+        "tags": [
+          "editing"
+        ],
+        "text": "beat cut editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-9",
+        "title": "Morph Transition",
+        "tags": [
+          "editing"
+        ],
+        "text": "morph transition editing treatment",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "editing-10",
+        "title": "Freeze Frame",
+        "tags": [
+          "editing"
+        ],
+        "text": "freeze frame editing treatment",
+        "useFor": "video",
+        "favorite": false
+      }
+    ],
+    "motion": [
+      {
+        "id": "motion-1",
+        "title": "Natural Walk",
+        "tags": [
+          "motion"
+        ],
+        "text": "natural walk motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-2",
+        "title": "Slow Turn",
+        "tags": [
+          "motion"
+        ],
+        "text": "slow turn motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-3",
+        "title": "Fabric Movement",
+        "tags": [
+          "motion"
+        ],
+        "text": "fabric movement motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-4",
+        "title": "Hand Interaction",
+        "tags": [
+          "motion"
+        ],
+        "text": "hand interaction motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-5",
+        "title": "Playful Spin",
+        "tags": [
+          "motion"
+        ],
+        "text": "playful spin motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-6",
+        "title": "Step Forward",
+        "tags": [
+          "motion"
+        ],
+        "text": "step forward motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-7",
+        "title": "Hair Movement",
+        "tags": [
+          "motion"
+        ],
+        "text": "hair movement motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-8",
+        "title": "Product Interaction",
+        "tags": [
+          "motion"
+        ],
+        "text": "product interaction motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-9",
+        "title": "Group Movement",
+        "tags": [
+          "motion"
+        ],
+        "text": "group movement motion",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "motion-10",
+        "title": "Micro Movement",
+        "tags": [
+          "motion"
+        ],
+        "text": "micro movement motion",
+        "useFor": "video",
+        "favorite": false
+      }
+    ],
+    "videoMoves": [
+      {
+        "id": "camera-move-1",
+        "title": "Push In",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "push in camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-2",
+        "title": "Pull Out",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "pull out camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-3",
+        "title": "Orbit",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "orbit camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-4",
+        "title": "Side Track",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "side track camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-5",
+        "title": "Crane Rise",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "crane rise camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-6",
+        "title": "Tilt Reveal",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "tilt reveal camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-7",
+        "title": "Handheld",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "handheld camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-8",
+        "title": "Dolly Zoom",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "dolly zoom camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-9",
+        "title": "Top-down Drop",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "top-down drop camera movement",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "camera-move-10",
+        "title": "Locked-off",
+        "tags": [
+          "camera-move"
+        ],
+        "text": "locked-off camera movement",
+        "useFor": "video",
+        "favorite": false
+      }
+    ],
+    "platformPresets": [
+      {
+        "id": "preset-1",
+        "title": "Instagram Reel",
+        "tags": [
+          "preset"
+        ],
+        "text": "instagram reel platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-2",
+        "title": "Instagram Story",
+        "tags": [
+          "preset"
+        ],
+        "text": "instagram story platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-3",
+        "title": "TikTok",
+        "tags": [
+          "preset"
+        ],
+        "text": "tiktok platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-4",
+        "title": "YouTube Short",
+        "tags": [
+          "preset"
+        ],
+        "text": "youtube short platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-5",
+        "title": "Instagram Feed",
+        "tags": [
+          "preset"
+        ],
+        "text": "instagram feed platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-6",
+        "title": "Instagram Carousel",
+        "tags": [
+          "preset"
+        ],
+        "text": "instagram carousel platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-7",
+        "title": "YouTube Landscape",
+        "tags": [
+          "preset"
+        ],
+        "text": "youtube landscape platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-8",
+        "title": "Pinterest Pin",
+        "tags": [
+          "preset"
+        ],
+        "text": "pinterest pin platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-9",
+        "title": "LinkedIn",
+        "tags": [
+          "preset"
+        ],
+        "text": "linkedin platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "preset-10",
+        "title": "Display Ad",
+        "tags": [
+          "preset"
+        ],
+        "text": "display ad platform-safe format",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "formulas": [
+      {
+        "id": "formula-1",
+        "title": "Social Product",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, social product, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-2",
+        "title": "Reel",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, reel, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-3",
+        "title": "Carousel",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, carousel, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-4",
+        "title": "Campaign",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, campaign, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-5",
+        "title": "Portrait",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, portrait, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-6",
+        "title": "Cinematic Video",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, cinematic video, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-7",
+        "title": "Education",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, education, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-8",
+        "title": "UGC",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, ugc, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-9",
+        "title": "Performance Ad",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, performance ad, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-10",
+        "title": "Lookbook",
+        "tags": [
+          "formula"
+        ],
+        "text": "{{subject}}, {{product}}, lookbook, {{style}}, {{cta}}",
+        "useFor": "both",
+        "favorite": false
+      }
+    ]
+  }
+}

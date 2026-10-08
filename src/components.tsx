@@ -8,6 +8,49 @@ import {
   type RefObject,
 } from "react";
 import { NavLink } from "react-router-dom";
+import type { IconType } from "react-icons";
+import {
+  MdAccessibilityNew,
+  MdAdsClick,
+  MdAspectRatio,
+  MdAutoAwesome,
+  MdBlock,
+  MdBrush,
+  MdCake,
+  MdCamera,
+  MdCampaign,
+  MdCategory,
+  MdCheckroom,
+  MdColorLens,
+  MdContentCut,
+  MdCropFree,
+  MdDesignServices,
+  MdEmojiEmotions,
+  MdFace,
+  MdFaceRetouchingNatural,
+  MdFolderOpen,
+  MdFunctions,
+  MdHeight,
+  MdLandscape,
+  MdLens,
+  MdLightMode,
+  MdLightbulb,
+  MdMan,
+  MdMood,
+  MdMovieFilter,
+  MdMotionPhotosOn,
+  MdPalette,
+  MdPerson,
+  MdPhotoCamera,
+  MdPublic,
+  MdRemoveRedEye,
+  MdStyle,
+  MdTextFields,
+  MdTexture,
+  MdTune,
+  MdVideocam,
+  MdViewInAr,
+} from "react-icons/md";
 import {
   BadgeCheck,
   Bell,
@@ -61,6 +104,8 @@ import {
   downloadJson,
   extractVariableNames,
   formatBytes,
+  getPromptBuilderMasterGroupId,
+  groupPromptBuilderCategories,
   parseTags,
   placeholderText,
   promptLibraryMaxImages,
@@ -102,6 +147,48 @@ const templateIconOptions = [
 ];
 
 const templateToneOptions = ["teal", "sky", "violet", "amber", "rose", "emerald", "slate"];
+
+const promptBuilderCategoryIcons: Record<string, IconType> = {
+  lighting: MdLightMode,
+  poses: MdAccessibilityNew,
+  shots: MdPhotoCamera,
+  compositions: MdCropFree,
+  cameras: MdCamera,
+  lenses: MdLens,
+  environments: MdLandscape,
+  styles: MdStyle,
+  moods: MdMood,
+  colors: MdPalette,
+  "design-system-theme": MdDesignServices,
+  presentation: MdPerson,
+  adultAge: MdCake,
+  buildStature: MdHeight,
+  heritageRegional: MdPublic,
+  skinTone: MdColorLens,
+  complexionDetails: MdFaceRetouchingNatural,
+  hairTextureColor: MdTexture,
+  hairstyles: MdContentCut,
+  facialFeatures: MdFace,
+  eyeDetails: MdRemoveRedEye,
+  facialHair: MdMan,
+  makeupGrooming: MdBrush,
+  expressions: MdEmojiEmotions,
+  distinctiveDetails: MdAutoAwesome,
+  subjects: MdCategory,
+  wardrobeProps: MdCheckroom,
+  motion: MdMotionPhotosOn,
+  videoMoves: MdVideocam,
+  editingTransitions: MdMovieFilter,
+  platformPresets: MdTune,
+  aspectOutput: MdAspectRatio,
+  dareRiseContentIdeas: MdLightbulb,
+  textGraphicOverlay: MdTextFields,
+  marketingObjectiveCta: MdAdsClick,
+  campaignConcept: MdCampaign,
+  rendering: MdViewInAr,
+  negativePrompts: MdBlock,
+  formulas: MdFunctions,
+};
 
 function getTemplateIcon(iconName: string) {
   return templateIconOptions.find((item) => item.id === iconName)?.icon ?? templateIconOptions[0].icon;
@@ -2227,6 +2314,9 @@ export function PromptBuilderView(props: {
   const activeCategory = props.manager.categories.find(
     (item) => item.id === props.manager.selectedCategory,
   );
+  const groupedCategories = groupPromptBuilderCategories(props.manager.categories).filter(
+    (group) => group.categories.length > 0,
+  );
 
   async function handleSave() {
     try {
@@ -2376,37 +2466,69 @@ export function PromptBuilderView(props: {
       <section className="panel-card builder-categories-panel">
         <div className="section-heading">
           <h3>Kit</h3>
-          <button className="ghost-button" type="button" onClick={handleNewCategory}>
-            <Plus aria-hidden="true" />
-            <span>Category</span>
-          </button>
+          <div className="template-toolbar is-tight">
+            <button className="ghost-button" type="button" onClick={handleNewCategory}>
+              <Plus aria-hidden="true" />
+              <span>Category</span>
+            </button>
+            <ToolbarActionButton
+              onClick={() => handleImportClick("merge")}
+              icon={<FileInput aria-hidden="true" />}
+              title="Merge import"
+            />
+            <ToolbarActionButton
+              onClick={handleExport}
+              icon={<Download aria-hidden="true" />}
+              title="Export JSON"
+            />
+          </div>
         </div>
-        <div className="builder-category-grid">
-          {props.manager.categories.map((category) => (
-            <div
-              key={category.id}
-              className={`category-chip-group${
-                category.id === props.manager.selectedCategory ? " is-active" : ""
-              }`}
-            >
-              <button
-                className="category-chip"
-                type="button"
-                onClick={() => props.manager.selectCategory(category.id)}
-              >
-                <span>{category.label}</span>
-                <strong>{props.manager.library[category.id]?.length ?? 0}</strong>
-              </button>
-              <button
-                className="category-chip-action"
-                type="button"
-                title="Edit category"
-                aria-label={`Edit ${category.label}`}
-                onClick={() => handleEditCategory(category)}
-              >
-                <Pencil aria-hidden="true" />
-              </button>
-            </div>
+        <div className="builder-category-groups" aria-label="Category groups">
+          {groupedCategories.map((group) => (
+            <section className="builder-category-group-card" key={group.id}>
+              <div className="builder-category-group-heading">
+                <h4>{group.label}</h4>
+                <span>{group.categories.length}</span>
+              </div>
+              <div className="builder-category-grid">
+                {group.categories.map((category) => {
+                  const CategoryIcon = promptBuilderCategoryIcons[category.id] ?? MdFolderOpen;
+                  const masterGroupId = getPromptBuilderMasterGroupId(category.id);
+                  return (
+                    <div
+                      key={category.id}
+                      className={`category-chip-group${
+                        category.id === props.manager.selectedCategory ? " is-active" : ""
+                      }`}
+                    >
+                      <button
+                        className="category-chip"
+                        type="button"
+                        onClick={() => props.manager.selectCategory(category.id)}
+                      >
+                        <span
+                          className={`category-chip-icon is-${masterGroupId}`}
+                          aria-hidden="true"
+                        >
+                          <CategoryIcon />
+                        </span>
+                        <span>{category.label}</span>
+                        <strong>{props.manager.library[category.id]?.length ?? 0}</strong>
+                      </button>
+                      <button
+                        className="category-chip-action"
+                        type="button"
+                        title="Edit category"
+                        aria-label={`Edit ${category.label}`}
+                        onClick={() => handleEditCategory(category)}
+                      >
+                        <Pencil aria-hidden="true" />
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
           ))}
         </div>
       </section>
@@ -2428,16 +2550,6 @@ export function PromptBuilderView(props: {
             >
               <Star aria-hidden="true" />
             </button>
-            <ToolbarActionButton
-              onClick={() => handleImportClick("merge")}
-              icon={<FileInput aria-hidden="true" />}
-              title="Merge import"
-            />
-            <ToolbarActionButton
-              onClick={handleExport}
-              icon={<Download aria-hidden="true" />}
-              title="Export JSON"
-            />
           </div>
         </div>
         <input
