@@ -1354,6 +1354,54 @@ a {
   margin-top: 8px;
 }
 
+.builder-grid-switch {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-strong);
+}
+
+.builder-grid-switch > span {
+  padding: 0 6px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.builder-grid-switch button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 7px;
+  color: var(--muted-strong);
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.builder-grid-switch button:hover {
+  background: var(--surface-muted);
+}
+
+.builder-grid-switch button.is-active {
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+}
+
+.builder-grid-switch button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .builder-item {
   display: grid;
   gap: 6px;
@@ -1380,6 +1428,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 6px;
 }
 
@@ -2074,7 +2123,15 @@ a {
   }
 
   .builder-item-list {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .builder-item-list.is-columns-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .builder-item-list.is-columns-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .prompt-library-grid {

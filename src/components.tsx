@@ -2302,6 +2302,10 @@ export function PromptBuilderView(props: {
   onToast: (message: string, tone?: ToastTone) => void;
 }) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [gridColumns, setGridColumns] = useState<3 | 4 | 6>(() => {
+    const savedValue = window.localStorage.getItem("prompt-builder-grid-columns");
+    return savedValue === "3" ? 3 : savedValue === "4" ? 4 : 6;
+  });
   const [importMode, setImportMode] = useState<"merge" | "replace">("merge");
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [categoryDraft, setCategoryDraft] = useState<{
@@ -2317,6 +2321,10 @@ export function PromptBuilderView(props: {
   const groupedCategories = groupPromptBuilderCategories(props.manager.categories).filter(
     (group) => group.categories.length > 0,
   );
+
+  useEffect(() => {
+    window.localStorage.setItem("prompt-builder-grid-columns", String(gridColumns));
+  }, [gridColumns]);
 
   async function handleSave() {
     try {
@@ -2550,6 +2558,21 @@ export function PromptBuilderView(props: {
             >
               <Star aria-hidden="true" />
             </button>
+            <div className="builder-grid-switch" role="group" aria-label="Items per row">
+              <span>Grid</span>
+              {([3, 4, 6] as const).map((columnCount) => (
+                <button
+                  key={columnCount}
+                  className={gridColumns === columnCount ? "is-active" : ""}
+                  type="button"
+                  aria-pressed={gridColumns === columnCount}
+                  title={`${columnCount} items per row`}
+                  onClick={() => setGridColumns(columnCount)}
+                >
+                  {columnCount}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
         <input
@@ -2560,7 +2583,7 @@ export function PromptBuilderView(props: {
           onChange={(event) => props.manager.setSearchQuery(event.target.value)}
         />
 
-        <div className="builder-item-list">
+        <div className={`builder-item-list is-columns-${gridColumns}`}>
           {props.manager.isLoading ? (
             <div className="empty-state">Loading library...</div>
           ) : props.manager.error ? (
