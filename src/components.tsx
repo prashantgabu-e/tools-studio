@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ChangeEvent,
@@ -95,6 +96,7 @@ import type {
   PromptLibraryImage,
   PromptLibraryItem,
   PromptTemplate,
+  Product,
   ToastItem,
   ToastTone,
 } from "./types";
@@ -108,6 +110,7 @@ import {
   groupPromptBuilderCategories,
   parseTags,
   placeholderText,
+  parseProductImport,
   promptLibraryMaxImages,
   transforms,
 } from "./utils";
@@ -119,6 +122,7 @@ type NavItem = {
 };
 
 const navigationItems: NavItem[] = [
+  { label: "Products", to: "/products", icon: <Package aria-hidden="true" /> },
   { label: "Prompt Builder", to: "/prompt-builder", icon: <Braces aria-hidden="true" /> },
   { label: "Prompt Library", to: "/prompt-library", icon: <ImagePlus aria-hidden="true" /> },
   { label: "Gen AI Templates", to: "/gen-ai-prompts", icon: <Sparkles aria-hidden="true" /> },
@@ -294,6 +298,13 @@ type PromptLibraryManagerShape = {
   selectedId: string | null;
   selectItem: (id: string | null) => void;
   setDraft: React.Dispatch<React.SetStateAction<PromptLibraryItem>>;
+};
+
+type ProductManagerShape = {
+  error: string | null;
+  importProducts: (items: unknown[]) => Promise<number>;
+  isLoading: boolean;
+  products: Product[];
 };
 
 export function Sidebar(props: {
@@ -473,6 +484,128 @@ export function TextToolsView(props: {
           })}
         </div>
       </section>
+    </section>
+  );
+}
+
+export function ProductsView(props: {
+  manager: ProductManagerShape;
+  onToast: (message: string, tone?: ToastTone) => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [color, setColor] = useState("");
+  const [material, setMaterial] = useState("");
+  const [size, setSize] = useState("");
+  const [sort, setSort] = useState<"title" | "price-low" | "price-high" | "newest">("title");
+  const [storefrontBase, setStorefrontBase] = useState(
+    () => window.localStorage.getItem("products-storefront-base") ?? "",
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem("products-storefront-base", storefrontBase);
+  }, [storefrontBase]);
+
+  const filters = useMemo(() => {
+    const unique = (values: string[]) => [...new Set(values)].sort((a, b) => a.localeCompare(b));
+    return {
+      colors: unique(props.manager.products.flatMap((product) => product.colors)),
+      materials: unique(props.manager.products.flatMap((product) => product.materials)),
+      sizes: unique(props.manager.products.flatMap((product) => product.sizes)),
+    };
+  }, [props.manager.products]);
+
+  const products = useMemo(() => {
+    const needle = searchQuery.trim().toLowerCase();
+    const list = props.manager.products.filter((product) => {
+      const matchesSearch = !needle || [
+        product.title, product.handle, product.sku, product.description, product.highlights,
+        product.seoTitle, product.seoDescription, ...product.colors, ...product.materials, ...product.sizes,
+      ].join(" ").toLowerCase().includes(needle);
+      return matchesSearch
+        && (!color || product.colors.includes(color))
+        && (!material || product.materials.includes(material))
+        && (!size || product.sizes.includes(size));
+    });
+    return [...list].sort((left, right) => {
+      if (sort === "price-low") return (left.price ?? Infinity) - (right.price ?? Infinity);
+      if (sort === "price-high") return (right.price ?? -Infinity) - (left.price ?? -Infinity);
+      if (sort === "newest") return right.importedAt.localeCompare(left.importedAt);
+      return left.title.localeCompare(right.title);
+    });
+  }, [color, material, props.manager.products, searchQuery, size, sort]);
+
+  function resolveStorefrontUrl(product: Product) {
+    if (product.storefrontUrl) return product.storefrontUrl;
+    const base = storefrontBase.trim().replace(/\/$/, "");
+    return base && product.handle ? `${base}/products/${product.handle}` : "";
+  }
+
+  function handleImport(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const rows = parseProductImport(String(reader.result));
+        void props.manager.importProducts(rows)
+          .then((count) => props.onToast(`${count} products imported`, "success"))
+          .catch((error: unknown) => props.onToast(error instanceof Error ? error.message : "Import failed", "warning"));
+      } catch (error) {
+        props.onToast(error instanceof Error ? error.message : "Could not read import file", "warning");
+      }
+      event.target.value = "";
+    };
+    reader.readAsText(file);
+  }
+
+  function clearFilters() {
+    setSearchQuery("");
+    setColor("");
+    setMaterial("");
+    setSize("");
+  }
+
+  return (
+    <section className="view-panel products-view">
+      <section className="panel-card products-toolbar">
+        <div className="section-heading">
+          <div>
+            <h3>Product catalogue</h3>
+            <p className="products-help">Import JSON or a quoted tab-separated export. Search product, SKU, SEO copy, colour, fabric, or size.</p>
+          </div>
+          <div className="button-row">
+            <button className="ghost-button" type="button" onClick={() => fileInputRef.current?.click()}><FileInput aria-hidden="true" /> <span>Import</span></button>
+            <button className="ghost-button" type="button" onClick={() => downloadJson("products.json", props.manager.products)} disabled={!props.manager.products.length}><Download aria-hidden="true" /> <span>Export</span></button>
+          </div>
+          <input ref={fileInputRef} className="sr-only" type="file" accept="application/json,.json,.tsv,.txt,text/plain" onChange={handleImport} />
+        </div>
+        <div className="products-controls">
+          <input className="compact-input" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search products, SKUs, descriptions..." aria-label="Search products" />
+          <select className="compact-input" value={color} onChange={(event) => setColor(event.target.value)} aria-label="Filter by colour"><option value="">All colours</option>{filters.colors.map((item) => <option key={item}>{item}</option>)}</select>
+          <select className="compact-input" value={material} onChange={(event) => setMaterial(event.target.value)} aria-label="Filter by material"><option value="">All materials</option>{filters.materials.map((item) => <option key={item}>{item}</option>)}</select>
+          <select className="compact-input" value={size} onChange={(event) => setSize(event.target.value)} aria-label="Filter by size"><option value="">All sizes</option>{filters.sizes.map((item) => <option key={item}>{item}</option>)}</select>
+          <select className="compact-input" value={sort} onChange={(event) => setSort(event.target.value as typeof sort)} aria-label="Sort products"><option value="title">Title A–Z</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="newest">Recently imported</option></select>
+          <button className="ghost-button products-clear" type="button" onClick={clearFilters}>Clear</button>
+        </div>
+        <label className="products-storefront-field"><span>Storefront base URL</span><input className="compact-input" value={storefrontBase} onChange={(event) => setStorefrontBase(event.target.value)} placeholder="https://shop.example.com" /><small>Used to create a copyable <code>/products/handle</code> link when an import does not include one.</small></label>
+      </section>
+
+      <div className="products-result-bar"><span>{products.length} of {props.manager.products.length} products</span>{props.manager.error && <span className="products-error">{props.manager.error}</span>}</div>
+
+      {props.manager.isLoading ? <section className="panel-card empty-state">Loading products…</section> : products.length ? (
+        <section className="products-grid">
+          {products.map((product) => {
+            const storefrontUrl = resolveStorefrontUrl(product);
+            return <article key={product.id} className="product-card">
+              <div className="product-card-heading"><div><p className="card-label">{product.sku || product.handle || "Product"}</p><h3>{product.title || product.handle}</h3></div>{product.price !== null && <strong className="product-price">₹{product.price.toLocaleString("en-IN")}</strong>}</div>
+              <div className="product-tags">{[...product.colors, ...product.materials, ...product.sizes].slice(0, 6).map((tag) => <span key={tag}>{tag}</span>)}</div>
+              <p className="product-description">{product.description || product.highlights || "No description imported."}</p>
+              <div className="product-actions"><CopyButton text={product.title} defaultLabel="Title" className="ghost-button" /><CopyButton text={product.description || product.highlights} defaultLabel="Description" className="ghost-button" /><CopyButton text={storefrontUrl} defaultLabel="Link" className="ghost-button" />{storefrontUrl && <a className="icon-action" href={storefrontUrl} target="_blank" rel="noreferrer" aria-label={`Open ${product.title} storefront`} title="Open storefront"><Send aria-hidden="true" /></a>}</div>
+            </article>;
+          })}
+        </section>
+      ) : <section className="panel-card empty-state">{props.manager.products.length ? "No products match these filters." : "Import your product JSON or supplied tab-separated export to start your catalogue."}</section>}
     </section>
   );
 }

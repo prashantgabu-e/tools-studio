@@ -14,6 +14,7 @@ import type {
   BasicTemplate,
   PromptLibraryItem,
   PromptTemplate,
+  Product,
   ToastItem,
   ToastTone,
 } from "./types";
@@ -37,8 +38,60 @@ import {
   normalizePromptBuilderCategories,
   normalizePromptBuilderLibrary,
   normalizePromptTemplates,
+  normalizeProducts,
   promptBuilderCategories,
 } from "./utils";
+
+type ProductManagerOptions = { userId: string | null };
+
+export function useProductManager(options: ProductManagerOptions) {
+  const { userId } = options;
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { db } = getFirebaseServices();
+    if (!db) {
+      setProducts([]);
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+    return onSnapshot(
+      query(collection(db, "products")),
+      (snapshot) => {
+        setProducts(normalizeProducts(snapshot.docs.map((item) => ({ id: item.id, ...item.data() }))));
+        setError(null);
+        setIsLoading(false);
+      },
+      (snapshotError) => {
+        setError(snapshotError.message);
+        setIsLoading(false);
+      },
+    );
+  }, []);
+
+  async function importProducts(items: unknown[]) {
+    const { db } = getFirebaseServices();
+    if (!db || !userId) throw new Error("Sign in to import products to Firestore.");
+    const incoming = normalizeProducts(items);
+    if (!incoming.length) throw new Error("No valid products were found in the import file.");
+    const productsRef = collection(db, "products");
+    for (let offset = 0; offset < incoming.length; offset += 450) {
+      const batch = writeBatch(db);
+      incoming.slice(offset, offset + 450).forEach((product) => {
+        const documentId = product.handle || product.id;
+        batch.set(doc(productsRef, documentId), { ...product, updatedAt: serverTimestamp() });
+      });
+      await batch.commit();
+    }
+    setProducts((current) => normalizeProducts([...current, ...incoming]));
+    return incoming.length;
+  }
+
+  return { error, importProducts, isLoading, products };
+}
 
 export function useToasts() {
   const [toasts, setToasts] = useState<ToastItem[]>([]);

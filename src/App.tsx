@@ -7,6 +7,7 @@ import {
   PromptBuilderView,
   PromptLibraryView,
   PromptTemplateView,
+  ProductsView,
   Sidebar,
   TextToolsView,
   ToastStack,
@@ -18,6 +19,7 @@ import {
   usePromptBuilderManager,
   usePromptLibraryManager,
   usePromptTemplateManager,
+  useProductManager,
   useToasts,
 } from "./hooks";
 import type { RouteView } from "./types";
@@ -31,6 +33,12 @@ type RouteMeta = {
 };
 
 const routeMeta: RouteMeta[] = [
+  {
+    id: "products-tools",
+    label: "Products",
+    title: "Products",
+    path: "/products",
+  },
   {
     id: "text-tools",
     label: "Text Transformation",
@@ -111,6 +119,7 @@ export function App() {
   const promptLibraryManager = usePromptLibraryManager({
     userId,
   });
+  const productManager = useProductManager({ userId });
 
   useEffect(() => {
     const handleResize = () => {
@@ -152,6 +161,9 @@ export function App() {
     if (activeRoute.id === "gen-ai-prompt-template-tools") {
       return `${genAiPromptManager.templates.length} Gen AI Templates stored`;
     }
+    if (activeRoute.id === "products-tools") {
+      return `${productManager.products.length} products stored`;
+    }
     return `${promptBuilderManager.totalItems} Prompt Builder items`;
   }, [
     activeRoute.id,
@@ -161,6 +173,7 @@ export function App() {
     promptLibraryManager.items.length,
     promptBuilderManager.totalItems,
     promptManager.templates.length,
+    productManager.products.length,
     sourceText,
   ]);
 
@@ -191,6 +204,10 @@ export function App() {
           <Route
             path="/"
             element={<Navigate to="/prompt-builder" replace />}
+          />
+          <Route
+            path="/products"
+            element={<ProductsView manager={productManager} onToast={pushToast} />}
           />
           <Route
             path="/text-tools"

@@ -8,6 +8,7 @@ import type {
   PromptLibraryImage,
   PromptLibraryItem,
   PromptTemplate,
+  Product,
 } from "./types";
 
 export const placeholderText = "Your transformed text will appear here.";
@@ -134,6 +135,124 @@ export function normalizePromptTemplates(items: unknown[], blankTitle: string) {
       sampleOutput: value.sampleOutput || "",
     };
   });
+}
+
+export function normalizeProducts(items: unknown[]): Product[] {
+  const seenIds = new Set<string>();
+  return items
+    .map((item, index) => normalizeProduct(item, index))
+    .filter((item) => {
+      const key = item.handle || item.id;
+      if (seenIds.has(key)) return false;
+      seenIds.add(key);
+      return Boolean(item.title || item.handle);
+    });
+}
+
+export function parseProductImport(text: string): unknown[] {
+  const cleaned = text.replace(/^\uFEFF/, "").trim();
+  if (!cleaned) {
+    throw new Error("The import file is empty.");
+  }
+
+  if (cleaned.startsWith("[") || cleaned.startsWith("{")) {
+    const parsed: unknown = JSON.parse(cleaned);
+    if (Array.isArray(parsed)) return parsed;
+    if (parsed && typeof parsed === "object" && Array.isArray((parsed as { products?: unknown }).products)) {
+      return (parsed as { products: unknown[] }).products;
+    }
+    throw new Error("JSON must be an array of products or an object with a products array.");
+  }
+
+  const rows = parseQuotedDelimitedRows(cleaned, "\t");
+  if (!rows.length) throw new Error("No product rows were found.");
+  const hasHeaders = rows[0].some((cell) => /^(handle|slug|title|name|product title)$/i.test(cell.trim()));
+  const headers = hasHeaders ? rows.shift()!.map((cell) => cell.trim().toLowerCase()) : [];
+  return rows
+    .filter((row) => row.some((cell) => cell.trim()))
+    .map((row) => {
+      if (!headers.length) {
+        return {
+          handle: row[0], title: row[1], description: row[2], highlights: row[3], sku: row[4],
+          seoTitle: row[5], seoDescription: row[6], colors: row[7], materials: row[8],
+          sizes: row[9], price: row[10],
+        };
+      }
+      return headers.reduce<Record<string, string>>((product, header, index) => {
+        product[header] = row[index] ?? "";
+        return product;
+      }, {});
+    });
+}
+
+function normalizeProduct(item: unknown, index: number): Product {
+  const value = (item ?? {}) as Record<string, unknown>;
+  const pick = (...keys: string[]) => {
+    const key = keys.find((candidate) => value[candidate] !== undefined && value[candidate] !== null);
+    return key ? String(value[key]).trim() : "";
+  };
+  const handle = pick("handle", "slug", "url_handle");
+  const title = pick("title", "name", "product_title", "product title");
+  const importedAt = pick("importedAt") || new Date().toISOString();
+  return {
+    id: pick("id") || `product-${handle || index + 1}`,
+    handle,
+    title,
+    description: pick("description", "body_html", "bodyHtml", "product_description"),
+    highlights: pick("highlights", "bulletPoints", "features", "short_description"),
+    sku: pick("sku", "SKU"),
+    seoTitle: pick("seoTitle", "seo_title", "meta_title"),
+    seoDescription: pick("seoDescription", "seo_description", "meta_description"),
+    colors: normalizeProductList(value.colors ?? value.color),
+    materials: normalizeProductList(value.materials ?? value.material),
+    sizes: normalizeProductList(value.sizes ?? value.size),
+    price: normalizeProductPrice(value.price),
+    storefrontUrl: pick("storefrontUrl", "storefront_url", "url", "link"),
+    importedAt,
+  };
+}
+
+function normalizeProductList(value: unknown) {
+  const source = Array.isArray(value) ? value.map(String) : String(value ?? "").split(/[;,]/);
+  return [...new Set(source.map((item) => item.trim()).filter(Boolean))];
+}
+
+function normalizeProductPrice(value: unknown) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = Number(String(value).replace(/[^\d.]/g, ""));
+  return Number.isFinite(number) ? number : null;
+}
+
+function parseQuotedDelimitedRows(text: string, delimiter: string) {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let cell = "";
+  let inQuotes = false;
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    if (character === '"') {
+      if (inQuotes && text[index + 1] === '"') {
+        cell += '"';
+        index += 1;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (character === delimiter && !inQuotes) {
+      row.push(cell);
+      cell = "";
+    } else if ((character === "\n" || character === "\r") && !inQuotes) {
+      if (character === "\r" && text[index + 1] === "\n") index += 1;
+      row.push(cell);
+      rows.push(row);
+      row = [];
+      cell = "";
+    } else {
+      cell += character;
+    }
+  }
+  row.push(cell);
+  rows.push(row);
+  return rows;
 }
 
 export function normalizePromptLibraryItems(items: unknown[]) {

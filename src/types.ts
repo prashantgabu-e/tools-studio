@@ -18,6 +18,23 @@ export type PromptTemplate = {
   sampleOutput: string;
 };
 
+export type Product = {
+  id: string;
+  handle: string;
+  title: string;
+  description: string;
+  highlights: string;
+  sku: string;
+  seoTitle: string;
+  seoDescription: string;
+  colors: string[];
+  materials: string[];
+  sizes: string[];
+  price: number | null;
+  storefrontUrl: string;
+  importedAt: string;
+};
+
 export type PromptLibraryImage = {
   id: string;
   dataUrl: string;
@@ -75,4 +92,5 @@ export type RouteView =
   | "prompt-library-tools"
   | "prompt-template-tools"
   | "gen-ai-prompt-template-tools"
-  | "prompt-builder-tools";
+  | "prompt-builder-tools"
+  | "products-tools";
