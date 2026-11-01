@@ -23,7 +23,7 @@ const products = parseRows(source)
     materials: splitList(row[8]),
     sizes: splitList(row[9]),
     price: toPrice(row[10]),
-    storefrontUrl: "",
+    storefrontUrl: row[0] ? `https://dareandrise.com/products/${row[0]}` : "",
     importedAt: new Date().toISOString(),
   }))
   .filter((product) => product.handle || product.title);

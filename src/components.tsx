@@ -499,7 +499,7 @@ export function ProductsView(props: {
   const [size, setSize] = useState("");
   const [sort, setSort] = useState<"title" | "price-low" | "price-high" | "newest">("title");
   const [storefrontBase, setStorefrontBase] = useState(
-    () => window.localStorage.getItem("products-storefront-base") ?? "",
+    () => window.localStorage.getItem("products-storefront-base") ?? "https://dareandrise.com",
   );
 
   useEffect(() => {
@@ -588,7 +588,7 @@ export function ProductsView(props: {
           <select className="compact-input" value={sort} onChange={(event) => setSort(event.target.value as typeof sort)} aria-label="Sort products"><option value="title">Title A–Z</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="newest">Recently imported</option></select>
           <button className="ghost-button products-clear" type="button" onClick={clearFilters}>Clear</button>
         </div>
-        <label className="products-storefront-field"><span>Storefront base URL</span><input className="compact-input" value={storefrontBase} onChange={(event) => setStorefrontBase(event.target.value)} placeholder="https://shop.example.com" /><small>Used to create a copyable <code>/products/handle</code> link when an import does not include one.</small></label>
+        <label className="products-storefront-field"><span>Storefront base URL</span><input className="compact-input" value={storefrontBase} onChange={(event) => setStorefrontBase(event.target.value)} placeholder="https://dareandrise.com" /><small>Used to create a copyable <code>/products/handle</code> link when an import does not include one.</small></label>
       </section>
 
       <div className="products-result-bar"><span>{products.length} of {props.manager.products.length} products</span>{props.manager.error && <span className="products-error">{props.manager.error}</span>}</div>
