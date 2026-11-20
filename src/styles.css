@@ -3,8 +3,8 @@
   --surface: #ffffff;
   --surface-strong: #fcfcf8;
   --surface-muted: #f0f2eb;
-  --line: #deded4;
-  --line-strong: #c7c8bb;
+  --line: #d6d9ce;
+  --line-strong: #bfc5b7;
   --text: #1f241f;
   --muted: #626a60;
   --muted-strong: #444c43;
@@ -15,8 +15,8 @@
   --warning: #965c19;
   --shadow: 0 14px 34px rgba(31, 36, 31, 0.08);
   --shadow-soft: 0 8px 20px rgba(31, 36, 31, 0.06);
-  --radius-lg: 8px;
-  --radius-md: 6px;
+  --radius-lg: 14px;
+  --radius-md: 10px;
   --font-display: "Source Sans 3", sans-serif;
   --font-mono: "Source Sans 3", sans-serif;
 }
@@ -27,6 +27,7 @@
 
 html {
   min-width: 320px;
+  font-size: 19px;
   scroll-behavior: smooth;
   background: var(--bg);
 }
@@ -88,6 +89,7 @@ a {
   border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.94);
   box-shadow: var(--shadow-soft);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .topbar {
@@ -1412,11 +1414,15 @@ a {
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background: var(--surface-strong);
+  box-shadow: 0 2px 8px rgba(31, 36, 31, 0.025);
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .builder-item:hover {
   border-color: var(--line-strong);
   background: #fff;
+  box-shadow: 0 8px 18px rgba(31, 36, 31, 0.07);
+  transform: translateY(-1px);
 }
 
 .builder-item.is-active {
