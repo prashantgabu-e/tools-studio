@@ -1,0 +1,287 @@
+{
+  "categories": [
+    { "id": "rendering", "label": "Rendering", "shortLabel": "Render" },
+    { "id": "negativePrompts", "label": "Negative Prompts", "shortLabel": "Negative" },
+    { "id": "formulas", "label": "Formulas", "shortLabel": "Formula" }
+  ],
+  "library": {
+    "rendering": [
+      {
+        "id": "quality-photoreal-product-fidelity",
+        "title": "Photoreal Product Fidelity",
+        "tags": ["quality", "photoreal", "product", "fidelity", "ecommerce"],
+        "text": "Render as a high-resolution, photoreal commercial image. Preserve the exact product silhouette, proportions, color, material finish, seams, trims, closures, logos, print placement, and surface texture from the supplied description or reference. Keep edge definition clean without artificial sharpening; retain believable micro-texture, natural contact shadows, accurate reflections, and physically plausible light behavior. The product must remain the unmistakable focal point and fully readable at first glance.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "quality-natural-human-realism",
+        "title": "Natural Human Realism",
+        "tags": ["quality", "human", "realism", "skin", "portrait"],
+        "text": "Render people with natural anatomical proportions and a believable human presence. Preserve individual facial structure, age cues, skin tone, pores, fine hair, subtle asymmetry, and realistic eye reflections. Use restrained retouching: skin should look healthy and naturally lit, never plastic, waxy, airbrushed, or mannequin-like. Hands, teeth, ears, hairlines, joints, and clothing contact points must remain coherent and physically credible.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-true-color-commercial-grade",
+        "title": "True-Color Commercial Grade",
+        "tags": ["quality", "color accuracy", "commercial", "product", "grade"],
+        "text": "Apply a polished commercial color grade that protects real-world color accuracy. Maintain neutral whites, believable skin tones, controlled saturation, and a clear distinction between adjacent materials. Recover detail in bright highlights and deep shadows without flattening the scene. Avoid color casts from mixed lighting unless intentionally requested; ensure the product color and finish stay consistent across the full composition or sequence.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-tactile-material-detail",
+        "title": "Tactile Material Detail",
+        "tags": ["quality", "texture", "material", "macro", "craft"],
+        "text": "Prioritize tactile material realism. Make fabric weave, stitching, grain, fibers, brushed surfaces, embossed details, metal, glass, wood, or paper behave according to their actual material qualities. Preserve fine detail where the eye is meant to land, with a natural falloff of focus elsewhere. Show believable folds, tension, weight, wear, and light response rather than uniformly smooth or synthetic surfaces.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "quality-editorial-depth-control",
+        "title": "Editorial Depth Control",
+        "tags": ["quality", "depth of field", "editorial", "focus", "composition"],
+        "text": "Use intentional depth of field to guide attention: keep the primary face, product feature, or story detail critically sharp; let foreground and background fall away gradually and naturally. Preserve enough environmental context to communicate the setting. Avoid excessive blur, cutout-like subject edges, inconsistent focus planes, or bokeh that obscures essential information. The focus treatment should feel like an art-directed editorial photograph, not a software effect.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-print-editorial-finish",
+        "title": "Print Editorial Finish",
+        "tags": ["quality", "print", "editorial", "texture", "typography"],
+        "text": "Finish with the intentional tactility of a premium editorial print piece: nuanced tonal range, restrained film-like grain, crisp but not brittle detail, considered negative space, and a coherent relationship between image, type, captions, and graphic elements. Any readable copy must be limited, intentional, and cleanly rendered. Keep the result sophisticated and art-directed rather than distressed by default.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "quality-clean-cutout-composite",
+        "title": "Clean Cutout & Composite",
+        "tags": ["quality", "composite", "cutout", "edges", "integration"],
+        "text": "Create a seamless professional composite. Maintain clean, natural edges around hair, transparent materials, fingers, and intricate product contours. Match direction, softness, color temperature, perspective, scale, grain, and contact shadows across every combined element. The final image should feel captured as one coherent scene, with no halos, pasted-on subjects, mismatched sharpness, or floating objects.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "quality-cinematic-motion-integrity",
+        "title": "Cinematic Motion Integrity",
+        "tags": ["quality", "video", "motion", "cinematic", "continuity"],
+        "text": "Render motion with cinematic continuity and realistic physics. Preserve subject identity, wardrobe, product details, scale, lighting, and background geometry across every moment. Movement should have believable weight, inertia, cloth behavior, hand interaction, and motion blur. Keep camera moves smooth and motivated; avoid morphing faces, shifting logos, flickering textures, warping architecture, or unexplained object changes between frames.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "quality-luxury-restraint",
+        "title": "Luxury Restraint",
+        "tags": ["quality", "luxury", "premium", "minimal", "refined"],
+        "text": "Use a quiet luxury finish: restrained contrast, elegant tonal separation, intentional negative space, premium material detail, and immaculate but believable styling. Let precise framing, light, texture, and proportion communicate value; avoid excessive gloss, glitter, ornamental clutter, aggressive retouching, or visual effects that compete with the subject.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-social-native-clarity",
+        "title": "Social-Native Clarity",
+        "tags": ["quality", "social", "mobile", "clarity", "engagement"],
+        "text": "Optimize for immediate mobile readability. Establish one clear focal point, strong contrast at the message hierarchy, legible subject scale, and uncluttered framing. Keep the visual energetic and native to social content while protecting craft: intentional crops, believable light, clean details, and space for any necessary platform-safe copy. The core idea should register in the first second without sacrificing depth on closer viewing.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-accessible-contrast-hierarchy",
+        "title": "Accessible Contrast & Hierarchy",
+        "tags": ["quality", "accessibility", "contrast", "hierarchy", "design"],
+        "text": "Build a clear visual hierarchy with strong subject separation, purposeful color contrast, and ample whitespace around essential information. If text is included, make it concise, large enough to read, and clearly separated from busy imagery. Do not rely on faint tonal differences or color alone to carry the message; retain a legible focal order for viewers on small screens and in varied viewing conditions.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-consistent-series-system",
+        "title": "Consistent Series System",
+        "tags": ["quality", "series", "consistency", "campaign", "art direction"],
+        "text": "Maintain a coherent system across the full campaign or sequence: consistent subject identity, product fidelity, palette, lighting logic, lens language, typography, graphic rules, and finishing texture. Allow individual frames to vary in composition or action while preserving the recognizable art direction. Each asset should work independently and still feel unmistakably part of the same collection.",
+        "useFor": "both",
+        "favorite": false
+      }
+    ],
+    "negativePrompts": [
+      {
+        "id": "quality-negative-anatomy-and-identity",
+        "title": "Protect Anatomy & Identity",
+        "tags": ["negative", "anatomy", "identity", "human", "fidelity"],
+        "text": "Avoid altered facial identity, changed age appearance, inconsistent skin tone, asymmetrical eyes, crossed eyes, duplicate faces, malformed ears, distorted teeth, unnatural hairlines, extra fingers, missing fingers, fused fingers, broken wrists, duplicate limbs, impossible joints, warped feet, or implausible body proportions. Do not alter a referenced person’s recognizable features.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-product-detail-drift",
+        "title": "Protect Product Details",
+        "tags": ["negative", "product", "fidelity", "fashion", "ecommerce"],
+        "text": "Avoid changing the product’s silhouette, scale, color, material, pattern, texture, logo, text, hardware, seams, stitching, fit, closure, sleeve or hem length, print placement, or count of visible components. Do not invent decorative features or remove important construction details. Avoid product occlusion by hands, hair, props, shadows, or unrelated layers when those details need to be shown.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-low-resolution-artifacts",
+        "title": "Prevent Low-Quality Artifacts",
+        "tags": ["negative", "artifacts", "resolution", "quality", "detail"],
+        "text": "Avoid low resolution, blur on the focal subject, muddy detail, oversharpening halos, compression blocks, banding, aliasing, blown highlights, crushed shadows, noisy gradients, repetitive texture tiling, random speckles, broken transparency, and artificial upscaling artifacts. Preserve clean edges and fine detail without making the result look brittle or overprocessed.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-light-and-color-errors",
+        "title": "Prevent Light & Color Errors",
+        "tags": ["negative", "lighting", "color", "exposure", "realism"],
+        "text": "Avoid conflicting shadow directions, impossible reflections, flat frontal lighting when shape is needed, harsh glare hiding important details, accidental underexposure, clipped highlights, muddy midtones, inaccurate white balance, neon skin tones, oversaturation, color bleeding, and product colors that shift from the supplied reference or within the same sequence.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-composition-failures",
+        "title": "Prevent Composition Failures",
+        "tags": ["negative", "composition", "crop", "focus", "hierarchy"],
+        "text": "Avoid accidental crops through joints, cropped feet in a required full-body frame, cut-off key products, unbalanced empty space, a weak or unclear focal point, foreground clutter, tangent collisions, unintended mergers between subject and background, extreme perspective distortion, and focus that misses the main face or product feature.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-text-branding-errors",
+        "title": "Prevent Text & Branding Errors",
+        "tags": ["negative", "text", "branding", "watermark", "logo"],
+        "text": "Avoid gibberish text, misspellings, invented logos, altered trademarks, fake watermarks, random labels, unreadable signage, malformed typography, and decorative copy that competes with the primary message. Include text only when explicitly requested; when exact typography is critical, reserve clean space for post-production rather than fabricating complex small copy.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-cgi-beauty-filter",
+        "title": "Avoid CGI & Beauty-Filter Look",
+        "tags": ["negative", "cgi", "skin", "realism", "retouching"],
+        "text": "Avoid plastic or waxy skin, porcelain faces, uniformly perfect pores, unnaturally glossy lips, synthetic hair clumps, doll-like eyes, overly smooth fabric, impossible specular highlights, sterile showroom lighting, and a generic 3D-render appearance. Preserve subtle imperfections and real material variation appropriate to the desired medium.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-video-temporal-errors",
+        "title": "Prevent Video Continuity Errors",
+        "tags": ["negative", "video", "continuity", "motion", "flicker"],
+        "text": "Avoid frame-to-frame flicker, identity drift, changing facial features, melting or morphing hands, shifting product logos or patterns, disappearing accessories, unstable architecture, elastic limbs, jittery camera motion, sudden exposure changes, inconsistent shadows, looping gestures, teleporting objects, and motion that ignores gravity or contact.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-clutter-distraction",
+        "title": "Remove Unwanted Distractions",
+        "tags": ["negative", "clutter", "background", "focus", "clean"],
+        "text": "Avoid irrelevant props, crowded backgrounds, duplicate objects, distracting reflections, unintended bystanders, visual noise, random furniture, accidental signage, excessive decorative effects, and busy textures that undermine the focal subject. Keep every visible element purposeful to the concept, story, and hierarchy.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "quality-negative-comprehensive-commercial",
+        "title": "Comprehensive Commercial Safeguard",
+        "tags": ["negative", "comprehensive", "commercial", "product", "quality"],
+        "text": "Avoid identity drift, anatomy errors, duplicate or missing objects, product-detail changes, unreadable text, invented logos, watermarks, poor crops, focal blur, warped perspective, plastic skin, CGI texture, lighting inconsistencies, incorrect colors, blown highlights, muddy shadows, clutter, low-resolution artifacts, and—when animated—flicker, morphing, or frame-to-frame continuity errors.",
+        "useFor": "both",
+        "favorite": true
+      }
+    ],
+    "formulas": [
+      {
+        "id": "formula-image-commercial-master",
+        "title": "Commercial Image Master Formula",
+        "tags": ["formula", "image", "commercial", "product", "complete"],
+        "text": "Create a [medium and output format] of [primary subject/product] for [audience or use case]. Show [specific action or pose] in [environment]. Compose as [shot type, camera angle, and framing], with [focal feature] in crisp focus and [supporting context] visible. Art direction: [style/concept]; mood: [emotion]; palette: [colors]. Light with [lighting setup]. Preserve [non-negotiable identity or product details]. Render with [material/skin/texture requirements], [depth of field], and [color grade]. Include [only approved graphic/text elements]. Avoid [targeted failure modes].",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "formula-video-shot-master",
+        "title": "Video Shot Master Formula",
+        "tags": ["formula", "video", "shot", "motion", "cinematic"],
+        "text": "Create a [duration] [format/aspect ratio] video. Shot: [wide/medium/close-up] of [character or product] [performing one clear action] in [location]. Camera [movement and speed] from [start framing] to [end framing]. Lighting: [lighting direction and quality]; palette and grade: [color treatment]; mood: [emotion]. Preserve [identity, wardrobe, product, and environment details] consistently throughout. Motion must show [physics/material behavior]. End on [final visual beat]. Avoid [continuity, anatomy, text, and flicker issues].",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "formula-product-fidelity-reference",
+        "title": "Reference-Led Product Formula",
+        "tags": ["formula", "reference", "product", "fidelity", "ecommerce"],
+        "text": "Using the provided product reference as the source of truth, place [product] in [scene or setup]. Preserve exactly: [silhouette], [color], [materials], [construction details], [logos/text], and [proportions]. Show [required product angles or use moment] with [camera/lens/framing]. Use [light] to reveal [material or feature]. The visual direction is [style/mood], but no stylistic choice may obscure, redesign, recolor, or distort the product. Render [quality finish]. Avoid [specific product and rendering failures].",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-human-portrait-fidelity",
+        "title": "Natural Portrait Formula",
+        "tags": ["formula", "portrait", "human", "identity", "editorial"],
+        "text": "Create a [shot type] portrait of [person/subject], [pose or action], in [setting]. Preserve [identity cues, age range, complexion, hair, and distinguishing features] without beautification that changes likeness. Style with [wardrobe/props]. Use [lighting] and [lens/depth of field] to emphasize [face, expression, or product interaction]. Mood: [emotion]; art direction: [style]. Render natural skin texture, believable anatomy, and clean hand detail. Avoid [identity, anatomy, retouching, and crop failures].",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-editorial-story-sequence",
+        "title": "Editorial Story Sequence Formula",
+        "tags": ["formula", "editorial", "sequence", "storytelling", "campaign"],
+        "text": "Develop a cohesive [number]-frame editorial sequence about [central idea]. Frame 1 establishes [world or tension]; frames 2–[number minus 1] reveal [progression, details, or contrasting perspectives]; the final frame resolves with [emotional or product payoff]. Maintain one visual system: [palette], [lighting logic], [lens language], [type/graphic rule], and [texture/finish]. Vary framing intentionally across [wide, medium, detail] views. Keep [subject/product] consistent and legible in every frame. Avoid repetition without narrative purpose.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-social-first-hook",
+        "title": "Social-First Hook Formula",
+        "tags": ["formula", "social", "hook", "mobile", "engagement"],
+        "text": "Design a social-first [image/carousel/short video] for [audience] about [single message]. Open with an instantly readable hook: [visual surprise, problem, question, or claim]. Show [subject/product] at a mobile-legible scale within the first moment. Build toward [proof, transformation, demonstration, or reveal], then land on [clear takeaway or call to action]. Use [social-native style] with [palette, typography, and motion rules]. Keep on-screen copy minimal and reserve safe negative space. Avoid clutter, vague hierarchy, and generic stock-like imagery.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-material-detail-study",
+        "title": "Material Detail Study Formula",
+        "tags": ["formula", "material", "macro", "texture", "craft"],
+        "text": "Create a material-focused study of [product/material]. Show [macro detail] alongside [contextual full view] so the viewer understands both tactility and scale. Use [raking/soft/window/studio] light to reveal [weave, grain, finish, stitching, translucency, or reflection]. Frame with [composition] and keep [critical details] sharp. Color must remain [true to reference/desired palette]. The result should communicate [quality claim or sensory feeling] without inventing material behavior or hiding imperfections that define authenticity.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "formula-kinetic-typography",
+        "title": "Kinetic Typography Formula",
+        "tags": ["formula", "typography", "motion", "graphic", "video"],
+        "text": "Create a [duration] kinetic-typography piece around the message: “[core message].” Use [type character] and [palette] to express [emotion]. Animate [specific words] through [scale, position, rhythm, reveal, or texture] while supporting imagery of [subject/product] remains [role in composition]. Maintain a readable hierarchy: headline first, supporting phrase second, brand or action last. Use [camera or graphic transition] only when it strengthens meaning. Keep text accurate, brief, high contrast, and clear on a mobile screen.",
+        "useFor": "video",
+        "favorite": false
+      },
+      {
+        "id": "formula-problem-solution-proof",
+        "title": "Problem → Solution → Proof Formula",
+        "tags": ["formula", "problem solution", "proof", "marketing", "conversion"],
+        "text": "Tell a concise visual story for [audience] facing [specific problem]. First show the problem through [recognizable moment] without exaggeration. Introduce [product/service/idea] as the solution through [clear demonstration]. Prove the value with [visible outcome, feature detail, testimonial cue, comparison, or result]. Use [visual style] and [lighting/palette] to move from [problem emotion] to [resolved emotion]. Keep claims accurate, the product legible, and the progression understandable without relying on dense copy.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-concept-world-building",
+        "title": "Creative-Concept World-Building Formula",
+        "tags": ["formula", "concept", "world building", "campaign", "art direction"],
+        "text": "Establish a complete visual world around [creative concept]. The world contains [setting], [signature objects], [material/texture language], [palette], [light quality], and [graphic/type behavior]. [Subject/product] belongs in this world because [narrative relationship]. Compose [hero scene] with [specific perspective], then reveal [supporting detail or motion] that expands the story. Keep the concept singular and coherent: every prop, color, crop, and effect must reinforce [core feeling] rather than add unrelated decoration. Avoid clichés associated with the concept.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "formula-clean-composite",
+        "title": "Precision Composite Formula",
+        "tags": ["formula", "composite", "retouching", "integration", "quality"],
+        "text": "Create a precision composite combining [foreground subject/product] with [background/environment]. Match [camera height], [perspective], [focal length], [light direction], [shadow softness], [color temperature], [grain], and [depth of field] across all elements. Add believable contact shadows and reflections where surfaces meet. Preserve clean but natural edges around [hair/glass/fabric/complex shape]. The completed scene should read as one photographed moment, with no halos, inconsistent scale, pasted-on subjects, or mismatched realism.",
+        "useFor": "image",
+        "favorite": false
+      },
+      {
+        "id": "formula-quality-pass-checklist",
+        "title": "Final Quality-Pass Formula",
+        "tags": ["formula", "quality assurance", "checklist", "final", "review"],
+        "text": "Before finalizing, verify the asset against this quality pass: (1) [primary subject/product] is immediately clear; (2) identity and product details match the source requirements; (3) anatomy, hands, edges, reflections, and shadows are physically plausible; (4) focal sharpness, crop, and hierarchy support the message; (5) color, exposure, texture, and material behavior are consistent; (6) all text and logos are intentional and accurate; (7) for video, identity, wardrobe, objects, and lighting remain stable from start to finish. Correct every visible failure before delivery.",
+        "useFor": "both",
+        "favorite": true
+      }
+    ]
+  }
+}

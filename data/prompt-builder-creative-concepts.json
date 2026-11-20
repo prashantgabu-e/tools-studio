@@ -1,0 +1,293 @@
+{
+  "categories": [
+    {
+      "id": "design-system-theme",
+      "label": "Design System/Theme",
+      "shortLabel": "DST"
+    }
+  ],
+  "library": {
+    "design-system-theme": [
+      {
+        "id": "creative-concept-polaroid-moodboard",
+        "title": "Polaroid Mood-Board Story",
+        "tags": ["creative concept", "nostalgia", "polaroid", "moodboard", "storytelling"],
+        "text": "Establishes a nostalgic Polaroid mood-board storytelling concept through candid instant-photo frames, imperfect white borders, handwritten captions, taped layers, warm faded color, and intimate everyday moments.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-contact-sheet",
+        "title": "Contact Sheet Discovery",
+        "tags": ["creative concept", "analog", "photography", "sequence", "editorial"],
+        "text": "Establishes an analog contact-sheet discovery concept with numbered frames, film edges, alternate takes, subtle dust and grain, and a sequential behind-the-scenes narrative.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-found-journal",
+        "title": "Found Journal",
+        "tags": ["creative concept", "journal", "handmade", "personal", "collage"],
+        "text": "Establishes a found-journal concept using scribbled observations, dog-eared paper, ticket stubs, taped imagery, margin notes, and a personal record-of-the-day feeling.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-postcard-journey",
+        "title": "Postcard Journey",
+        "tags": ["creative concept", "travel", "postcard", "nostalgia", "lifestyle"],
+        "text": "Establishes a postcard-journey concept with destination stamps, handwritten messages, sun-faded prints, travel ephemera, and scenes that unfold like cherished memories sent home.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-time-capsule",
+        "title": "Time Capsule",
+        "tags": ["creative concept", "archive", "nostalgia", "memory", "editorial"],
+        "text": "Establishes a time-capsule concept that treats objects, images, dates, and notes as preserved evidence of a particular era, with archival labels and emotionally specific details.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-day-to-night",
+        "title": "Day-to-Night Transformation",
+        "tags": ["creative concept", "transformation", "lifestyle", "sequence", "versatility"],
+        "text": "Establishes a day-to-night transformation concept through a continuous shift in light, styling, energy, and setting, making the subject feel adaptable across a full day of life.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-ritual",
+        "title": "Daily Ritual",
+        "tags": ["creative concept", "ritual", "intimate", "lifestyle", "sensory"],
+        "text": "Establishes a daily-ritual concept around deliberate, sensory micro-moments, using tactile close-ups, repeating gestures, quiet light, and a calm sense of routine.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-before-after",
+        "title": "Before / After Reveal",
+        "tags": ["creative concept", "comparison", "transformation", "clarity", "social"],
+        "text": "Establishes an immediate before-and-after reveal concept with matched framing, a clearly legible change, and visual cues that make the transformation easy to understand at a glance.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-two-sides",
+        "title": "Two Sides of One Story",
+        "tags": ["creative concept", "split screen", "duality", "comparison", "storytelling"],
+        "text": "Establishes a two-sides-of-one-story concept using paired or split-screen scenes to show complementary moods, places, personalities, or uses without breaking the shared visual world.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-choose-path",
+        "title": "Choose Your Path",
+        "tags": ["creative concept", "interactive", "choice", "playful", "social"],
+        "text": "Establishes a choose-your-path concept that presents distinct visual routes, options, or outcomes with clear branching cues and an inviting audience-participation rhythm.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-museum-exhibit",
+        "title": "Museum Exhibit",
+        "tags": ["creative concept", "gallery", "curated", "premium", "art"],
+        "text": "Establishes a museum-exhibit concept that frames the subject as a considered artifact through gallery space, placards, catalog labels, controlled light, and generous visual breathing room.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-archive-index",
+        "title": "Archive Index",
+        "tags": ["creative concept", "archive", "taxonomy", "editorial", "research"],
+        "text": "Establishes an archive-index concept using specimen numbers, filing marks, index cards, crop details, and systematic labeling to make a collection feel researched and collectible.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-blueprint",
+        "title": "Blueprint Unpacked",
+        "tags": ["creative concept", "blueprint", "technical", "diagram", "product story"],
+        "text": "Establishes a blueprint-unpacked concept using measured diagrams, callouts, construction lines, material details, and an engineered information hierarchy that reveals how something works.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-lab-notebook",
+        "title": "Lab Notebook",
+        "tags": ["creative concept", "experiment", "process", "notes", "innovation"],
+        "text": "Establishes a lab-notebook concept with annotated trials, samples, measurements, test marks, and evidence of iteration, making experimentation the central story.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-material-library",
+        "title": "Material Library",
+        "tags": ["creative concept", "material", "texture", "tactile", "premium"],
+        "text": "Establishes a material-library concept that celebrates texture, finish, grain, folds, and tactility through carefully labeled macro details and a curated sample-board presentation.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-local-flavor",
+        "title": "Local Flavor",
+        "tags": ["creative concept", "place", "culture", "authentic", "community"],
+        "text": "Establishes a local-flavor concept rooted in a specific place through real textures, signs, rituals, makers, and everyday details, avoiding generic travel imagery in favor of lived-in specificity.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-community-cast",
+        "title": "Community Cast",
+        "tags": ["creative concept", "community", "people", "authentic", "portraiture"],
+        "text": "Establishes a community-cast concept built from distinct real-person portraits, shared spaces, overlapping perspectives, and small human interactions that communicate belonging.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-documentary-diary",
+        "title": "Documentary Diary",
+        "tags": ["creative concept", "documentary", "candid", "diary", "authentic"],
+        "text": "Establishes a documentary-diary concept with observant candid framing, imperfect moments, location details, restrained captions, and a truthful sense of time passing.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-hero-odyssey",
+        "title": "Everyday Hero Odyssey",
+        "tags": ["creative concept", "hero", "cinematic", "journey", "aspirational"],
+        "text": "Establishes an everyday-hero odyssey concept that gives ordinary movement and decisions a cinematic sense of purpose through scale, directional light, and a progressing journey.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-magical-realism",
+        "title": "Magical Realism",
+        "tags": ["creative concept", "surreal", "dreamlike", "real world", "wonder"],
+        "text": "Establishes a magical-realism concept by placing one poetic impossibility inside an otherwise believable world, using grounded details to make the unexpected element feel emotionally true.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-miniature-world",
+        "title": "Miniature World",
+        "tags": ["creative concept", "miniature", "scale", "playful", "craft"],
+        "text": "Establishes a miniature-world concept that shifts scale for delight, using tiny constructed scenes, oversized context, meticulous props, and playful perspective to invite a second look.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-impossible-scale",
+        "title": "Impossible Scale",
+        "tags": ["creative concept", "surreal", "scale", "bold", "visual surprise"],
+        "text": "Establishes an impossible-scale concept through dramatic size contrast, unexpected object relationships, and clean compositions that make a single visual surprise feel intentional and iconic.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-portal",
+        "title": "Portal to Possibility",
+        "tags": ["creative concept", "portal", "transition", "surreal", "journey"],
+        "text": "Establishes a portal-to-possibility concept in which a doorway, threshold, mirror, or opening connects familiar reality to an aspirational alternate world.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-color-world",
+        "title": "Monochrome Color World",
+        "tags": ["creative concept", "monochrome", "color", "world-building", "cohesive"],
+        "text": "Establishes a monochrome color-world concept by extending one dominant hue across setting, props, type, wardrobe, and light, with tonal variation providing depth and focus.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-sensory-surge",
+        "title": "Sensory Surge",
+        "tags": ["creative concept", "sensory", "texture", "energy", "immersive"],
+        "text": "Establishes a sensory-surge concept through close texture, splash, movement, glow, and atmospheric detail, making the audience imagine touch, sound, taste, or temperature.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-kinetic-type",
+        "title": "Kinetic Type Rhythm",
+        "tags": ["creative concept", "typography", "motion", "graphic", "energy"],
+        "text": "Establishes a kinetic-type rhythm concept where words act as visual performers through expressive scale, timing, cropping, repetition, and movement that reinforces the message.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-poster-series",
+        "title": "Poster Series",
+        "tags": ["creative concept", "poster", "graphic", "series", "campaign"],
+        "text": "Establishes a poster-series concept with one strong recurring graphic rule, a bold focal image or statement, and enough variation for each execution to feel collectible.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-newspaper-now",
+        "title": "Newspaper, Reimagined",
+        "tags": ["creative concept", "newspaper", "editorial", "print", "headline"],
+        "text": "Establishes a newspaper-reimagined concept using bold headlines, columns, captions, crop marks, halftone texture, and contemporary imagery to turn information into a timely visual event.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-sticker-club",
+        "title": "Sticker Club",
+        "tags": ["creative concept", "stickers", "playful", "youthful", "social"],
+        "text": "Establishes a sticker-club concept through tactile decals, hand-drawn accents, collected badges, playful overlap, and a lively social-native sense of personalization.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-digital-memory",
+        "title": "Digital Memory Cache",
+        "tags": ["creative concept", "digital", "memory", "interface", "nostalgia"],
+        "text": "Establishes a digital-memory-cache concept using saved-image fragments, timestamps, message windows, cursor traces, and a warm human perspective on an interface-driven archive.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-future-relic",
+        "title": "Future Relic",
+        "tags": ["creative concept", "futuristic", "artifact", "sci-fi", "premium"],
+        "text": "Establishes a future-relic concept by presenting the subject as a valuable artifact from tomorrow, with luminous materials, precise display, cryptic labeling, and reverent framing.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-night-radio",
+        "title": "Night Radio",
+        "tags": ["creative concept", "nightlife", "sound", "neon", "intimate"],
+        "text": "Establishes a night-radio concept with low light, signal waves, glowing frequency marks, intimate portraits, and a late-night soundtrack feeling translated into image and motion.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-slow-cinema",
+        "title": "Slow Cinema",
+        "tags": ["creative concept", "cinematic", "quiet", "atmospheric", "premium"],
+        "text": "Establishes a slow-cinema concept through patient composition, ambient movement, natural pauses, considered color, and a small emotional action given room to resonate.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-seasonal-field-notes",
+        "title": "Seasonal Field Notes",
+        "tags": ["creative concept", "seasonal", "nature", "observational", "editorial"],
+        "text": "Establishes a seasonal-field-notes concept using collected natural details, dated observations, organic textures, and location-specific imagery that makes a season feel discovered rather than decorated.",
+        "useFor": "both",
+        "favorite": false
+      },
+      {
+        "id": "creative-concept-craft-in-progress",
+        "title": "Craft in Progress",
+        "tags": ["creative concept", "craft", "process", "maker", "authentic"],
+        "text": "Establishes a craft-in-progress concept that foregrounds hands, tools, material transformation, imperfect evidence of making, and the quiet pride of a finished result.",
+        "useFor": "both",
+        "favorite": false
+      }
+    ]
+  }
+}

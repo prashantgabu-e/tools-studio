@@ -2496,6 +2496,15 @@ export function PromptBuilderView(props: {
     }
   }
 
+  async function handleCopyIngredientText(item: PromptIngredient) {
+    try {
+      await navigator.clipboard.writeText(item.text);
+      props.onToast(`${item.title || "Ingredient"} copied`, "success");
+    } catch {
+      props.onToast("Could not copy description", "warning");
+    }
+  }
+
   function handleNew() {
     props.manager.createNewIngredient();
     setIsEditorOpen(true);
@@ -2727,10 +2736,12 @@ export function PromptBuilderView(props: {
               <article
                 key={item.id}
                 className={`builder-item${item.id === props.manager.selectedId ? " is-active" : ""}`}
+                title="Copy full ingredient text"
+                onClick={() => void handleCopyIngredientText(item)}
               >
                 <div className="builder-card-top">
                   <p className="builder-use-pill">{item.useFor}</p>
-                  <div className="builder-item-actions">
+                  <div className="builder-item-actions" onClick={(event) => event.stopPropagation()}>
                     <button
                       className={`icon-action${item.favorite ? " is-active" : ""}`}
                       type="button"
@@ -2779,14 +2790,10 @@ export function PromptBuilderView(props: {
                     </button>
                   </div>
                 </div>
-                <button
-                  className="builder-item-main"
-                  type="button"
-                  onClick={() => handleEdit(item)}
-                >
+                <div className="builder-item-main">
                   <span>{item.title}</span>
-                </button>
-                <div className="builder-card-tags">
+                </div>
+                <div className="builder-card-tags" onClick={(event) => event.stopPropagation()}>
                   {item.tags.length ? (
                     item.tags.slice(0, 4).map((tag) => <span key={tag}>{tag}</span>)
                   ) : (

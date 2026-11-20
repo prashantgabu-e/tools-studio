@@ -106,4 +106,18 @@ Prompt Builder stores the full ingredient library in one Firestore document at `
 
 `data/prompt-builder-human-models.json` is a separate, extensive adult human-model catalog. `data/prompt-builder-content-ideas.json` is an industry-neutral content catalog with adaptable posts, carousels, reels, stories, and content-pillar prompts. `data/prompt-builder-visual-direction.json`, `data/prompt-builder-social-marketing.json`, and `data/prompt-builder-video-production.json` add reusable visual direction, social/marketing, and video-production ingredients. In Prompt Builder, use **Merge import** to add any catalog without replacing the current Firestore library. Each catalog includes a top-level `categories` list and `library` object, which preserves its custom category names during import.
 
+### Terminal Firestore ingestion
+
+Use the ingestion script to merge a Prompt Builder catalog directly into the Firestore document at `promptBuilder/library`. It requires a Firebase service-account key with Firestore write access; store that key outside the repository and never commit it.
+
+```powershell
+npm run prompt-builder:ingest -- `
+  data\prompt-builder-capture-scene-researched.json `
+  --mode merge `
+  --project general-apps-b852f `
+  --service-account 'C:\Users\priks\.firebase-credentials\general-apps-b852f-firebase-adminsdk-fbsvc-7f17f29efb.json'
+```
+
+Add `--dry-run` to validate a catalog without writing to Firestore. The script merges ingredients by ID by default; `--mode replace --confirm-replace` overwrites the full library.
+
 Each data menu has an export button that downloads the currently loaded Firestore data as JSON.

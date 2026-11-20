@@ -17,8 +17,8 @@
   --shadow-soft: 0 8px 20px rgba(31, 36, 31, 0.06);
   --radius-lg: 8px;
   --radius-md: 6px;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --font-display: "Source Sans 3", sans-serif;
+  --font-mono: "Source Sans 3", sans-serif;
 }
 
 * {
@@ -179,7 +179,7 @@ a {
   border-radius: var(--radius-md);
   color: #fff;
   background: var(--accent-strong);
-  cursor: pointer;
+  cursor: copy;
   font-size: 0.7rem;
   font-weight: 700;
 }
@@ -1507,6 +1507,15 @@ a {
   font: 0.72rem/1.35 var(--font-mono);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.builder-item {
+  cursor: copy;
+}
+
+.builder-item-actions,
+.builder-card-tags {
+  cursor: default;
 }
 
 .builder-item-actions {
